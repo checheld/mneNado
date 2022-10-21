@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a8e9beb.css",
-    "main.js": "/static/js/main.0f5b0ef3.js",
-    "static/media/14925739_rm309-adj-05.jpg": "/static/media/14925739_rm309-adj-05.452e060603f2c97cb9ed.jpg",
-    "static/media/Nunito-ExtraBold.woff": "/static/media/Nunito-ExtraBold.0aaef660b130336c83a4.woff",
-    "static/media/Nunito-SemiBold.woff": "/static/media/Nunito-SemiBold.d2949e5e650bdbf891a4.woff",
-    "static/media/Nunito-Regular.woff": "/static/media/Nunito-Regular.c8b53f778f642bfc367b.woff",
-    "static/media/Nunito-ExtraBold.woff2": "/static/media/Nunito-ExtraBold.15147eff67571fc6b616.woff2",
-    "static/media/Nunito-SemiBold.woff2": "/static/media/Nunito-SemiBold.404b1d8521611e076ddd.woff2",
-    "static/media/Nunito-Regular.woff2": "/static/media/Nunito-Regular.17d6fb4cbd2d4a010f50.woff2",
-    "index.html": "/index.html",
-    "main.4a8e9beb.css.map": "/static/css/main.4a8e9beb.css.map",
-    "main.0f5b0ef3.js.map": "/static/js/main.0f5b0ef3.js.map"
+    "main.css": "//checheld.github.io/mneNado/static/css/main.1e67d893.css",
+    "main.js": "//checheld.github.io/mneNado/static/js/main.0f5b0ef3.js",
+    "static/media/14925739_rm309-adj-05.jpg": "//checheld.github.io/mneNado/static/media/14925739_rm309-adj-05.452e060603f2c97cb9ed.jpg",
+    "static/media/Nunito-ExtraBold.woff": "//checheld.github.io/mneNado/static/media/Nunito-ExtraBold.0aaef660b130336c83a4.woff",
+    "static/media/Nunito-SemiBold.woff": "//checheld.github.io/mneNado/static/media/Nunito-SemiBold.d2949e5e650bdbf891a4.woff",
+    "static/media/Nunito-Regular.woff": "//checheld.github.io/mneNado/static/media/Nunito-Regular.c8b53f778f642bfc367b.woff",
+    "static/media/Nunito-ExtraBold.woff2": "//checheld.github.io/mneNado/static/media/Nunito-ExtraBold.15147eff67571fc6b616.woff2",
+    "static/media/Nunito-SemiBold.woff2": "//checheld.github.io/mneNado/static/media/Nunito-SemiBold.404b1d8521611e076ddd.woff2",
+    "static/media/Nunito-Regular.woff2": "//checheld.github.io/mneNado/static/media/Nunito-Regular.17d6fb4cbd2d4a010f50.woff2",
+    "index.html": "//checheld.github.io/mneNado/index.html",
+    "main.1e67d893.css.map": "//checheld.github.io/mneNado/static/css/main.1e67d893.css.map",
+    "main.0f5b0ef3.js.map": "//checheld.github.io/mneNado/static/js/main.0f5b0ef3.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a8e9beb.css",
+    "static/css/main.1e67d893.css",
     "static/js/main.0f5b0ef3.js"
   ]
 }
