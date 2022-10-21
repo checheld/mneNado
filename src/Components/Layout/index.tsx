@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import NavBar from '../NavBar/Index';
+import NavBar from '../NavBar';
 import './style.sass';
 
 interface ILayout {

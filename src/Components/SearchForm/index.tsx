@@ -1,6 +1,6 @@
 import React from 'react';
 import { OutlinedInput, OutlinedInputProps } from '@mui/material';
-import CustomButton from '../CustomButton/Index';
+import CustomButton from '../CustomButton';
 import './style.sass';
 
 interface IProps extends OutlinedInputProps {
