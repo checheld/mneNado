@@ -1,41 +1,67 @@
- @font-face {
-   font-family: 'Nunito';
-   src: url('./fonts/static/Nunito-ExtraBold.woff2');
-   /* url(./fonts/static/Nunito-ExtraBold.woff); */
-   font-display: swap;
-   font-style: normal;
-   font-weight: 800;
- }
+@font-face {
+	font-family: 'Nunito';
+	src: url('./assets/fonts/Nunito-ExtraBold.woff2'),
+		url('./assets/fonts/Nunito-ExtraBold.woff');
+	font-display: swap;
+	font-style: normal;
+	font-weight: 800;
+}
 
- @font-face {
-   font-family: 'Nunito';
-   src: url('./fonts/static/Nunito-Regular.woff2');
-   /* url(./fonts/static/Nunito-Regular.woff); */
-   font-display: swap;
-   font-style: normal;
-   font-weight: 400;
- }
+@font-face {
+	font-family: 'Nunito';
+	src: url('./assets/fonts/Nunito-Regular.woff2'),
+		url('./assets/fonts/Nunito-Regular.woff');
+	font-display: swap;
+	font-style: normal;
+	font-weight: 400;
+}
 
- @font-face {
-   font-family: 'Nunito';
-   src: url('./fonts/static/Nunito-SemiBold.woff2');
-   /* url(./fonts/static/Nunito-SemiBold.woff); */
-   font-display: swap;
-   font-style: normal;
-   font-weight: 600;
- }
+@font-face {
+	font-family: 'Nunito';
+	src: url('./assets/fonts/Nunito-SemiBold.woff2'),
+		url('./assets/fonts/Nunito-SemiBold.woff');
+	font-display: swap;
+	font-style: normal;
+	font-weight: 600;
+}
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
 
- body {
-   margin: 0;
-   padding: 0 !important;
-   background-color: #E5E5E5;
-   font-family: "Nunito", sans-serif;
-   font-size: 16px;
-   text-decoration: none;
- }
+html,
+body {
+	min-height: 100vh;
+	overflow: auto;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #e5e5e5;
+	font-family: 'Nunito', sans-serif;
+	font-size: 16px;
+	text-decoration: none;
+}
 
- code {
-   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-     monospace;
- }
+#root {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	min-height: 100vh;
+}
+
+.list-reset {
+	list-style: none;
+}
+.link-reset {
+	color: currentColor;
+	text-decoration: none;
+}
+.show-more {
+	padding: 0 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #767676;
+	cursor: pointer;
+}
