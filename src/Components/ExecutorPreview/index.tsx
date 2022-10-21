@@ -1,28 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ShowMoreText from 'react-show-more-text';
-import { Chip, Paper, Stack, Typography } from '@mui/material';
+import { Chip, Paper, Stack, Typography, Rating } from '@mui/material';
 import CustomAvatar from '../CustomAvatar';
+import Pricelist from '../Pricelist';
 import './style.sass';
 
 interface IProps {
+	id: number | string;
 	name: string;
 	photo?: string;
 	about: string;
+	rating?: number;
 	taskCategories: string[];
+	pricelist: { service: string; price: string }[];
 }
 
 const ExecutorPreview: React.FC<IProps> = ({
+	id,
 	name,
 	photo,
 	about,
+	rating,
 	taskCategories,
+	pricelist,
 }) => {
 	return (
-		<Paper elevation={3} className='executor' sx={{ p: '30px 50px' }}>
-			<Stack sx={{ mb: 4 }} direction='row' alignItems='center'>
+		<Paper elevation={3} className='executor' sx={{ p: '3% 5%' }}>
+			<Stack sx={{ mb: 2 }} direction='row' alignItems='center'>
 				<CustomAvatar photo={photo} name={name} className='executor__avatar' />
-				<Link to='' className='link-reset'>
+				<Link to={`/executors/executor/${id}`} className='link-reset'>
 					<Typography
 						fontSize='24px'
 						fontWeight='600'
@@ -32,7 +39,7 @@ const ExecutorPreview: React.FC<IProps> = ({
 					</Typography>
 				</Link>
 			</Stack>
-			{/* make this block collapsible */}
+			<Rating name='executorRating' value={rating} precision={0.1} readOnly />
 			<ShowMoreText
 				lines={3}
 				more='ещё'
@@ -49,15 +56,14 @@ const ExecutorPreview: React.FC<IProps> = ({
 				Категории заданий
 			</Typography>
 			<ul className='task-categiries list-reset'>
-				<Stack spacing={2} direction='row'>
+				<Stack spacing={2} direction='row' sx={{ mb: '30px' }}>
 					{taskCategories.map((item) => (
 						<Chip key={item} label={item} component='a' href='#' clickable />
 					))}
 				</Stack>
 			</ul>
-			{/* star rating */}
+			<Pricelist pricelist={pricelist} />
 			{/* work examples carousel */}
-			{/* price list */}
 			{/* contact button */}
 		</Paper>
 	);

@@ -92,7 +92,7 @@ const routes = [
 		),
 	},
 	{
-		path: '/executor',
+		path: '/executors/executor/:id',
 		element: (
 			<Layout>
 				<ExecutorPage />
