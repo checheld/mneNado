@@ -1,0 +1,46 @@
+.loginFormContainer {
+    margin-top: 122px;
+    margin-left: 142px;
+    padding: 32px;
+    width: 412px;
+    height: 552px;
+    text-align: center;
+}
+
+.greetings {
+    align-items: center;
+    margin-bottom: 32px !important;
+    font-weight: 800 !important;
+    font-size: 32px !important;
+    color: #5EA7D3;
+}
+
+.actionName {
+    margin-bottom: 32px !important;
+    font-size: 24px !important;
+    color: #1F1F1F;
+}
+
+.forgotPasswordLink {
+    margin-bottom: 32px !important;
+    text-align: start;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration-line: underline;
+    color: #828282;
+}
+
+.signUpLinkThin {
+    margin-top: 16px !important;
+    cursor: pointer;
+    font-weight: 400 !important;
+    font-size: 18px !important;
+    color: #828282;
+}
+
+.signUpLinkBold {
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: 600 !important;
+}

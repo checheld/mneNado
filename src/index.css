@@ -1,0 +1,41 @@
+ @font-face {
+   font-family: 'Nunito';
+   src: url('./fonts/static/Nunito-ExtraBold.woff2');
+   /* url(./fonts/static/Nunito-ExtraBold.woff); */
+   font-display: swap;
+   font-style: normal;
+   font-weight: 800;
+ }
+
+ @font-face {
+   font-family: 'Nunito';
+   src: url('./fonts/static/Nunito-Regular.woff2');
+   /* url(./fonts/static/Nunito-Regular.woff); */
+   font-display: swap;
+   font-style: normal;
+   font-weight: 400;
+ }
+
+ @font-face {
+   font-family: 'Nunito';
+   src: url('./fonts/static/Nunito-SemiBold.woff2');
+   /* url(./fonts/static/Nunito-SemiBold.woff); */
+   font-display: swap;
+   font-style: normal;
+   font-weight: 600;
+ }
+
+
+ body {
+   margin: 0;
+   padding: 0 !important;
+   background-color: #E5E5E5;
+   font-family: "Nunito", sans-serif;
+   font-size: 16px;
+   text-decoration: none;
+ }
+
+ code {
+   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+     monospace;
+ }
