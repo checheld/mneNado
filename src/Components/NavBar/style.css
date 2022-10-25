@@ -1,50 +1,51 @@
 .appBarContainer {
-    display: flex !important;
-    height: 91px;
-    margin: 0;
-    background-color: #4A036F !important;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgba(255, 255, 255, 0.22);
+	display: flex !important;
+	height: 91px;
+	margin: 0;
+	background-color: rgb(4, 132, 175, 1) !important;
+	/* background-color: rgb(0, 191, 255) !important; */
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(255, 255, 255, 0.22);
 }
 
 .link {
-    text-decoration: none;
-    font-weight: 800 !important;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    opacity: 0.6;
-    margin-right: 40px
+	text-decoration: none;
+	font-weight: 800 !important;
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #ffffff;
+	opacity: 0.6;
+	margin-right: 40px;
 }
 
 .linkContainer {
-    padding: 0 !important
+	padding: 0 !important;
 }
 
 .appBarList {
-    display: flex;
-    margin-left: auto !important;
-    margin-right: 64px !important;
-    margin-top: 20px !important;
-    padding: 0 !important;
+	display: flex;
+	margin-left: auto !important;
+	margin-right: 64px !important;
+	margin-top: 20px !important;
+	padding: 0 !important;
 }
 
 .logoContainer {
-    align-items: center;
-    display: flex;
-    position: absolute;
-    margin-left: 64px;
-    margin-top: 8px;
+	align-items: center;
+	display: flex;
+	position: absolute;
+	margin-left: 64px;
+	margin-top: 8px;
 }
 
 .appBarName {
-    text-decoration: none;
-    margin-top: 20px !important;
-    font-weight: 800 !important;
-    font-size: 20px !important;
-    text-transform: uppercase;
-    color: #F2F2F2;
-    opacity: 0.8;
-    margin-left: 14px !important
+	text-decoration: none;
+	margin-top: 20px !important;
+	font-weight: 800 !important;
+	font-size: 20px !important;
+	text-transform: uppercase;
+	color: #f2f2f2;
+	opacity: 0.8;
+	margin-left: 14px !important;
 }

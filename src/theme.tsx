@@ -29,7 +29,7 @@ export const theme = createTheme(defaultTheme, {
 				text: {},
 
 				contained: {
-					backgroundColor: '#A13DD5',
+					backgroundColor: '#226895',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '600',
 					fontSize: '14px',
@@ -37,10 +37,11 @@ export const theme = createTheme(defaultTheme, {
 					letterSpacing: '1.5px',
 					color: '#171717',
 					'&:hover': {
-						backgroundColor: '#AF66D5',
+						backgroundColor: 'rgba(34,104,149,.83)',
+						color: '#e1e2ed',
 					},
 					'&:active': {
-						backgroundColor: '#7309AA',
+						backgroundColor: '#226895',
 					},
 				},
 
@@ -49,18 +50,19 @@ export const theme = createTheme(defaultTheme, {
 					height: '50px',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '600',
-					border: '3px solid #612580',
+					border: '3px solid #91a4b3',
 					borderRadius: '5px',
 					fontSize: '14px',
 					letterSpacing: '1.5px',
 					transition: 'all .3s ease-in-out',
 					'&:hover': {
-						borderColor: '#7309AA',
-						backgroundColor: '#7309AA',
+						border: '3px solid #CBD8DD',
+						backgroundColor: '#CBD8DD',
+						color: '#0484af',
 					},
 					'&:active': {
-						borderColor: '#A13DD5',
-						backgroundColor: '#A13DD5',
+						border: '3px solid #a9ddf1',
+						backgroundColor: '#a9ddf1',
 					},
 				},
 			},
