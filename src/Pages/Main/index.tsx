@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import './style.sass';
 import CustomButton from '../../Components/CustomButton';
+import './style.sass';
 
 const Main: React.FC = () => {
+	const navigate = useNavigate();
 	return (
 		<Stack direction='column' alignItems='center' className='main'>
 			<Typography component='h1' className='main__heading'>
@@ -12,7 +14,12 @@ const Main: React.FC = () => {
 			<Typography component='p' className='main__text'>
 				Немного текста о том, какие мы классные, и чем можем быть полезны
 			</Typography>
-
+			<CustomButton
+				text='Разместить задание'
+				onClick={() => {
+					navigate('/orders/new');
+				}}
+			/>
 			<Box className='section'>
 				<Typography className='section__heading' component='h2'>
 					Как это работает?

@@ -10,6 +10,7 @@ import ExecutorPage from './Pages/ExecutorProfile';
 import Layout from './Components/Layout';
 import RegistrationChoice from './Pages/RegistrationChoice';
 import ExecutorsList from './Pages/ExecutorsList';
+import NewOrderPage from './Pages/NewOrder';
 import Main from './Pages/Main';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
@@ -80,6 +81,22 @@ const routes = [
 		element: (
 			<Layout>
 				<OrdersPage />
+			</Layout>
+		),
+	},
+	{
+		path: '/orfers/new',
+		element: (
+			<Layout>
+				<NewOrderPage />
+			</Layout>
+		),
+	},
+	{
+		path: '/orders/order/:id',
+		element: (
+			<Layout>
+				<ExecutorPage />
 			</Layout>
 		),
 	},
