@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Chip, Rating, Stack, Typography } from '@mui/material';
-import CustomInput from '../../Components/CustomInput';
 import { executors } from '../ExecutorsList';
 import './style.css';
 import CustomAvatar from '../../Components/CustomAvatar';

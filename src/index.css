@@ -36,6 +36,7 @@ body {
 	min-height: 100vh;
 	overflow: auto;
 }
+
 body {
 	margin: 0;
 	padding: 0;
@@ -55,10 +56,12 @@ body {
 .list-reset {
 	list-style: none;
 }
+
 .link-reset {
 	color: currentColor;
 	text-decoration: none;
 }
+
 .show-more {
 	padding: 0 5px;
 	background-color: rgba(0, 0, 0, 0.1);

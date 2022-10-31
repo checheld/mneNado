@@ -1,0 +1,21 @@
+.searchInput {
+    width: 400px;
+    margin-right: 30px;
+}
+
+.firstRowContainer {
+    margin-bottom: 20px
+}
+
+.thirdRowContainer {
+    display: flex;
+}
+
+.adressInput {
+    width: 518px;
+    margin-bottom: 20px
+}
+
+.priceInput {
+    width: 300px;
+}
