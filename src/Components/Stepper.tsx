@@ -6,6 +6,7 @@ import {
 	StepIconProps,
 	StepperProps,
 	useMediaQuery,
+	MobileStepper,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 
@@ -70,19 +71,31 @@ const StyledStep = styled(Step)(({ theme }) => ({
 const StepperComponent: FC<IProps> = (props) => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down('md'));
+	const countSteps = props.steps.length;
+	console.log('countSteps', countSteps);
 
 	return (
-		<CustomStepper activeStep={props.activeStep}>
-			{props.steps.map((step) => (
-				<StyledStep key={step}>
-					{matches ? (
-						<StepLabel StepIconComponent={StepIcon}></StepLabel>
-					) : (
-						<StepLabel StepIconComponent={StepIcon}>{step}</StepLabel>
-					)}
-				</StyledStep>
-			))}
-		</CustomStepper>
+		// <CustomStepper activeStep={props.activeStep}>
+		// 	{props.steps.map((step) => (
+		// 		<StyledStep key={step}>
+		// 			{matches ? (
+		// 				<StepLabel StepIconComponent={StepIcon}></StepLabel>
+		// 			) : (
+		// 				<StepLabel StepIconComponent={StepIcon}>{step}</StepLabel>
+		// 			)}
+		// 		</StyledStep>
+		// 	))}
+		// </CustomStepper>
+		<MobileStepper
+			variant='progress'
+			steps={countSteps}
+			position='static'
+			activeStep={props.activeStep}
+			nextButton={null} // set as null these buttons
+			backButton={null}
+			LinearProgressProps={{}}
+			sx={{ width: '100%', backgroundColor: 'transparent' }}
+		/>
 	);
 };
 

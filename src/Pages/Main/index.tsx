@@ -19,6 +19,7 @@ const Main: React.FC = () => {
 				onClick={() => {
 					navigate('/orders/new');
 				}}
+				sx={{ mb: '40px', color: '#fff' }}
 			/>
 			<Box className='section'>
 				<Typography className='section__heading' component='h2'>
@@ -29,7 +30,13 @@ const Main: React.FC = () => {
 						<Typography component='h3' className='step__heading'>
 							Создайте задание
 						</Typography>
-						<Typography component='p'>Опишите вседетали</Typography>
+						<Typography component='p'>Опишите все детали</Typography>
+						<img
+							src={require('../../assets/images/vector.jpg')}
+							alt='img'
+							title='Image by storyset on Freepik'
+							className='step__img'
+						/>
 					</Paper>
 					<Paper className='section__step'>
 						<Typography component='h3' className='step__heading'>
@@ -38,11 +45,23 @@ const Main: React.FC = () => {
 						<Typography component='p'>
 							Получите отклики от исполнителей и выберите лучшего
 						</Typography>
+						<img
+							src={require('../../assets/images/vector.jpg')}
+							alt='img'
+							title='Image by storyset on Freepik'
+							className='step__img'
+						/>
 					</Paper>
 					<Paper className='section__step'>
 						<Typography component='h3' className='step__heading'>
 							Оплатите по факту исполнения
 						</Typography>
+						<img
+							src={require('../../assets/images/vector.jpg')}
+							alt='img'
+							title='Image by storyset on Freepik'
+							className='step__img'
+						/>
 					</Paper>
 				</Stack>
 			</Box>

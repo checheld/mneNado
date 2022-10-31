@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 
-interface IButtonProps {
+interface IButtonProps extends ButtonProps {
 	text: string;
 	onClick: () => void;
 }
 
-const CustomButton: React.FC<IButtonProps> = ({ text, onClick }) => {
+const CustomButton: React.FC<IButtonProps> = ({ text, onClick, ...props }) => {
 	return (
-		<Button variant='contained' onClick={onClick}>
+		<Button variant='contained' onClick={onClick} {...props}>
 			{text}
 		</Button>
 	);

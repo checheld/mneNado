@@ -30,12 +30,12 @@ export const theme = createTheme(defaultTheme, {
 
 				contained: {
 					backgroundColor: '#226895',
+					color: '#fff',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '600',
 					fontSize: '14px',
 					borderRadius: '8px',
 					letterSpacing: '1.5px',
-					color: '#171717',
 					'&:hover': {
 						backgroundColor: 'rgba(34,104,149,.83)',
 						color: '#e1e2ed',
@@ -46,22 +46,21 @@ export const theme = createTheme(defaultTheme, {
 				},
 
 				outlined: {
-					color: 'rgba(255, 255, 255, 0.7);',
-					height: '50px',
+					color: 'rgba(255, 255, 255, 0.7)',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '600',
-					border: '3px solid #91a4b3',
+					border: '2px solid #91a4b3',
 					borderRadius: '5px',
 					fontSize: '14px',
 					letterSpacing: '1.5px',
 					transition: 'all .3s ease-in-out',
 					'&:hover': {
-						border: '3px solid #CBD8DD',
+						border: '2px solid #CBD8DD',
 						backgroundColor: '#CBD8DD',
 						color: '#0484af',
 					},
 					'&:active': {
-						border: '3px solid #a9ddf1',
+						border: '2px solid #a9ddf1',
 						backgroundColor: '#a9ddf1',
 					},
 				},
@@ -75,9 +74,9 @@ export const theme = createTheme(defaultTheme, {
 					fontWeight: 200,
 				},
 				notchedOutline: {
-					width: '95.6%',
+					width: '100%',
 					height: '58px',
-					borderColor: '#7309AA !important',
+					borderColor: '#748BA4 !important',
 					borderRadius: '8px',
 					fontWeight: 400,
 					fontSize: '18px',
@@ -91,6 +90,14 @@ export const theme = createTheme(defaultTheme, {
 		MuiFormControl: {
 			styleOverrides: {
 				root: {
+					width: '100%',
+				},
+			},
+		},
+
+		MuiMobileStepper: {
+			styleOverrides: {
+				progress: {
 					width: '100%',
 				},
 			},

@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import Step1 from '../../Components/NewOrderSteps/Step1';
 import Stepper from '../../Components/Stepper';
+import Step2 from '../../Components/NewOrderSteps/Step2';
+import Step3 from '../../Components/NewOrderSteps/Step3';
+import Step4 from '../../Components/NewOrderSteps/Step4';
+import Step5 from '../../Components/NewOrderSteps/Step5';
 import './style.sass';
 
 const steps = [
-	{ label: '1. Personal information', step: 0 },
-	{ label: '2. Contact information', step: 1 },
-	{ label: '3. Upload medical bill', step: 2 },
-	{ label: '4. Final step', step: 3 },
+	{ label: 'Step 1', step: 0 },
+	{ label: 'Step 2', step: 1 },
+	{ label: 'Step 3', step: 2 },
+	{ label: 'Step 4', step: 3 },
+	{ label: 'Step 5', step: 5 },
 ];
 
 export interface IFormData {
 	task_name: string;
-	category?: string;
-	subcategory?: string;
-	address?: string;
-	start_date?: null;
+	category: string;
+	subcategory: string;
+	address: string;
+	isOnline: boolean;
+	start_date: null;
 	end_date?: null;
-	period?: null;
 	description?: string;
 	image?: string;
 	budget?: string;
@@ -30,9 +35,9 @@ export const initialFormData: IFormData = {
 	category: '',
 	subcategory: '',
 	address: '',
+	isOnline: false,
 	start_date: null,
 	end_date: null,
-	period: null,
 	description: '',
 	image: '',
 	budget: '',
@@ -60,6 +65,38 @@ const NewOrderPage: React.FC = () => {
 						setStep={setStep}
 					/>
 				);
+			case 1:
+				return (
+					<Step2
+						formData={formData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
+			case 2:
+				return (
+					<Step3
+						formData={formData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
+			case 3:
+				return (
+					<Step4
+						formData={formData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
+			case 4:
+				return (
+					<Step5
+						formData={formData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
 			default:
 				return (
 					<Step1
@@ -70,12 +107,14 @@ const NewOrderPage: React.FC = () => {
 				);
 		}
 	};
-
+	console.log('step', step);
 	return (
-		<Box>
-			<Typography>Создать заказ</Typography>
+		<Box className='wrap'>
+			<Typography component='h2' className='heading'>
+				Создать заказ
+			</Typography>
 			<Stepper activeStep={step} steps={steps.map((step) => step.label)} />
-			<Box className='form-container'>{renderCurrentStep()}</Box>
+			<Paper className='step-container'>{renderCurrentStep()}</Paper>
 		</Box>
 	);
 };

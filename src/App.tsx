@@ -85,7 +85,7 @@ const routes = [
 		),
 	},
 	{
-		path: '/orfers/new',
+		path: '/orders/new',
 		element: (
 			<Layout>
 				<NewOrderPage />
