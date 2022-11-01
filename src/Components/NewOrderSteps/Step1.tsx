@@ -1,30 +1,20 @@
 import React, { FC, useState } from 'react';
 import { Box, SelectChangeEvent, Typography } from '@mui/material';
-import CustomInput from '../CustomInput';
-import CustomButton from '../CustomButton';
+import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect';
+import InputCustomized from '../InputCustomized';
 import { IFormData } from '../../Pages/NewOrder';
+import { categories, subcategories } from '../../dummyData';
 
 // import { validateBirthday, validateField } from '../common/validation';
-
-const categories = [
-	{ category_id: 1, category: 'Доставка' },
-	{ category_id: 2, category: 'Ремонт' },
-];
-const subcategories = [
-	{ subcategory_id: 1, subcategory: 'Подкатегория 1' },
-	{ subcategory_id: 2, subcategory: 'Подкатегория 2' },
-];
 interface IProps {
 	formData: IFormData;
-	onChange: (name: string, value: string | null) => void;
+	onChange: (item: string, value: string | null) => void;
 	setStep: (step: number) => void;
 }
 
 interface IErrorsData {
 	task_name: string;
-	category?: string;
-	subcategory?: string;
 }
 
 const initialErrors: IErrorsData = {
@@ -34,12 +24,14 @@ const initialErrors: IErrorsData = {
 const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const categoryKeys = Object.keys(categories[0]);
 	const subcategoryKeys = Object.keys(subcategories[0]);
+
 	const [category, setCategory] = useState('');
 	const [subcategory, setSubcategory] = useState('');
+	const [errors, setErrors] = useState<IErrorsData>(initialErrors);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		onChange(e.target.name, e.target.value);
-		// setErrors({ ...errors, [e.target.name]: '' });
+		setErrors({ ...errors, [e.target.name]: '' });
 	};
 
 	const handleCategorySelect = (event: SelectChangeEvent<string | unknown>) => {
@@ -54,7 +46,6 @@ const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 
 	const handleNext = (): void => {
 		setStep(1);
-		console.log('first', formData);
 	};
 
 	return (
@@ -62,13 +53,15 @@ const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				Что нужно сделать?
 			</Typography>
-			<CustomInput
-				item={formData.task_name}
+			<InputCustomized
+				name='task_name'
+				value={formData.task_name}
 				onChange={handleInputChange}
-				check={false}
 				placeholder='Что нужно сделать?'
 				label='Название задания'
-			></CustomInput>
+				error={errors.task_name}
+				className='step__input'
+			/>
 			<Box className='select-container'>
 				<CustomSelect
 					label='Выберите категорию'

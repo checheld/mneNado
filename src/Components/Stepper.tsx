@@ -72,7 +72,6 @@ const StepperComponent: FC<IProps> = (props) => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down('md'));
 	const countSteps = props.steps.length;
-	console.log('countSteps', countSteps);
 
 	return (
 		// <CustomStepper activeStep={props.activeStep}>

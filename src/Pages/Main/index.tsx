@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Paper, Stack, Typography } from '@mui/material';
-import CustomButton from '../../Components/CustomButton';
+import { Box, List, ListItem, Paper, Stack, Typography } from '@mui/material';
+import CustomButton from '../../Components/CustomButton/Index';
+import { categories } from '../../dummyData';
 import './style.sass';
 
 const Main: React.FC = () => {
@@ -64,6 +65,18 @@ const Main: React.FC = () => {
 						/>
 					</Paper>
 				</Stack>
+			</Box>
+			<Box className='section'>
+				<Typography className='section__heading' component='h2'>
+					Категории заданий
+				</Typography>
+				<List className='categories'>
+					{categories.map((item) => (
+						<ListItem className='category' key={item.category_id}>
+							{item.category}
+						</ListItem>
+					))}
+				</List>
 			</Box>
 		</Stack>
 	);

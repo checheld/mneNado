@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Box, SelectChangeEvent, Typography } from '@mui/material';
-import CustomButton from '../CustomButton';
+import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
+import DatePicker from '../DatePicker';
 import './style.sass';
 
 const dateTypes = [
@@ -29,11 +30,12 @@ const initialErrors: IErrorsData = {
 };
 
 const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [dateType, setDateType] = useState('');
+	const [dateType, setDateType] = useState('start');
+
 	const keys = Object.keys(dateTypes[0]);
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		onChange(e.target.name, e.target.value);
-		// setErrors({ ...errors, [e.target.name]: '' });
+
+	const handleDatepickerChange = (date: string | null): void => {
+		onChange('date_of_birth', date);
 	};
 
 	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
@@ -52,7 +54,6 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 				Сроки выполнения
 			</Typography>
 			<CustomSelect
-				label='Выберите категорию'
 				value={dateType}
 				values={dateTypes}
 				onChange={handleSelect}

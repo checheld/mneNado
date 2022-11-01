@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Chip, Rating, Stack, Typography } from '@mui/material';
-import CustomInput from '../../Components/CustomInput';
-import { executors } from '../ExecutorsList';
-import './style.css';
+import CustomInput from '../../Components/CustomInput/Index';
 import CustomAvatar from '../../Components/CustomAvatar';
 import Pricelist from '../../Components/Pricelist';
+import { executors } from '../../dummyData';
+import './style.css';
 
 const ExecutorPage: React.FC = () => {
 	let params = useParams<{ id?: string }>();
 
 	const currentExecutor = executors.filter((el) => el.id === params.id)[0];
-	console.log(currentExecutor);
 	return (
 		<>
 			{currentExecutor && (

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import './style.css';
-import CustomInput from '../../Components/CustomInput';
-import CustomButton from '../../Components/CustomButton';
+import CustomInput from '../../Components/CustomInput/Index';
+import CustomButton from '../../Components/CustomButton/Index';
 
 const LoginPage: React.FC = () => {
 	const router = useNavigate();

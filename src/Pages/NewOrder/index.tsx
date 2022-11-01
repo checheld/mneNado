@@ -24,10 +24,10 @@ export interface IFormData {
 	isOnline: boolean;
 	start_date: null;
 	end_date?: null;
-	description?: string;
-	image?: string;
-	budget?: string;
-	payment_type?: string;
+	description: string;
+	file: File | null;
+	budget: number;
+	payment_type: string;
 }
 
 export const initialFormData: IFormData = {
@@ -39,8 +39,8 @@ export const initialFormData: IFormData = {
 	start_date: null,
 	end_date: null,
 	description: '',
-	image: '',
-	budget: '',
+	file: null,
+	budget: 0,
 	payment_type: '',
 };
 
@@ -52,7 +52,7 @@ const NewOrderPage: React.FC = () => {
 		name: string,
 		value: string | null | boolean | File
 	): void => {
-		setFormData((prevValues) => ({ ...prevValues, [name]: value }));
+		setFormData({ ...formData, [name]: value });
 	};
 
 	const renderCurrentStep = (): JSX.Element | undefined => {
@@ -107,7 +107,6 @@ const NewOrderPage: React.FC = () => {
 				);
 		}
 	};
-	console.log('step', step);
 	return (
 		<Box className='wrap'>
 			<Typography component='h2' className='heading'>

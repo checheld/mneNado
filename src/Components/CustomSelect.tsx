@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent, SelectProps } from '@mui/material/Select';
 
 interface ISelectProps extends SelectProps {
-	label: string;
+	label?: string;
 	value: string;
 	values: any[];
 	valueKey: number | string;

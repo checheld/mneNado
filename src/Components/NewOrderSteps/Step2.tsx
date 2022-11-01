@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Box, FormControlLabel, Typography } from '@mui/material';
-import CustomInput from '../CustomInput';
-import CustomButton from '../CustomButton';
+import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
-import './style.sass';
 import CustomCheckbox from '../CustomCheckbox';
+import InputCustomized from '../InputCustomized';
+import './style.sass';
 
-// import { validateBirthday, validateField } from '../common/validation';
 interface IProps {
 	formData: IFormData;
-	onChange: (name: string, value: string | null) => void;
+	onChange: (name: string, value: string | boolean) => void;
 	setStep: (step: number) => void;
 }
 
@@ -22,16 +21,18 @@ const initialErrors: IErrorsData = {
 };
 
 const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [isOnline, setIsOnline] = useState(false);
+	const [errors, setErrors] = useState(initialErrors);
+
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		onChange(e.target.name, e.target.value);
-		// setErrors({ ...errors, [e.target.name]: '' });
+		setErrors({ ...errors, [e.target.name]: '' });
 	};
+
 	const handleCheckboxChange = (
 		e: React.ChangeEvent<HTMLInputElement>,
 		checked: boolean
 	): void => {
-		setIsOnline(e.target.checked);
+		onChange('isOnline', e.target.checked);
 	};
 
 	const handlePrev = (): void => {
@@ -45,16 +46,17 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				По какому адресу?
 			</Typography>
-			<CustomInput
-				item={formData.task_name}
+			<InputCustomized
+				name='address'
+				value={formData.address}
 				onChange={handleInputChange}
-				check={false}
 				placeholder='Город, улица, дом'
 				label='Адрес'
-			></CustomInput>
+				error={errors.address}
+			/>
 			<FormControlLabel
 				control={
-					<CustomCheckbox name='electronic' onChange={handleCheckboxChange} />
+					<CustomCheckbox name='isOnline' onChange={handleCheckboxChange} />
 				}
 				label={
 					<Typography variant='body1' sx={{ mb: 0 }}>
