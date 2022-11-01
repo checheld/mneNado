@@ -29,7 +29,6 @@ export const theme = createTheme(defaultTheme, {
 				text: {},
 
 				contained: {
-					height: '50px',
 					textAlign: 'center',
 					backgroundColor: 'rgb(4, 132, 175, 1)',
 					fontFamily: '"Nunito", sans-serif',
