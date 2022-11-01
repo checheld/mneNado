@@ -1,6 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import LoginPage from './Pages/LoginPage/Index';
+import SignUpCustomerPage from './Pages/SignUpCustomerPage/Index';
+import SignUpExecutorPage from './Pages/SignUpExecutorPage/Index';
+import ForgotPasswordPage from './Pages/ForgotPasswordPage/Index';
+import ResetPasswordPage from './Pages/ResetPasswordPage/Index';
+import OrdersPage from './Pages/OrdersPage/Index';
+import ExecutorPage from './Pages/ExecutorProfile/Index';
 import Layout from './Components/Layout';
 import RegistrationChoice from './Pages/RegistrationChoice';
 import ExecutorsList from './Pages/ExecutorsList';
@@ -9,13 +15,6 @@ import Main from './Pages/Main';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import './App.css';
-import LoginPage from './Pages/LoginPage/Index';
-import SignUpCustomerPage from './Pages/SignUpCustomerPage/Index';
-import ForgotPasswordPage from './Pages/ForgotPasswordPage/Index';
-import SignUpExecutorPage from './Pages/SignUpExecutorPage/Index';
-import ResetPasswordPage from './Pages/ResetPasswordPage/Index';
-import OrdersPage from './Pages/OrdersPage/Index';
-import ExecutorPage from './Pages/ExecutorProfile/Index';
 
 const routes = [
 	{

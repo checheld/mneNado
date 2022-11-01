@@ -29,19 +29,21 @@ export const theme = createTheme(defaultTheme, {
 				text: {},
 
 				contained: {
-					backgroundColor: '#226895',
-					color: '#fff',
+					height: '50px',
+					textAlign: 'center',
+					backgroundColor: 'rgb(4, 132, 175, 1)',
 					fontFamily: '"Nunito", sans-serif',
-					fontWeight: '600',
+					fontWeight: '400',
 					fontSize: '14px',
-					borderRadius: '8px',
+					borderRadius: '5px',
 					letterSpacing: '1.5px',
+					verticalAlign: 'baseline',
+					color: 'rgb(255, 255, 255, 0.8)',
 					'&:hover': {
-						backgroundColor: 'rgba(34,104,149,.83)',
-						color: '#e1e2ed',
+						backgroundColor: '#4795CF',
 					},
 					'&:active': {
-						backgroundColor: '#226895',
+						backgroundColor: '#6AC2F1',
 					},
 				},
 
@@ -70,19 +72,21 @@ export const theme = createTheme(defaultTheme, {
 		MuiOutlinedInput: {
 			styleOverrides: {
 				root: {
-					paddingRight: 0,
+					height: '48px',
 					fontWeight: 200,
 				},
 				notchedOutline: {
-					width: '100%',
-					height: '58px',
-					borderColor: '#748BA4 !important',
-					borderRadius: '8px',
+					height: '54px',
+					borderColor: 'rgb(4, 132, 175, 1)',
+					borderRadius: '5px',
 					fontWeight: 400,
 					fontSize: '18px',
 					'&.Mui-focused': {
 						outline: '1px solid #5EA7D3',
 					},
+				},
+				input: {
+					padding: '0px 14px',
 				},
 			},
 		},

@@ -6,7 +6,7 @@ import './style.css';
 
 const OrdersPage: React.FC = () => {
 	return (
-		<>
+		<Box className='tasksPage'>
 			<Box className='formContainer' sx={{ pt: 5 }}>
 				<SearchForm />
 			</Box>
@@ -14,8 +14,11 @@ const OrdersPage: React.FC = () => {
 				<TaskCard />
 				<TaskCard />
 				<TaskCard />
+				<TaskCard />
+				<TaskCard />
+				<TaskCard />
 			</Box>
-		</>
+		</Box>
 	);
 };
 export default OrdersPage;

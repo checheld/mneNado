@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
 	];
 
 	return (
-		<AppBar position='static' className='appBarContainer'>
+		<AppBar position='fixed' className='appBarContainer'>
 			<Box className='logoContainer'>
 				{/* <Logo /> */}
 				<Link to='/' className='link-reset'>
@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
 				{links.map((x, i) => (
 					<NavBarLink text={x.text} link={x.link} key={i} />
 				))}
-				<ListItem sx={{ padding: 0 }}>
+				<ListItem sx={{ padding: 0, ml: '20px' }}>
 					<Button
 						variant='outlined'
 						className='loginButton'
