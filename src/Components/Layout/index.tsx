@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import NavBar from '../NavBar/Index';
+<<<<<<< HEAD
+=======
 import Footer from '../Footer/Index';
+>>>>>>> main
 import './style.sass';
 
 interface ILayout {

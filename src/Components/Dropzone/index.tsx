@@ -27,14 +27,12 @@ const CustomDropzone: React.FC<{
 			<div {...getRootProps()} className='dropzone'>
 				<input {...getInputProps()} />
 				{isDragReject ? (
-					<p className='error'>Sorry, we accept only images and .pdf</p>
+					<p className='error'>
+						Недопустимый формат файла. Загрузите изображение или .pdf
+					</p>
 				) : (
 					<>
-						<p className='dropzone__text-basic'>
-							Drag &amp;&nbsp;Drop your file here
-						</p>
-						<p className='dropzone__text-basic'>or</p>
-						<p className='dropzone__text'>Choose file from computer</p>
+						<p className='dropzone__text-basic'>Добавить файл</p>
 					</>
 				)}
 			</div>

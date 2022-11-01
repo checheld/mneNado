@@ -1,5 +1,10 @@
 import React from 'react';
-import { Box, Checkbox, OutlinedInput, OutlinedInputProps } from '@mui/material';
+import {
+	Box,
+	Checkbox,
+	OutlinedInput,
+	OutlinedInputProps,
+} from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect/Index';
 import './style.css';
@@ -19,13 +24,12 @@ const searchForm: React.FC<IProps> = ({ props }) => {
 					className='searchInput'
 					{...props}
 				/>
-				<CustomButton text='Найти' onClick={() => console.log(1)}></CustomButton>
+				<CustomButton
+					text='Найти'
+					onClick={() => console.log(1)}
+				></CustomButton>
 			</Box>
-			<OutlinedInput
-				placeholder='Адрес'
-				className='adressInput'
-				{...props}
-			/>
+			<OutlinedInput placeholder='Адрес' className='adressInput' {...props} />
 			<Box className='thirdRowContainer'>
 				<CustomSelect />
 				<OutlinedInput

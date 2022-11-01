@@ -68,13 +68,18 @@ body {
 	color: #767676;
 	cursor: pointer;
 }
+.wrap {
+	width: 45%;
+	height: 100%;
+	margin-top: 50px;
+}
 
 /* colors
-#236794
-#748BA4
-#B1B0B5
-#E2E2E1
-#4795CF
+#236794 - dark blue
+#748BA4 - dark blue
+#B1B0B5 - grey
+#E2E2E1 - light grey
+#4795CF - header blue
 #2E9AD3
-#6AC2F1
+#6AC2F1 - light blue
 rgb(0, 191, 255) */

@@ -18,6 +18,7 @@ import './style.css';
 // import StrikethroughEye from '../../img/strikethroughEye';
 
 export interface IInputProps {
+	name?: string;
 	item: string;
 	onChange: (ev: ChangeEvent<HTMLInputElement>) => void;
 	check: boolean;
@@ -36,6 +37,7 @@ export const StyledLabel = styled(InputLabel)(() => ({
 
 const CustomInput: React.FC<IInputProps> = ({
 	item,
+	name,
 	onChange,
 	check,
 	placeholder,

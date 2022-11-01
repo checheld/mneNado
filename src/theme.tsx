@@ -48,22 +48,21 @@ export const theme = createTheme(defaultTheme, {
 				},
 
 				outlined: {
-					color: 'rgba(255, 255, 255, 0.7);',
-					height: '50px',
+					color: 'rgba(255, 255, 255, 0.7)',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '600',
-					border: '3px solid #91a4b3',
+					border: '2px solid #91a4b3',
 					borderRadius: '5px',
 					fontSize: '14px',
 					letterSpacing: '1.5px',
 					transition: 'all .3s ease-in-out',
 					'&:hover': {
-						border: '3px solid #CBD8DD',
+						border: '2px solid #CBD8DD',
 						backgroundColor: '#CBD8DD',
 						color: '#0484af',
 					},
 					'&:active': {
-						border: '3px solid #a9ddf1',
+						border: '2px solid #a9ddf1',
 						backgroundColor: '#a9ddf1',
 					},
 				},
@@ -87,14 +86,22 @@ export const theme = createTheme(defaultTheme, {
 					},
 				},
 				input: {
-					padding: '0px 14px'
-				}
+					padding: '0px 14px',
+				},
 			},
 		},
 
 		MuiFormControl: {
 			styleOverrides: {
 				root: {
+					width: '100%',
+				},
+			},
+		},
+
+		MuiMobileStepper: {
+			styleOverrides: {
+				progress: {
 					width: '100%',
 				},
 			},
