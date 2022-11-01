@@ -14,6 +14,9 @@ const OrdersPage: React.FC = () => {
 				<TaskCard />
 				<TaskCard />
 				<TaskCard />
+				<TaskCard />
+				<TaskCard />
+				<TaskCard />
 			</Box>
 		</Box>
 	);
