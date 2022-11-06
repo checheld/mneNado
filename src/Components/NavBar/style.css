@@ -2,7 +2,7 @@
 	width: 100% !important;
 	top: 0 !important;
 	display: flex !important;
-	height: 91px;
+	height: 60px;
 	margin: 0;
 	background-color: rgb(4, 132, 175, 1) !important;
 	border-bottom-width: 1px;
@@ -14,19 +14,18 @@
 	text-decoration: none;
 	font-weight: 800 !important;
 	font-size: 16px;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	color: #ffffff;
 	opacity: 0.6;
 }
 
 .linkContainer {
-	padding: 20px !important;
 	border-radius: 15px !important;
 }
 
 .appBarList {
 	display: flex;
-	margin: 10px 64px 10px auto !important;
+	margin: 0 14px 0 auto !important;
 	padding: 0 !important;
 }
 
@@ -34,13 +33,11 @@
 	align-items: center;
 	display: flex;
 	position: absolute;
-	margin-left: 64px;
-	margin-top: 8px;
 }
 
 .appBarName {
 	text-decoration: none;
-	margin-top: 20px !important;
+	margin-top: 15px !important;
 	font-weight: 800 !important;
 	font-size: 20px !important;
 	text-transform: uppercase;

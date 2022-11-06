@@ -17,9 +17,10 @@ interface IInputAttributes {
 }
 
 export const StyledInput = styled(InputBase)(() => ({
+	height: '48px',
 	marginRight: 0,
 	padding: '4px 16px',
-	border: '1px solid #B9BAD5',
+	border: '1px solid rgb(4, 132, 175, 1)',
 	backgroundColor: '#fff',
 	borderRadius: '5px',
 	color: '#1F3B54',
@@ -40,10 +41,11 @@ export const StyledInput = styled(InputBase)(() => ({
 	//   borderColor: theme.palette.primary.light,
 	// },
 	'&:focus': {
-		borderColor: '#595A94',
+		borderColor: '#5EA7D3',
 	},
 	'&:focus-within': {
-		borderColor: '#595A94',
+		border: '2px solid #5EA7D3',
+		//borderColor: '#5EA7D3',
 	},
 	'&.Mui-error': {
 		borderColor: '#FB6E07',

@@ -8,6 +8,7 @@ import {
 import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect/Index';
 import './style.css';
+import CustomCheckbox from '../CustomCheckbox';
 
 interface IProps extends OutlinedInputProps {
 	props?: OutlinedInputProps;
@@ -38,9 +39,9 @@ const searchForm: React.FC<IProps> = ({ props }) => {
 					{...props}
 				/>
 			</Box>
-			{/* <Box>
-				<Checkbox {...label} />
-			</Box> */}
+			<Box>
+			<CustomCheckbox onChange={() => console.log(11)} name={'temp'} />
+			</Box>
 		</Box>
 	);
 };

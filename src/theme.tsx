@@ -30,6 +30,7 @@ export const theme = createTheme(defaultTheme, {
 
 				contained: {
 					textAlign: 'center',
+					textTransform:'none',
 					backgroundColor: 'rgb(4, 132, 175, 1)',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '400',
@@ -37,7 +38,7 @@ export const theme = createTheme(defaultTheme, {
 					borderRadius: '5px',
 					letterSpacing: '1.5px',
 					verticalAlign: 'baseline',
-					color: 'rgb(255, 255, 255, 0.8)',
+					color: 'rgb(255, 255, 255, 1)',
 					'&:hover': {
 						backgroundColor: '#4795CF',
 					},
@@ -49,19 +50,20 @@ export const theme = createTheme(defaultTheme, {
 				outlined: {
 					color: 'rgba(255, 255, 255, 0.7)',
 					fontFamily: '"Nunito", sans-serif',
-					fontWeight: '600',
-					border: '2px solid #91a4b3',
+					fontWeight: '500',
+					border: '1px solid #91a4b3',
 					borderRadius: '5px',
 					fontSize: '14px',
 					letterSpacing: '1.5px',
+					textTransform: 'capitalize',
 					transition: 'all .3s ease-in-out',
 					'&:hover': {
-						border: '2px solid #CBD8DD',
+						border: '1px solid #CBD8DD',
 						backgroundColor: '#CBD8DD',
 						color: '#0484af',
 					},
 					'&:active': {
-						border: '2px solid #a9ddf1',
+						border: '1px solid #a9ddf1',
 						backgroundColor: '#a9ddf1',
 					},
 				},
@@ -73,9 +75,10 @@ export const theme = createTheme(defaultTheme, {
 				root: {
 					height: '48px',
 					fontWeight: 200,
+					padding: 0
 				},
 				notchedOutline: {
-					height: '54px',
+					// height: '54px',
 					borderColor: 'rgb(4, 132, 175, 1)',
 					borderRadius: '5px',
 					fontWeight: 400,
@@ -83,6 +86,9 @@ export const theme = createTheme(defaultTheme, {
 					'&.Mui-focused': {
 						outline: '1px solid #5EA7D3',
 					},
+					'&.Mui-hover': {
+						borderColor: '#5EA7D3',
+					}
 				},
 				input: {
 					padding: '0px 14px',
@@ -107,31 +113,4 @@ export const theme = createTheme(defaultTheme, {
 		},
 	},
 });
-// export const secondaryTheme = createTheme(defaultTheme, {
-//   components: {
-//     MuiButton: {
-//       styleOverrides: {
-//         root: {
-//           maxHeight: defaultTheme.spacing(10),
-//           padding: defaultTheme.spacing(4, 5),
-//           fontWeight: 500,
-//           lineHeight: '17px',
-//           textTransform: 'none',
-//         },
-//         contained: {
-//           backgroundColor: defaultTheme.palette.info.light,
-//           color: defaultTheme.palette.info.main,
-//           '&:hover': {
-//             backgroundColor: '#e4ecf7'
-//           },
-//           '&:active': {
-//             ackgroundColor: '#dae7f7'
-//           },
-//           '&:disabled': {
-//             opacity: 0.4
-//           }
-//         },
-//       }
-//     },
-//   }
-// })
+

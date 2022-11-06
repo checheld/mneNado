@@ -25,14 +25,14 @@ const NavBar: React.FC = () => {
 				{links.map((x, i) => (
 					<NavBarLink text={x.text} link={x.link} key={i} />
 				))}
-				<ListItem sx={{ padding: 0, ml: '20px' }}>
+				<ListItem sx={{ padding: 0, ml: '30px' }}>
 					<Button
 						variant='outlined'
 						className='loginButton'
 						sx={{ mr: '20px' }}
 						onClick={() => router('/login')}
 					>
-						Войти
+						Вход
 					</Button>
 				</ListItem>
 				<ListItem>
@@ -41,7 +41,7 @@ const NavBar: React.FC = () => {
 						className='loginButton'
 						onClick={() => router('/signup-choice')}
 					>
-						Зарегистрироваться
+						Регистрация
 					</Button>
 				</ListItem>
 			</List>
