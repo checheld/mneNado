@@ -75,20 +75,17 @@ export const theme = createTheme(defaultTheme, {
 				root: {
 					height: '48px',
 					fontWeight: 200,
-					padding: 0
+					padding: 0,
+					"&:hover .MuiOutlinedInput-notchedOutline": {
+						borderColor: "#6997D3",
+						borderWidth: '2px'
+					},
 				},
 				notchedOutline: {
-					// height: '54px',
 					borderColor: 'rgb(4, 132, 175, 1)',
 					borderRadius: '5px',
 					fontWeight: 400,
 					fontSize: '18px',
-					'&.Mui-focused': {
-						outline: '1px solid #5EA7D3',
-					},
-					'&.Mui-hover': {
-						borderColor: '#5EA7D3',
-					}
 				},
 				input: {
 					padding: '0px 14px',

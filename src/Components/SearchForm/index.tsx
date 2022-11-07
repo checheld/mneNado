@@ -9,6 +9,7 @@ import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect/Index';
 import './style.css';
 import CustomCheckbox from '../CustomCheckbox';
+import ParametersIcon from './Components/ParametersIcon';
 
 interface IProps extends OutlinedInputProps {
 	props?: OutlinedInputProps;
@@ -18,31 +19,22 @@ interface IProps extends OutlinedInputProps {
 
 const searchForm: React.FC<IProps> = ({ props }) => {
 	return (
-		<Box>
-			<Box className='firstRowContainer'>
-				<OutlinedInput
-					placeholder='Поиск по ключевым словам'
-					className='searchInput'
-					{...props}
-				/>
+		<Box className='firstRowContainer'>
+			<OutlinedInput
+				placeholder='Поиск по ключевым словам'
+				className='searchInput'
+				{...props}
+			/>
+			<Box className='buttonContainer'>
+				<Box className='parametersIconContainer'>
+					<ParametersIcon className="svg"/>
+				</Box>
 				<CustomButton
 					text='Найти'
 					onClick={() => console.log(1)}
-				></CustomButton>
-			</Box>
-			<OutlinedInput placeholder='Адрес' className='adressInput' {...props} />
-			<Box className='thirdRowContainer'>
-				<CustomSelect />
-				<OutlinedInput
-					placeholder='Стоимость'
-					className='priceInput'
-					{...props}
 				/>
 			</Box>
-			<Box>
-			<CustomCheckbox onChange={() => console.log(11)} name={'temp'} />
-			</Box>
-		</Box>
+		</Box>		
 	);
 };
 
