@@ -5,6 +5,12 @@ import { IFormData } from '../../Pages/NewOrder';
 import CustomCheckbox from '../CustomCheckbox';
 import InputCustomized from '../InputCustomized';
 import './style.sass';
+import {
+	AddressSuggestions,
+	DaDataAddress,
+	DaDataSuggestion,
+} from 'react-dadata';
+import 'react-dadata/dist/react-dadata.css';
 
 interface IProps {
 	formData: IFormData;
@@ -21,6 +27,10 @@ const initialErrors: IErrorsData = {
 };
 
 const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
+	const [value, setValue] = useState<
+		DaDataSuggestion<DaDataAddress> | undefined
+	>();
+
 	const [errors, setErrors] = useState(initialErrors);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -46,6 +56,11 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				По какому адресу?
 			</Typography>
+
+			<AddressSuggestions
+				token={process.env.REACT_APP_API_KEY!}
+				value={value}
+			/>
 			<InputCustomized
 				name='address'
 				value={formData.address}
@@ -65,7 +80,6 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 				}
 				sx={{ mb: '50px' }}
 			/>
-
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'
