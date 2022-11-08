@@ -46,7 +46,7 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const handlePrev = (): void => {
-		setStep(3);
+		setStep(2);
 		setFile(file);
 	};
 

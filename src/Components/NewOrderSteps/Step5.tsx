@@ -34,7 +34,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 		setStep(3);
 	};
 	const handleSubmit = (): void => {
-		console.log('first');
+		console.log(formData);
 	};
 	return (
 		<>

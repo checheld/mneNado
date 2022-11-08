@@ -30,7 +30,7 @@ export const theme = createTheme(defaultTheme, {
 
 				contained: {
 					textAlign: 'center',
-					textTransform:'none',
+					textTransform: 'none',
 					backgroundColor: 'rgb(4, 132, 175, 1)',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '400',
@@ -75,7 +75,7 @@ export const theme = createTheme(defaultTheme, {
 				root: {
 					height: '48px',
 					fontWeight: 200,
-					padding: 0
+					padding: 0,
 				},
 				notchedOutline: {
 					// height: '54px',
@@ -88,7 +88,7 @@ export const theme = createTheme(defaultTheme, {
 					},
 					'&.Mui-hover': {
 						borderColor: '#5EA7D3',
-					}
+					},
 				},
 				input: {
 					padding: '0px 14px',
@@ -113,4 +113,3 @@ export const theme = createTheme(defaultTheme, {
 		},
 	},
 });
-
