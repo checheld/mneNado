@@ -7,7 +7,7 @@ import './style.css';
 const OrdersPage: React.FC = () => {
 	return (
 		<Box className='tasksPage'>
-			<Box className='formContainer' sx={{ pt: 5 }}>
+			<Box className='formContainer'>
 				<SearchForm />
 			</Box>
 			<Box sx={{ pt: 5 }}>
