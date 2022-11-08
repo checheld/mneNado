@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { FormHelperText, InputBase, InputLabel } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-interface IInputAttributes {
+export interface IInputAttributes {
 	id?: string;
 	name?: string;
 	value: string;

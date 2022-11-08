@@ -45,7 +45,7 @@ export const initialFormData: IFormData = {
 };
 
 const NewOrderPage: React.FC = () => {
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(1);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
 
 	const onDataChange = (

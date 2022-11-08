@@ -15,8 +15,8 @@ const Layout: React.FC<ILayout> = ({ children, dataAttr, className }) => {
 	return (
 		<Box className={`layout ${className}`} aria-label={dataAttr}>
 			<NavBar />
-			<Footer />
 			{children}
+			<Footer />
 		</Box>
 	);
 };

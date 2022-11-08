@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { YMaps } from '@pbe/react-yandex-maps';
 import LoginPage from './Pages/LoginPage/Index';
 import SignUpCustomerPage from './Pages/SignUpCustomerPage/Index';
 import SignUpExecutorPage from './Pages/SignUpExecutorPage/Index';
@@ -121,13 +122,19 @@ const routes = [
 const App: React.FC = () => {
 	return (
 		<ThemeProvider theme={theme}>
-			<BrowserRouter>
-				<Routes>
-					{routes.map((route) => (
-						<Route key={route.path} path={route.path} element={route.element} />
-					))}
-				</Routes>
-			</BrowserRouter>
+			<YMaps query={{ lang: 'en_RU' }}>
+				<BrowserRouter>
+					<Routes>
+						{routes.map((route) => (
+							<Route
+								key={route.path}
+								path={route.path}
+								element={route.element}
+							/>
+						))}
+					</Routes>
+				</BrowserRouter>
+			</YMaps>
 		</ThemeProvider>
 	);
 };

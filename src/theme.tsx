@@ -30,7 +30,7 @@ export const theme = createTheme(defaultTheme, {
 
 				contained: {
 					textAlign: 'center',
-					textTransform:'none',
+					textTransform: 'none',
 					backgroundColor: 'rgb(4, 132, 175, 1)',
 					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '400',
@@ -110,4 +110,3 @@ export const theme = createTheme(defaultTheme, {
 		},
 	},
 });
-
