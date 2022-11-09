@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
-import { Box, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
-import DatePicker from '../DatePicker';
+import DatePicker from '../CustomDatePicker';
+import CustomTimePicker from '../CustomTimePicker';
 import './style.sass';
-import NewDatePicker from '../NewDatepicker';
 
 const dateTypes = [
 	{ value: 'start', label: 'Начало работы' },
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 interface IErrorsData {
-	start_date: '';
+	start_date?: '';
 	end_date?: '';
 }
 
@@ -32,17 +32,21 @@ const initialErrors: IErrorsData = {
 
 const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const [dateType, setDateType] = useState('start');
+	const [errors, setErrors] = useState(initialErrors);
 
 	const keys = Object.keys(dateTypes[0]);
 
 	const handleDatepickerChange = (date: string | null): void => {
-		onChange('date_of_birth', date);
+		onChange('start_date', date);
+	};
+	const handleTimepickerChange = (time: string | null): void => {
+		onChange('start_time', time);
 	};
 
 	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
 		setDateType(event.target.value as string);
 	};
-
+	// добавить функции для уствновки пропсов (name, id, value) в зависимости от селектора
 	const handlePrev = (): void => {
 		setStep(1);
 	};
@@ -62,15 +66,25 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 				formControlClass='select-wrap'
 				valueKey={keys[0]}
 				textKey={keys[1]}
+				sx={{ mb: '30px' }}
 			/>
-			<DatePicker
-				id={''}
-				label={''}
-				onChange={function (value: string | null): void {
-					throw new Error('Function not implemented.');
-				}}
-				value={null}
-			/>
+			<Stack direction='row' sx={{ mb: '30px' }}>
+				<DatePicker
+					id='date'
+					label='Выберите дату'
+					placeholder='Дата'
+					onChange={handleDatepickerChange}
+					value={formData.start_date}
+					className='step__input'
+					inputClassName='date-input'
+				/>
+				<CustomTimePicker
+					id='time'
+					label='Выберите время'
+					onChange={handleTimepickerChange}
+					value={formData.start_time}
+				/>
+			</Stack>
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'

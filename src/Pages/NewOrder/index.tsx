@@ -24,6 +24,8 @@ export interface IFormData {
 	isOnline: boolean;
 	start_date: null;
 	end_date?: null;
+	start_time?: null;
+	end_time?: null;
 	description: string;
 	file: File | null;
 	budget: number;
@@ -38,6 +40,8 @@ export const initialFormData: IFormData = {
 	isOnline: false,
 	start_date: null,
 	end_date: null,
+	start_time: null,
+	end_time: null,
 	description: '',
 	file: null,
 	budget: 0,

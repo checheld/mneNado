@@ -99,7 +99,7 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 				}}
 				onChange={handleInputChange}
 			/>
-			{/* {formData.address !== '' && (
+			{formData.address !== '' && (
 				<Map
 					width='100%'
 					height='240px'
@@ -109,7 +109,7 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 					<ZoomControl options={{ position: { left: 10, bottom: 40 } }} />
 					<Placemark geometry={coords} />
 				</Map>
-			)} */}
+			)}
 			<FormControlLabel
 				control={
 					<CustomCheckbox name='isOnline' onChange={handleCheckboxChange} />
