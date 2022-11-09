@@ -5,6 +5,7 @@ import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
 import DatePicker from '../DatePicker';
 import './style.sass';
+import NewDatePicker from '../NewDatepicker';
 
 const dateTypes = [
 	{ value: 'start', label: 'Начало работы' },
@@ -61,6 +62,14 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 				formControlClass='select-wrap'
 				valueKey={keys[0]}
 				textKey={keys[1]}
+			/>
+			<DatePicker
+				id={''}
+				label={''}
+				onChange={function (value: string | null): void {
+					throw new Error('Function not implemented.');
+				}}
+				value={null}
 			/>
 			<Box className='btn-container'>
 				<CustomButton
