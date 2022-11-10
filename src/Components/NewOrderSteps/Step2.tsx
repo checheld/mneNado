@@ -6,13 +6,7 @@ import {
 	DaDataSuggestion,
 } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
-import {
-	Map,
-	Placemark,
-	ZoomControl,
-	ObjectManager,
-	useYMaps,
-} from '@pbe/react-yandex-maps';
+import { Map, Placemark, ZoomControl } from '@pbe/react-yandex-maps';
 import CustomButton from '../CustomButton/Index';
 import CustomCheckbox from '../CustomCheckbox';
 import { StyledInput, StyledLabel } from '../InputCustomized';
@@ -104,7 +98,8 @@ const Step2: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 					width='100%'
 					height='240px'
 					className='step_map'
-					defaultState={{ center: [47.52, 41.11], zoom: 12, controls: [] }}
+					defaultState={{ center: { ...coords }, zoom: 12, controls: [] }}
+					state={{ center: { ...coords } }}
 				>
 					<ZoomControl options={{ position: { left: 10, bottom: 40 } }} />
 					<Placemark geometry={coords} />

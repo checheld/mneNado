@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Box, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CustomButton from '../CustomButton/Index';
-import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
 import './style.sass';
 import CustomTextarea from '../CustomTextarea';
@@ -9,7 +9,7 @@ import CustomDropzone from '../Dropzone';
 
 interface IProps {
 	formData: IFormData;
-	onChange: (name: string, value: string | boolean | File | null) => void;
+	onChange: (name: string, value: string | boolean | File[] | null) => void;
 	setStep: (step: number) => void;
 }
 
@@ -22,7 +22,7 @@ const initialErrors: IErrorsData = {
 };
 
 const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [file, setFile] = useState(formData.file);
+	const [files, setFiles] = useState(formData.file);
 	const [modalOpened, setModalOpened] = useState(false);
 	const [errors, setErrors] = useState(initialErrors);
 
@@ -34,26 +34,25 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const handleClear = (): void => {
-		setFile(null);
-	};
-
-	const openModal = (): void => {
-		setModalOpened(true);
-	};
-
-	const closeModal = (): void => {
-		setModalOpened(false);
+		setFiles(null);
 	};
 
 	const handlePrev = (): void => {
 		setStep(2);
-		setFile(file);
+		setFiles(files);
 	};
 
 	const handleNext = (): void => {
-		onChange('file', file);
+		onChange('file', files);
 		setStep(4);
 	};
+
+	const thumbs = files?.map((el) => {
+		<Box key={el.name}>
+			<img src={URL.createObjectURL(el)} alt={el.name} />
+		</Box>;
+	});
+
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
@@ -68,9 +67,48 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 				onChange={handleInputChange}
 				className='textarea'
 			/>
-			<Typography variant='body1'>Добавить фото</Typography>
-			<CustomDropzone setFile={setFile} openModal={openModal} />
+			{!files ? (
+				<>
+					<Typography variant='body1'>Добавить фото</Typography>
+					<CustomDropzone setFiles={setFiles} />
+				</>
+			) : (
+				<Stack
+					className='file-container'
+					direction='row'
+					alignItems='center'
+					sx={{ mb: '20px' }}
+				>
+					<>
+						<AttachFileIcon />
+						{files.forEach((item) => (
+							<>
+								<Stack>
+									{thumbs?.map((el) => (
+										<>{el}</>
+									))}
+								</Stack>
+								<Typography variant='body1' sx={{ m: '0 10px ' }}>
+									{item['name']}
+								</Typography>
+								<Typography variant='subtitle1'>
+									{Math.ceil((item['size'] / (1024 * 1024)) * 100) / 100 +
+										' МБ'}
+								</Typography>
+							</>
+						))}
+					</>
+				</Stack>
+			)}
+
 			<Box className='btn-container'>
+				{files && (
+					<CustomButton
+						text='Удалить'
+						onClick={handleClear}
+						className='step-btn'
+					/>
+				)}
 				<CustomButton
 					text='Назад'
 					onClick={handlePrev}

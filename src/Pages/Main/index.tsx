@@ -15,13 +15,29 @@ const Main: React.FC = () => {
 			<Typography component='p' className='main__text'>
 				Немного текста о том, какие мы классные, и чем можем быть полезны
 			</Typography>
-			<CustomButton
-				text='Разместить задание'
-				onClick={() => {
-					navigate('/orders/new');
-				}}
-				sx={{ mb: '40px', color: '#fff' }}
-			/>
+			<Stack
+				direction='row'
+				className='hero'
+				alignItems='center'
+				justifyContent='center'
+			>
+				<Box className='hero-img-wrap'>
+					<img
+						src={require('../../assets/images/bearded-hipster-man-with-wow-face-expression_1441-3417.webp')}
+						alt='img'
+						title='Image by storyset on Freepik'
+						className='hero__img'
+					/>
+					<p className='hero-img-wrap__text'>Нужна помощь?</p>
+				</Box>
+				<CustomButton
+					text='Разместить задание'
+					onClick={() => {
+						navigate('/orders/new');
+					}}
+					sx={{ mb: '40px', color: '#fff' }}
+				/>
+			</Stack>
 			<Box className='section'>
 				<Typography className='section__heading' component='h2'>
 					Как это работает?
@@ -31,7 +47,9 @@ const Main: React.FC = () => {
 						<Typography component='h3' className='step__heading'>
 							Создайте задание
 						</Typography>
-						<Typography component='p'>Опишите все детали</Typography>
+						<Typography component='p' className='step__descr'>
+							Опишите все детали
+						</Typography>
 						<img
 							src={require('../../assets/images/vector.jpg')}
 							alt='img'
@@ -43,7 +61,7 @@ const Main: React.FC = () => {
 						<Typography component='h3' className='step__heading'>
 							Выберите исполнителя
 						</Typography>
-						<Typography component='p'>
+						<Typography component='p' className='step__descr'>
 							Получите отклики от исполнителей и выберите лучшего
 						</Typography>
 						<img

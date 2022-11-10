@@ -3,23 +3,27 @@ import { useDropzone } from 'react-dropzone';
 import './style.scss';
 
 const CustomDropzone: React.FC<{
-	setFile: Dispatch<any>;
-	openModal: () => void;
-}> = ({ setFile, openModal }) => {
+	setFiles: Dispatch<any>;
+}> = ({ setFiles }) => {
 	const onDrop = useCallback(
 		(acceptedFiles: any[]) => {
-			setFile(acceptedFiles[0]);
-			openModal();
+			setFiles(
+				acceptedFiles.map((file) =>
+					Object.assign(file, {
+						preview: URL.createObjectURL(file),
+					})
+				)
+			);
 		},
-		[setFile, openModal]
+		[setFiles]
 	);
 	const { getRootProps, getInputProps, isDragReject } = useDropzone({
 		onDrop,
 		accept: {
-			'image/*': ['.png', '.jpeg', '.jpg'],
+			'image/*': ['.png', '.jpeg', '.jpg', '.svg'],
 			'application/*': ['pdf'],
 		},
-		multiple: false,
+		multiple: true,
 	});
 
 	return (

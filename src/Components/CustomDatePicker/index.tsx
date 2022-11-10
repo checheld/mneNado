@@ -36,6 +36,9 @@ export const CustomTextField = styled(TextField)({
 			'& fieldset': {
 				border: 'none',
 			},
+			'& input': {
+				padding: 0,
+			},
 		},
 	},
 	'& legend': {

@@ -9,8 +9,8 @@ interface ISelectProps extends SelectProps {
 	label?: string;
 	value: string;
 	values: any[];
-	valueKey: number | string;
-	textKey: string;
+	menuItemKey: number | string;
+	menuItemValue: string;
 	formControlClass?: string;
 	onChange: (event: SelectChangeEvent<string | unknown>) => void;
 }
@@ -19,8 +19,8 @@ const CustomSelect: React.FC<ISelectProps> = ({
 	label,
 	value,
 	values,
-	valueKey,
-	textKey,
+	menuItemKey,
+	menuItemValue,
 	formControlClass,
 	onChange,
 	...props
@@ -37,11 +37,11 @@ const CustomSelect: React.FC<ISelectProps> = ({
 			>
 				{values.map((item) => (
 					<MenuItem
-						value={item[valueKey]}
-						key={item[valueKey]}
+						value={item[menuItemValue]}
+						key={item[menuItemKey]}
 						className='select__item'
 					>
-						{item[textKey]}
+						{item[menuItemValue]}
 					</MenuItem>
 				))}
 			</Select>

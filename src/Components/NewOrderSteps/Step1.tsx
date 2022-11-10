@@ -6,7 +6,6 @@ import InputCustomized from '../InputCustomized';
 import { IFormData } from '../../Pages/NewOrder';
 import { categories, subcategories } from '../../dummyData';
 
-// import { validateBirthday, validateField } from '../common/validation';
 interface IProps {
 	formData: IFormData;
 	onChange: (item: string, value: string | null) => void;
@@ -24,9 +23,6 @@ const initialErrors: IErrorsData = {
 const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const categoryKeys = Object.keys(categories[0]);
 	const subcategoryKeys = Object.keys(subcategories[0]);
-
-	const [category, setCategory] = useState('');
-	const [subcategory, setSubcategory] = useState('');
 	const [errors, setErrors] = useState<IErrorsData>(initialErrors);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -34,14 +30,9 @@ const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 		setErrors({ ...errors, [e.target.name]: '' });
 	};
 
-	const handleCategorySelect = (event: SelectChangeEvent<string | unknown>) => {
-		setCategory(event.target.value as string);
-	};
-
-	const handleSubcategorySelect = (
-		event: SelectChangeEvent<string | unknown>
-	) => {
-		setSubcategory(event.target.value as string);
+	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
+		console.log('event.target.value', event.target.value);
+		onChange(event.target.name, event.target.value as string);
 	};
 
 	const handleNext = (): void => {
@@ -64,22 +55,24 @@ const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 			/>
 			<Box className='select-container'>
 				<CustomSelect
+					name='category'
 					label='Выберите категорию'
-					value={category}
+					value={formData.category}
 					values={categories}
-					valueKey={categoryKeys[0]}
-					textKey={categoryKeys[1]}
-					onChange={handleCategorySelect}
+					menuItemValue={categoryKeys[1]}
+					menuItemKey={categoryKeys[0]}
+					onChange={handleSelect}
 					className='select'
 					formControlClass='select-wrap'
 				/>
 				<CustomSelect
+					name='subcategory'
 					label='Выберите подкатегорию'
-					value={subcategory}
+					value={formData.subcategory}
 					values={subcategories}
-					valueKey={subcategoryKeys[0]}
-					textKey={subcategoryKeys[1]}
-					onChange={handleSubcategorySelect}
+					menuItemValue={subcategoryKeys[1]}
+					menuItemKey={subcategoryKeys[0]}
+					onChange={handleSelect}
 					className='select'
 					formControlClass='select-wrap'
 				/>
