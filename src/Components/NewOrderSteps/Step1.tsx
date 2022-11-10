@@ -85,7 +85,10 @@ const Step1: FC<IProps> = ({ formData, onChange, setStep }) => {
 				/>
 			</Box>
 			<Box className='btn-container'>
-				<CustomButton text='Далее' onClick={handleNext} className='step-btn' />
+				<CustomButton text='Далее'
+					onClick={handleNext}
+					className='step-btn'
+				/>
 			</Box>
 		</>
 	);

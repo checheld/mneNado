@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import SearchForm from '../../Components/SearchForm';
+import SearchForm from '../../Components/SearchForm/Index';
 import TaskCard from '../../Components/TaskCard';
 import './style.css';
 

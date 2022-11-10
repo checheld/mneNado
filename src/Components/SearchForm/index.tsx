@@ -1,41 +1,43 @@
-import React from 'react';
-import {
-	Box,
-	Checkbox,
-	OutlinedInput,
-	OutlinedInputProps,
-} from '@mui/material';
+import React, { useState } from 'react';
+import {Box, OutlinedInput, OutlinedInputProps } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
-import CustomSelect from '../CustomSelect/Index';
 import './style.css';
-import CustomCheckbox from '../CustomCheckbox';
 import ParametersIcon from './Components/ParametersIcon';
+import SearchModal from '../SearchModal/Index';
 
 interface IProps extends OutlinedInputProps {
 	props?: OutlinedInputProps;
 }
 
-// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const SearchForm: React.FC<IProps> = ({ props }) => {
 
-const searchForm: React.FC<IProps> = ({ props }) => {
+	const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
 	return (
-		<Box className='firstRowContainer'>
-			<OutlinedInput
-				placeholder='Поиск по ключевым словам'
-				className='searchInput'
-				{...props}
-			/>
-			<Box className='buttonContainer'>
-				<Box className='parametersIconContainer'>
-					<ParametersIcon className="svg"/>
-				</Box>
-				<CustomButton
-					text='Найти'
-					onClick={() => console.log(1)}
+		<>
+			<SearchModal open={open} handleClose={handleClose} />
+			<Box className='firstRowContainer'>
+				<OutlinedInput
+					placeholder='Поиск по ключевым словам'
+					className='searchInput'
+					{...props}
 				/>
-			</Box>
-		</Box>		
+				<Box className='buttonContainer'>
+					<Box className='parametersIconContainer'
+						onClick={(handleOpen)}
+					>
+						<ParametersIcon className="svg"/>
+					</Box>
+					<CustomButton
+						text='Найти'
+						onClick={() => console.log(1)}
+					/>
+				</Box>
+			</Box>		
+		</>
 	);
 };
 
-export default searchForm;
+export default SearchForm;

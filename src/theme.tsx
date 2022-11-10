@@ -49,7 +49,6 @@ export const theme = createTheme(defaultTheme, {
 
 				outlined: {
 					color: 'rgba(255, 255, 255, 0.7)',
-					fontFamily: '"Nunito", sans-serif',
 					fontWeight: '500',
 					border: '1px solid #91a4b3',
 					borderRadius: '5px',

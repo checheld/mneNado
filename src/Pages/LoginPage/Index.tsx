@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import './style.css';
-import CustomInput from '../../Components/CustomInput/Index';
 import CustomButton from '../../Components/CustomButton/Index';
 
 const LoginPage: React.FC = () => {
@@ -41,7 +40,7 @@ const LoginPage: React.FC = () => {
 	return (
 		<Box className='loginFormContainer'>
 			<Typography className='actionName'>Войти</Typography>
-			<CustomInput
+			{/* <CustomInput
 				item={email}
 				onChange={handleChangeEmail}
 				check={check}
@@ -54,7 +53,7 @@ const LoginPage: React.FC = () => {
 				check={check}
 				placeholder={'Введите ваш пароль'}
 				label={'Пароль'}
-			/>
+			/> */}
 			<Typography
 				className='forgotPasswordLink'
 				onClick={() => router('/forgotpassword')}
