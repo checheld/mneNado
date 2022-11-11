@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -9,8 +8,8 @@ interface ISelectProps extends SelectProps {
 	label?: string;
 	value: string;
 	values: any[];
-	menuItemKey: number | string;
-	menuItemValue: string;
+	menuItemLabel: string;
+	menuItemValue: number | string;
 	formControlClass?: string;
 	onChange: (event: SelectChangeEvent<string | unknown>) => void;
 }
@@ -19,7 +18,7 @@ const CustomSelect: React.FC<ISelectProps> = ({
 	label,
 	value,
 	values,
-	menuItemKey,
+	menuItemLabel,
 	menuItemValue,
 	formControlClass,
 	onChange,
@@ -38,10 +37,10 @@ const CustomSelect: React.FC<ISelectProps> = ({
 				{values.map((item) => (
 					<MenuItem
 						value={item[menuItemValue]}
-						key={item[menuItemKey]}
+						key={item[menuItemValue]}
 						className='select__item'
 					>
-						{item[menuItemValue]}
+						{item[menuItemLabel]}
 					</MenuItem>
 				))}
 			</Select>

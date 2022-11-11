@@ -1,19 +1,13 @@
 import React, { Dispatch, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, FileWithPath } from 'react-dropzone';
 import './style.scss';
 
 const CustomDropzone: React.FC<{
 	setFiles: Dispatch<any>;
 }> = ({ setFiles }) => {
 	const onDrop = useCallback(
-		(acceptedFiles: any[]) => {
-			setFiles(
-				acceptedFiles.map((file) =>
-					Object.assign(file, {
-						preview: URL.createObjectURL(file),
-					})
-				)
-			);
+		(acceptedFiles: FileWithPath[]) => {
+			setFiles(acceptedFiles);
 		},
 		[setFiles]
 	);

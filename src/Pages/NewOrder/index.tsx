@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import Step1 from '../../Components/NewOrderSteps/Step1';
 import Stepper from '../../Components/Stepper';
+import Step1 from '../../Components/NewOrderSteps/Step1';
 import Step2 from '../../Components/NewOrderSteps/Step2';
 import Step3 from '../../Components/NewOrderSteps/Step3';
 import Step4 from '../../Components/NewOrderSteps/Step4';
 import Step5 from '../../Components/NewOrderSteps/Step5';
+import { FileWithPath } from 'react-dropzone';
 import './style.sass';
 
 const steps = [
@@ -27,8 +28,8 @@ export interface IFormData {
 	start_time: string | null;
 	end_time: string | null;
 	description: string;
-	file: File[] | null;
-	budget: number;
+	files: FileWithPath[] | null;
+	budget: number[];
 	payment_type: string;
 }
 
@@ -43,8 +44,8 @@ export const initialFormData: IFormData = {
 	start_time: null,
 	end_time: null,
 	description: '',
-	file: null,
-	budget: 0,
+	files: null,
+	budget: [],
 	payment_type: '',
 };
 

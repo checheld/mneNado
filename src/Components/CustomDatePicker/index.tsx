@@ -3,7 +3,7 @@ import 'dayjs/locale/ru';
 import { DateTime } from 'luxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
 import {
 	FormHelperText,
 	TextField,
@@ -23,6 +23,8 @@ interface IProps {
 	className?: string;
 	inputClassName?: string;
 	error?: string;
+	disablePast?: boolean;
+	disableFuture?: boolean;
 }
 
 export const CustomTextField = styled(TextField)({
@@ -63,6 +65,8 @@ const CustomDatePicker: React.FC<IProps> = ({
 	className,
 	inputClassName,
 	error,
+	disablePast,
+	disableFuture,
 }) => {
 	const handleChange = (newValue: DateTime | null): void => {
 		onChange(newValue && newValue.toISO());
@@ -87,6 +91,8 @@ const CustomDatePicker: React.FC<IProps> = ({
 								className={inputClassName}
 							/>
 						)}
+						disablePast={disablePast}
+						disableFuture={disableFuture}
 					/>
 				</Stack>
 			</LocalizationProvider>

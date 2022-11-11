@@ -6,7 +6,7 @@ import { IFormData } from '../../Pages/NewOrder';
 import DatePicker from '../CustomDatePicker';
 import CustomTimePicker from '../CustomTimePicker';
 import './style.sass';
-import { DateTime } from 'luxon';
+
 const dateTypes = [
 	{ value: 'start', label: 'Начало работы' },
 	{ value: 'end', label: 'Завершение работы' },
@@ -30,74 +30,30 @@ const initialErrors: IErrorsData = {
 };
 
 const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [dateType, setDateType] = useState('Начало работы');
-	const [dateFieldName, setDateFieldName] = useState<string | null>('');
-	const [timeFieldName, setTimeFieldName] = useState<string | null>('');
-	const [dateFieldVal, setDateFieldVal] = useState<string | null>(
-		formData.start_date
-	);
-	const [timeFieldVal, setTimeFieldVal] = useState<string | null>(
-		formData.start_time
-	);
+	const [dateType, setDateType] = useState('start');
 	const [errors, setErrors] = useState(initialErrors);
 
 	const keys = Object.keys(dateTypes[0]);
-
-	const selectDateField = (option: string): void => {
-		if (option !== 'period') {
-			switch (option) {
-				case 'start':
-					setDateFieldName('start_date');
-					setDateFieldVal(formData.start_date);
-					break;
-				case 'end':
-					setDateFieldName('end_date');
-					setDateFieldVal(formData.end_date);
-					break;
-				default:
-					setDateFieldName('start_date');
-					setDateFieldVal(formData.start_date);
-			}
-		}
-	};
-
-	const selectTimeField = (option: string): void => {
-		if (option !== 'period') {
-			switch (option) {
-				case 'start':
-					setTimeFieldName('start_time');
-					setTimeFieldVal(formData.start_time);
-					break;
-				case 'end':
-					setTimeFieldName('end_time');
-					setTimeFieldVal(formData.end_time);
-					break;
-				default:
-					setTimeFieldName('start_time');
-					setTimeFieldVal(formData.start_time);
-			}
-		}
-	};
 
 	const handleDateTimeChange =
 		(field: string) =>
 		(date: string | null): void => {
 			onChange(field, date);
-			console.log(field, date);
 		};
 
 	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
 		setDateType(event.target.value as string);
-		selectDateField(event.target.value as string);
-		selectTimeField(event.target.value as string);
 	};
 
 	const handlePrev = (): void => {
 		setStep(1);
+		// join date and time before sending to server
 	};
 	const handleNext = (): void => {
 		setStep(3);
 	};
+
+	console.log(dateType);
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
@@ -109,8 +65,8 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 				onChange={handleSelect}
 				className='select'
 				formControlClass='select-wrap'
-				menuItemValue={keys[1]}
-				menuItemKey={keys[0]}
+				menuItemValue={keys[0]}
+				menuItemLabel={keys[1]}
 				sx={{ mb: '30px' }}
 			/>
 			{dateType !== 'period' && (
@@ -123,19 +79,84 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 						id='date'
 						label='Выберите дату'
 						placeholder='Дата'
-						onChange={handleDateTimeChange(dateFieldName!)}
-						value={dateFieldVal}
+						onChange={handleDateTimeChange(
+							`${dateType === 'start' ? 'start_date' : 'end_date'}`
+						)}
+						value={
+							dateType === 'start' ? formData.start_date : formData.end_date
+						}
+						disablePast
 						className='step__input'
 						inputClassName='date-input'
 					/>
 					<CustomTimePicker
 						id='time'
 						label='Выберите время'
-						onChange={handleDateTimeChange(timeFieldName!)}
-						value={timeFieldVal}
+						onChange={handleDateTimeChange(
+							`${dateType === 'start' ? 'start_time' : 'end_time'}`
+						)}
+						value={
+							dateType === 'start' ? formData.start_time : formData.end_time
+						}
 						className='step__time-input'
 					/>
 				</Stack>
+			)}
+			{dateType === 'period' && (
+				<>
+					<Typography component='h6' className='input-heading'>
+						Начать работу
+					</Typography>
+					<Stack
+						direction='row'
+						sx={{ mb: '30px' }}
+						justifyContent='space-evenly'
+					>
+						<DatePicker
+							id='date'
+							label='Выберите дату'
+							placeholder='Дата'
+							onChange={handleDateTimeChange('start_date')}
+							value={formData.start_date}
+							disablePast
+							className='step__input'
+							inputClassName='date-input'
+						/>
+						<CustomTimePicker
+							id='time'
+							label='Выберите время'
+							onChange={handleDateTimeChange('end_time')}
+							value={formData.end_time}
+							className='step__time-input'
+						/>
+					</Stack>
+					<Typography component='h6' className='input-heading'>
+						Завершить работу
+					</Typography>
+					<Stack
+						direction='row'
+						sx={{ mb: '30px' }}
+						justifyContent='space-evenly'
+					>
+						<DatePicker
+							id='date'
+							label='Выберите время'
+							placeholder='Дата'
+							onChange={handleDateTimeChange('end_date')}
+							value={formData.end_date}
+							disablePast
+							className='step__input'
+							inputClassName='date-input'
+						/>
+						<CustomTimePicker
+							id='time'
+							label='Выберите время'
+							onChange={handleDateTimeChange('end_time')}
+							value={formData.end_time}
+							className='step__time-input'
+						/>
+					</Stack>
+				</>
 			)}
 			<Box className='btn-container'>
 				<CustomButton
