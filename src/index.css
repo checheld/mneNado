@@ -69,17 +69,18 @@ body {
 	cursor: pointer;
 }
 .wrap {
-	width: 45%;
+	width: 50vw;
 	height: 100%;
 	margin-top: 100px;
 }
 
-/* colors
-#236794 - dark blue
-#748BA4 - dark blue
-#B1B0B5 - grey
-#E2E2E1 - light grey
-#4795CF - header blue
-#2E9AD3
-#6AC2F1 - light blue
-rgb(0, 191, 255) */
+:root {
+	--dark-blue: #236794;
+	--blue-gray: #748ba4;
+	--grey: #b1b0b5;
+	--light-grey: #e2e2e1;
+	--header-blue: #4795cf;
+	--bright-blue: #2e9ad3;
+	--light-blue: #6ac2f1;
+	--blue: rgb(0, 191, 255);
+}

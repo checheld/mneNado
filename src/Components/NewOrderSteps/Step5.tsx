@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
-import { Box, Slider, Typography } from '@mui/material';
+import React, { FC, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
-import CustomSlider from '../CustomSlider';
-import { budgets } from '../../dummyData';
+import RangeSlider from '../RangeSlider';
 import './style.sass';
 
 interface IProps {
@@ -12,24 +11,7 @@ interface IProps {
 	setStep: (step: number) => void;
 }
 
-interface IErrorsData {
-	description: '';
-}
-
-const initialErrors: IErrorsData = {
-	description: '',
-};
-
-function valuetext(value: number) {
-	return `${value}₽`;
-}
-
 const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		onChange(e.target.name, e.target.value);
-		// setErrors({ ...errors, [e.target.name]: '' });
-	};
-
 	const handlePrev = (): void => {
 		setStep(3);
 	};
@@ -41,15 +23,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				Бюджет и способ оплаты
 			</Typography>
-			<Slider
-				aria-label='Custom marks'
-				defaultValue={0}
-				value={formData.budget}
-				getAriaValueText={valuetext}
-				step={20}
-				valueLabelDisplay='auto'
-				marks={budgets}
-			/>
+			<RangeSlider min={300} max={10000} onChange={() => {}} />
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import Step1 from '../../Components/NewOrderSteps/Step1';
 import Stepper from '../../Components/Stepper';
+import Step1 from '../../Components/NewOrderSteps/Step1';
 import Step2 from '../../Components/NewOrderSteps/Step2';
 import Step3 from '../../Components/NewOrderSteps/Step3';
 import Step4 from '../../Components/NewOrderSteps/Step4';
 import Step5 from '../../Components/NewOrderSteps/Step5';
+import { FileWithPath } from 'react-dropzone';
 import './style.sass';
 
 const steps = [
@@ -22,11 +23,13 @@ export interface IFormData {
 	subcategory: string;
 	address: string;
 	isOnline: boolean;
-	start_date: null;
-	end_date?: null;
+	start_date: string | null;
+	end_date: string | null;
+	start_time: string | null;
+	end_time: string | null;
 	description: string;
-	file: File | null;
-	budget: number;
+	files: FileWithPath[] | null;
+	budget: number[];
 	payment_type: string;
 }
 
@@ -38,19 +41,21 @@ export const initialFormData: IFormData = {
 	isOnline: false,
 	start_date: null,
 	end_date: null,
+	start_time: null,
+	end_time: null,
 	description: '',
-	file: null,
-	budget: 0,
+	files: null,
+	budget: [],
 	payment_type: '',
 };
 
 const NewOrderPage: React.FC = () => {
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(0);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
 
 	const onDataChange = (
 		name: string,
-		value: string | null | boolean | File
+		value: string | null | boolean | File[]
 	): void => {
 		setFormData({ ...formData, [name]: value });
 	};

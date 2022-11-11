@@ -1,15 +1,19 @@
 import React, { FC, useState } from 'react';
-import { Box, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CustomButton from '../CustomButton/Index';
-import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
-import './style.sass';
 import CustomTextarea from '../CustomTextarea';
 import CustomDropzone from '../Dropzone';
+import { FileWithPath } from 'react-dropzone';
+import './style.sass';
 
 interface IProps {
 	formData: IFormData;
-	onChange: (name: string, value: string | boolean | File | null) => void;
+	onChange: (
+		name: string,
+		value: string | boolean | FileWithPath[] | null
+	) => void;
 	setStep: (step: number) => void;
 }
 
@@ -22,8 +26,7 @@ const initialErrors: IErrorsData = {
 };
 
 const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [file, setFile] = useState(formData.file);
-	const [modalOpened, setModalOpened] = useState(false);
+	const [files, setFiles] = useState<FileWithPath[] | null>(formData.files);
 	const [errors, setErrors] = useState(initialErrors);
 
 	const handleInputChange = (
@@ -33,27 +36,24 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 		setErrors({ ...errors, [e.target.name]: '' });
 	};
 
-	const handleClear = (): void => {
-		setFile(null);
-	};
-
-	const openModal = (): void => {
-		setModalOpened(true);
-	};
-
-	const closeModal = (): void => {
-		setModalOpened(false);
+	const handleClear = (index: number): void => {
+		const newFiles = files?.splice(index, 1);
+		setFiles(newFiles!);
 	};
 
 	const handlePrev = (): void => {
 		setStep(2);
-		setFile(file);
+		setFiles(files);
 	};
 
 	const handleNext = (): void => {
-		onChange('file', file);
+		onChange('files', files);
+		console.log('files', files);
 		setStep(4);
 	};
+
+	files?.map((file) => console.log('first', URL.createObjectURL(file)));
+
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
@@ -68,8 +68,36 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 				onChange={handleInputChange}
 				className='textarea'
 			/>
-			<Typography variant='body1'>Добавить фото</Typography>
-			<CustomDropzone setFile={setFile} openModal={openModal} />
+			{!files ? (
+				<>
+					<Typography variant='body1'>Добавить файлы</Typography>
+					<CustomDropzone setFiles={setFiles} />
+				</>
+			) : (
+				<Stack
+					className='file-container'
+					direction='row'
+					alignItems='center'
+					sx={{ mb: '20px' }}
+				>
+					{files.map((file, index) => (
+						<div className='preview-container'>
+							<img
+								src={URL.createObjectURL(file)}
+								alt='Предпросмотр изображения'
+								className='img-preview'
+							/>
+							<IconButton
+								className='preview-btn'
+								onClick={() => handleClear(index)}
+							>
+								<DeleteIcon />
+							</IconButton>
+						</div>
+					))}
+				</Stack>
+			)}
+
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'
