@@ -29,7 +29,7 @@ export interface IFormData {
 	end_time: string | null;
 	description: string;
 	files: FileWithPath[] | null;
-	budget: number[];
+	budget: number | number[];
 	payment_type: string;
 }
 
@@ -45,17 +45,17 @@ export const initialFormData: IFormData = {
 	end_time: null,
 	description: '',
 	files: null,
-	budget: [],
+	budget: [300, 0],
 	payment_type: '',
 };
 
 const NewOrderPage: React.FC = () => {
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(4);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
 
 	const onDataChange = (
 		name: string,
-		value: string | null | boolean | File[]
+		value: string | null | boolean | File[] | number | number[]
 	): void => {
 		setFormData({ ...formData, [name]: value });
 	};

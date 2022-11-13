@@ -5,16 +5,18 @@ import './style.sass';
 
 interface IProps {
 	min: number;
+	middle: number;
 	max: number;
 	onChange: any;
 }
 
-const RangeSlider: React.FC<IProps> = ({ min, max, onChange }) => {
+const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	const [minVal, setMinVal] = useState(min);
 	const [maxVal, setMaxVal] = useState(max);
 	const minValRef = useRef<any>(null);
 	const maxValRef = useRef<any>(null);
 	const range = useRef<any>(null);
+	const bubble = useRef<HTMLDivElement>(null)
 
 	// Convert to percentage
 	const getPercent = useCallback(
@@ -31,6 +33,7 @@ const RangeSlider: React.FC<IProps> = ({ min, max, onChange }) => {
 			if (range.current) {
 				range.current.style.left = `${minPercent}%`;
 				range.current.style.width = `${maxPercent - minPercent}%`;
+				bubble!.current!.style.left = `${minPercent -19}%`
 			}
 		}
 	}, [minVal, getPercent]);
@@ -90,11 +93,17 @@ const RangeSlider: React.FC<IProps> = ({ min, max, onChange }) => {
 			<Box className='slider'>
 				<div className='slider__track' />
 				<div ref={range} className='slider__range' />
+				<Box className='slider__bubble' ref={bubble}>
+				  {formatMoney(minVal)}₽&nbsp;&mdash;&nbsp;{formatMoney(maxVal)}₽
+				</Box>
 				<Typography className='slider__left-value' component='p'>
-					{formatMoney(minVal)}₽
+					{formatMoney(min)}₽
+				</Typography>
+				<Typography className='slider__middle-value' component='p'>
+					{formatMoney(middle)}₽
 				</Typography>
 				<Typography className='slider__right-value' component='p'>
-					{formatMoney(maxVal)}₽
+					{formatMoney(max)}₽
 				</Typography>
 			</Box>
 		</Stack>

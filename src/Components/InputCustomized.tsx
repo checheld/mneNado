@@ -68,7 +68,7 @@ export const StyledInput = styled(InputBase)(() => ({
 
 export const StyledLabel = styled(InputLabel)(() => ({
 	fontSize: '16px',
-	color: '#595A94',
+	color: '#616162',
 }));
 
 const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(

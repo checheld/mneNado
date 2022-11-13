@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 export const defaultTheme = createTheme({
 	typography: {
-		fontFamily: '"Nunito", sans-serif',
+		fontFamily: '"Helvetica", sans-serif',
 	},
 
 	// colors: #7309AA #612580 #4A036F	#A13DD5 #AF66D5

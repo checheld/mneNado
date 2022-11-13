@@ -73,8 +73,8 @@ const SearchModal: React.FC<ISearchModal> = ({ open, handleClose }) => {
                             label='Радиус поиска'
                             value={distanceItem}
                             values={distance}
-                            valueKey={distanceKeys[0]}
-                            textKey={distanceKeys[1]}
+                            menuItemLabel={distanceKeys[0]}
+                            menuItemValue={distanceKeys[1]}
                             onChange={handleCategorySelect}
                             className='adressSelect'
                             formControlClass='select-wrap'

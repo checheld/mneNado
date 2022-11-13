@@ -8,7 +8,7 @@ export const getInitials = (name: string) => {
 };
 
 export const formatMoney = (amount: number): string => {
-	return amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	return amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ' ');
 };
 
 export const formatDate = (dateTime: string, format: string): string => {
