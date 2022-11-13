@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import SearchForm from '../../Components/SearchForm/Index';
 import TaskCard from '../../Components/TaskCard';
 import './style.css';
+import SorthingCheckboxes from './Components/SorthingCheckboxes/index';
 
 const OrdersPage: React.FC = () => {
 	return (
@@ -10,14 +11,17 @@ const OrdersPage: React.FC = () => {
 			<Box className='formContainer'>
 				<SearchForm />
 			</Box>
-			<Box sx={{ pt: 5 }}>
-				<TaskCard />
-				<TaskCard />
-				<TaskCard />
-				<TaskCard />
-				<TaskCard />
-				<TaskCard />
-				<TaskCard />
+			<Box sx={{display: 'flex'}}>
+				<SorthingCheckboxes />
+				<Box sx={{ pt: 5 }}>
+					<TaskCard />
+					<TaskCard />
+					<TaskCard />
+					<TaskCard />
+					<TaskCard />
+					<TaskCard />
+					<TaskCard />
+				</Box>
 			</Box>
 		</Box>
 	);
