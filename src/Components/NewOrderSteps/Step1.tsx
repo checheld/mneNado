@@ -94,7 +94,7 @@ const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 				<Map
 					width='100%'
 					height='240px'
-					className='step_map'
+					className='step__map'
 					defaultState={{ center: { ...coords }, zoom: 12, controls: [] }}
 					state={{ center: { ...coords } }}
 				>
@@ -114,10 +114,7 @@ const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 				sx={{ mb: '50px' }}
 			/>
 			<Box className='btn-container'>
-				<CustomButton text='Далее'
-					onClick={handleNext}
-					className='step-btn'
-				/>
+				<CustomButton text='Далее' onClick={handleNext} className='step-btn' />
 			</Box>
 		</>
 	);

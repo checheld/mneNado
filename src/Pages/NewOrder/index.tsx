@@ -29,8 +29,8 @@ export interface IFormData {
 	end_time: string | null;
 	description: string;
 	files: FileWithPath[] | null;
-	budget: number | number[];
-	payment_type: string;
+	budget: number | number[] | null;
+	payment_method: string;
 }
 
 export const initialFormData: IFormData = {
@@ -45,8 +45,8 @@ export const initialFormData: IFormData = {
 	end_time: null,
 	description: '',
 	files: null,
-	budget: [300, 0],
-	payment_type: '',
+	budget: 0,
+	payment_method: '',
 };
 
 const NewOrderPage: React.FC = () => {
