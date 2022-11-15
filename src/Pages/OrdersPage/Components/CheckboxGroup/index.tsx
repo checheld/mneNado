@@ -5,18 +5,20 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { FormControlLabel, Typography } from '@mui/material';
-import CustomCheckbox from '../../../../Components/CustomCheckbox';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 
 interface IProps {
 	component:  { name: string, subcomp: string[] };
+    compChecked: Boolean;
+    allChecked: Boolean;
+    allIndeterminate: Boolean;
+    handleChangeComp: any; 
 }
 
-const CheckboxGroup: FC<IProps> = ({ component }) => {
+const CheckboxGroup: FC<IProps> = ({ component, compChecked, allChecked, allIndeterminate, handleChangeComp}) => {
 
     const [open, setOpen] = useState(false);
-    const [checked, setChecked] = useState(true);
     const [indeterminate, setIndeterminate]  = useState(false);
     const [arrayChecked, setArrayChecked] = useState<Boolean[]>([]);
     let obj : Boolean[] = [];
@@ -26,27 +28,37 @@ const CheckboxGroup: FC<IProps> = ({ component }) => {
         setArrayChecked(obj)
     }, [component]);
 
+    useEffect(() => {
+        if (!allIndeterminate) {
+            component.subcomp.map(() => (obj.push(allChecked)))   
+            setArrayChecked(obj)
+        }
+    }, [allChecked, allIndeterminate]);
+
     const handleClick = () => {
         setOpen(!open);
     };
 
     const handleChange = (key: number) =>(event: ChangeEvent<HTMLInputElement>) => {
         event.target.checked === false && setIndeterminate(true);
+        event.target.checked === false && handleChangeComp(false);
         const editedArr = [...arrayChecked];
         editedArr[key as number] = event.target.checked;
         setArrayChecked(editedArr);
         !editedArr.includes(false) && setIndeterminate(false);
+        !editedArr.includes(false) && handleChangeComp(true);
     };
 
     const handleChangeMain = (event: ChangeEvent<HTMLInputElement>) => {
         setIndeterminate(false);
-        setChecked(!checked);
         let items = [...arrayChecked];
         if (event.target.checked === false) {
             items.map((el, i) => items[i] = false);
+            handleChangeComp(false)
             setArrayChecked(items);
         } else {
             items.map((el, i) => items[i] = true);
+            handleChangeComp(true)
             setArrayChecked(items);
         }
     };
@@ -60,7 +72,7 @@ const CheckboxGroup: FC<IProps> = ({ component }) => {
                 <FormControlLabel
                     control={
                         <Checkbox name='isOnline'
-                            defaultChecked={true}
+                            checked={!!compChecked}
                             indeterminate={indeterminate}
                             onChange={handleChangeMain} />
                     }
