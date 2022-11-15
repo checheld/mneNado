@@ -6,6 +6,7 @@
 .firstRowContainer {
     position: relative;
     margin-bottom: 20px;
+    margin: 0 auto 20px auto;
     max-width: 600px;
 }
 
