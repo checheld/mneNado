@@ -83,7 +83,7 @@ const RadioButtons: React.FC<IProps> = (props) => {
 					<FormControlLabel
 						key={item.key}
 						value={item.key}
-						control={<StyledRadio />}
+						control={<StyledRadio required={true} />}
 						label={item.value}
 					/>
 				))}

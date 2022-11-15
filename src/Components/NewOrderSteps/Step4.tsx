@@ -7,6 +7,7 @@ import CustomTextarea from '../CustomTextarea';
 import CustomDropzone from '../Dropzone';
 import { FileWithPath } from 'react-dropzone';
 import './style.sass';
+import { validateField } from '../../utils/validation';
 
 interface IProps {
 	formData: IFormData;
@@ -18,7 +19,7 @@ interface IProps {
 }
 
 interface IErrorsData {
-	description: '';
+	description: string;
 }
 
 const initialErrors: IErrorsData = {
@@ -27,13 +28,19 @@ const initialErrors: IErrorsData = {
 
 const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const [files, setFiles] = useState<FileWithPath[] | null>(formData.files);
-	const [errors, setErrors] = useState(initialErrors);
+	const [error, setError] = useState(initialErrors);
 
 	const handleInputChange = (
 		e: React.ChangeEvent<HTMLTextAreaElement>
 	): void => {
 		onChange(e.target.name, e.target.value);
-		setErrors({ ...errors, [e.target.name]: '' });
+		setError({ ...error, description: '' });
+	};
+
+	const validateInput = (): boolean => {
+		const descriptionError = validateField(formData.description);
+		if (descriptionError) setError({ description: descriptionError });
+		return !descriptionError;
 	};
 
 	const handleClear = (index: number): void => {
@@ -47,9 +54,10 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const handleNext = (): void => {
-		onChange('files', files);
-		console.log('files', files);
-		setStep(4);
+		if (validateInput()) {
+			onChange('files', files);
+			setStep(4);
+		}
 	};
 
 	files?.map((file) => console.log('first', URL.createObjectURL(file)));
@@ -67,6 +75,7 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 				placeholder='Опишите детали задания'
 				onChange={handleInputChange}
 				className='textarea'
+				error={error.description}
 			/>
 			{!files ? (
 				<>

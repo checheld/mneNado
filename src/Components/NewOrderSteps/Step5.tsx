@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
@@ -6,12 +6,23 @@ import RangeSlider from '../RangeSlider';
 import InputCustomized from '../InputCustomized';
 import RadioButtons from '../RadioButtons';
 import './style.sass';
+import { validateBudget, validateField } from '../../utils/validation';
 
 interface IProps {
 	formData: IFormData;
 	onChange: (name: string, value: string | number | number[]) => void;
 	setStep: (step: number) => void;
 }
+
+interface IErrors {
+	budget?: string;
+	payment_method: string;
+}
+
+const initialErrors: IErrors = {
+	budget: '',
+	payment_method: '',
+};
 
 const paymentMethods = [
 	{ key: 'direct', value: 'Напрямую исполнителю' },
@@ -20,27 +31,48 @@ const paymentMethods = [
 
 const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const [budget, setBudget] = useState<number[]>([0, 0]);
+	const [errors, setErrors] = useState<IErrors>(initialErrors);
+	const [errorClass, setErrorClass] = useState('');
 
 	const handleRangeChange = (values: { min: number; max: number }) => {
 		const valuesArr = Object.values(values);
 		setBudget(valuesArr);
-		console.log(values);
 		onChange('budget', budget);
 	};
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		onChange(e.target.name, e.target.value);
+		setErrors({ ...errors, budget: '' });
 	};
 
 	const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange('payment_method', (event.target as HTMLInputElement).value);
+		setErrors({ ...errors, payment_method: '' });
+		setErrorClass('');
+	};
+
+	const validateInputs = (): boolean => {
+		let budgetError;
+		const methodError = validateField(formData.payment_method);
+		if (typeof formData.budget === 'string') {
+			budgetError = validateBudget(formData.budget);
+			console.log('budgetError', budgetError);
+			setErrors({ budget: budgetError, payment_method: '' });
+		}
+		if (methodError || budgetError)
+			setErrors({ budget: budgetError, payment_method: methodError });
+		setErrorClass('readio-error');
+		console.log('errors', errors);
+		return [budgetError, methodError].every((el) => !el);
 	};
 
 	const handlePrev = (): void => {
 		setStep(3);
 	};
 	const handleSubmit = (): void => {
-		console.log(formData);
+		if (validateInputs()) {
+			console.log(formData);
+		}
 	};
 	return (
 		<>
@@ -52,7 +84,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 			</Typography>
 			<RangeSlider
 				min={300}
-				middle={5000}
+				middle={[2500, 5000, 7500]}
 				max={10000}
 				onChange={handleRangeChange}
 			/>
@@ -65,13 +97,14 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 				placeholder='Какую сумму вы готовы заплатить'
 				label='Точная сумма'
 				className='step__input'
+				error={errors.budget}
 			/>
 			<RadioButtons
 				name='payment_method'
 				values={paymentMethods}
 				value={formData.payment_method}
 				onChange={handleRadioChange}
-				className='step__radio-group'
+				className={`step__radio-group ${errorClass}`}
 				aria-labelledby='Выбор способа оплаты'
 			/>
 			<Box className='btn-container'>

@@ -100,13 +100,16 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 					{formatMoney(min)}₽
 				</Typography>
 				{Array.isArray(middle) ? (
-					<Box className='slider__middle-values'>
-						{middle.map((el) => (
-							<Typography className='slider__value' component='p'>
+					<>
+						{middle.map((el, i) => (
+							<Typography
+								className={`slider__value slider__value-${i + 1}`}
+								component='p'
+							>
 								{formatMoney(el)}₽
 							</Typography>
 						))}
-					</Box>
+					</>
 				) : (
 					<Typography className='slider__middle-value' component='p'>
 						{formatMoney(middle)}₽

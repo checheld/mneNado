@@ -10,11 +10,12 @@ import { FileWithPath } from 'react-dropzone';
 import './style.sass';
 
 const steps = [
-	{ label: 'Step 1', step: 0 },
-	{ label: 'Step 2', step: 1 },
-	{ label: 'Step 3', step: 2 },
-	{ label: 'Step 4', step: 3 },
-	{ label: 'Step 5', step: 5 },
+	{ label: 'Адрес', step: 0 },
+	{ label: 'Название и категория', step: 1 },
+	{ label: 'Сроки выполнения', step: 2 },
+	{ label: 'Детали', step: 3 },
+	{ label: 'Бюджет и способ оплаты', step: 5 },
+	{ label: 'Предпросмотр', step: 6 },
 ];
 
 export interface IFormData {
@@ -50,7 +51,7 @@ export const initialFormData: IFormData = {
 };
 
 const NewOrderPage: React.FC = () => {
-	const [step, setStep] = useState(4);
+	const [step, setStep] = useState(0);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
 
 	const onDataChange = (

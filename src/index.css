@@ -73,7 +73,10 @@ body {
 	height: 100%;
 	margin-top: 100px;
 }
-
+.error {
+	border-color: #fb6e07 !important;
+	text-align: left;
+}
 :root {
 	--dark-blue: #236794;
 	--blue-gray: #748ba4;
