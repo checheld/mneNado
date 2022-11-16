@@ -13,7 +13,7 @@ const OrdersPage: React.FC = () => {
 			</Box>
 			<Box sx={{display: 'flex'}}>
 				<SorthingCheckboxes />
-				<Box sx={{ pt: 5 }}>
+				<Box sx={{ pt: 5, pl: '100px' }}>
 					<TaskCard />
 					<TaskCard />
 					<TaskCard />
