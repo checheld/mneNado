@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
 import CustomTextarea from '../CustomTextarea';
 import CustomDropzone from '../Dropzone';
 import { FileWithPath } from 'react-dropzone';
+import { validateField } from '../../utils/validation';
 import './style.sass';
 
 interface IProps {
@@ -18,7 +20,7 @@ interface IProps {
 }
 
 interface IErrorsData {
-	description: '';
+	description: string;
 }
 
 const initialErrors: IErrorsData = {
@@ -27,18 +29,30 @@ const initialErrors: IErrorsData = {
 
 const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const [files, setFiles] = useState<FileWithPath[] | null>(formData.files);
-	const [errors, setErrors] = useState(initialErrors);
+	const [error, setError] = useState(initialErrors);
 
 	const handleInputChange = (
 		e: React.ChangeEvent<HTMLTextAreaElement>
 	): void => {
 		onChange(e.target.name, e.target.value);
-		setErrors({ ...errors, [e.target.name]: '' });
+		setError({ ...error, description: '' });
+	};
+
+	const validateInput = (): boolean => {
+		const descriptionError = validateField(formData.description);
+		if (descriptionError) setError({ description: descriptionError });
+		return !descriptionError;
 	};
 
 	const handleClear = (index: number): void => {
-		const newFiles = files?.splice(index, 1);
-		setFiles(newFiles!);
+		let filesArr = files?.map((el) => el);
+		if (files?.length! > 1) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			let removed = filesArr?.splice(index, 1);
+			setFiles(filesArr as []);
+		} else {
+			setFiles([]);
+		}
 	};
 
 	const handlePrev = (): void => {
@@ -47,12 +61,11 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const handleNext = (): void => {
-		onChange('files', files);
-		console.log('files', files);
-		setStep(4);
+		if (validateInput()) {
+			onChange('files', files);
+			setStep(4);
+		}
 	};
-
-	files?.map((file) => console.log('first', URL.createObjectURL(file)));
 
 	return (
 		<>
@@ -67,8 +80,9 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 				placeholder='Опишите детали задания'
 				onChange={handleInputChange}
 				className='textarea'
+				error={error.description}
 			/>
-			{!files ? (
+			{!files?.length ? (
 				<>
 					<Typography variant='body1'>Добавить файлы</Typography>
 					<CustomDropzone setFiles={setFiles} />
@@ -82,11 +96,18 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 				>
 					{files.map((file, index) => (
 						<div className='preview-container'>
-							<img
-								src={URL.createObjectURL(file)}
-								alt='Предпросмотр изображения'
-								className='img-preview'
-							/>
+							{file.type.includes('image') ? (
+								<img
+									src={URL.createObjectURL(file)}
+									alt='Предпросмотр изображения'
+									className='img-preview'
+								/>
+							) : (
+								<Stack direction='row' alignItems='center'>
+									<PictureAsPdfIcon />
+									<Typography component='p'>{file.name}</Typography>
+								</Stack>
+							)}
 							<IconButton
 								className='preview-btn'
 								onClick={() => handleClear(index)}

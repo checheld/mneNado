@@ -5,6 +5,7 @@ import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
 import DatePicker from '../CustomDatePicker';
 import CustomTimePicker from '../CustomTimePicker';
+import { validateDate, validatePeriod } from '../../utils/validation';
 import './style.sass';
 
 const dateTypes = [
@@ -20,8 +21,8 @@ interface IProps {
 }
 
 interface IErrorsData {
-	start_date?: '';
-	end_date?: '';
+	start_date?: string;
+	end_date?: string;
 }
 
 const initialErrors: IErrorsData = {
@@ -32,6 +33,7 @@ const initialErrors: IErrorsData = {
 const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 	const [dateType, setDateType] = useState('start');
 	const [errors, setErrors] = useState(initialErrors);
+	const [errorClass, setErrorClass] = useState('');
 
 	const keys = Object.keys(dateTypes[0]);
 
@@ -39,21 +41,45 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 		(field: string) =>
 		(date: string | null): void => {
 			onChange(field, date);
+			setErrors({ ...errors, [field]: '' });
+			setErrorClass('');
 		};
 
 	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
 		setDateType(event.target.value as string);
 	};
 
-	const handlePrev = (): void => {
-		setStep(1);
-		// join date and time before sending to server
-	};
-	const handleNext = (): void => {
-		setStep(3);
+	const validateInputs = (): boolean => {
+		let endDateError;
+		const startDateError = validateDate(formData.start_date);
+		if (dateType === 'start') {
+			setErrors({ start_date: startDateError, end_date: '' });
+			setErrorClass('error');
+			return !startDateError;
+		} else if (dateType === 'end') {
+			endDateError = validateDate(formData.end_date);
+			setErrors({ end_date: endDateError });
+			setErrorClass('error');
+			return !endDateError;
+		} else if (dateType === 'period') {
+			endDateError = validatePeriod(formData.start_date, formData.end_date);
+			setErrors({ start_date: startDateError, end_date: endDateError });
+			setErrorClass('error');
+			return [startDateError, endDateError].every((el) => !el);
+		}
+		return [startDateError, endDateError].every((el) => !el);
 	};
 
-	console.log(dateType);
+	const handlePrev = (): void => {
+		setStep(1);
+	};
+	const handleNext = (): void => {
+		// join date and time before sending to server
+		if (validateInputs()) {
+			setStep(3);
+		}
+	};
+
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
@@ -72,7 +98,7 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 			{dateType !== 'period' && (
 				<Stack
 					direction='row'
-					sx={{ mb: '30px' }}
+					sx={{ m: '0 auto', mb: '30px' }}
 					justifyContent='space-evenly'
 				>
 					<DatePicker
@@ -85,9 +111,10 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 						value={
 							dateType === 'start' ? formData.start_date : formData.end_date
 						}
+						error={dateType === 'start' ? errors.start_date : errors.end_date}
 						disablePast
-						className='step__input'
-						inputClassName='date-input'
+						className='step__input date'
+						inputClassName={`date-input ${errorClass}`}
 					/>
 					<CustomTimePicker
 						id='time'
@@ -120,7 +147,8 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 							value={formData.start_date}
 							disablePast
 							className='step__input'
-							inputClassName='date-input'
+							inputClassName={`date-input ${errorClass}`}
+							error={errors.start_date}
 						/>
 						<CustomTimePicker
 							id='time'
@@ -146,7 +174,8 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 							value={formData.end_date}
 							disablePast
 							className='step__input'
-							inputClassName='date-input'
+							inputClassName={`date-input ${errorClass}`}
+							error={errors.end_date}
 						/>
 						<CustomTimePicker
 							id='time'

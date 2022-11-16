@@ -105,7 +105,13 @@ const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
 					disabled={disabled}
 					type={type}
 				></StyledInput>
-				<FormHelperText sx={{ marginBottom: 1, color: '#FB6E07' }}>
+				<FormHelperText
+					sx={{
+						height: '20px',
+						marginBottom: 3,
+						color: '#FB6E07',
+					}}
+				>
 					{error}
 				</FormHelperText>
 			</>

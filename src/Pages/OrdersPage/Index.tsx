@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import SearchForm from '../../Components/SearchForm/Index';
+import SearchForm from '../../Components/SearchForm';
 import TaskCard from '../../Components/TaskCard';
 import './style.css';
 import SorthingCheckboxes from './Components/SorthingCheckboxes/index';
@@ -11,7 +11,7 @@ const OrdersPage: React.FC = () => {
 			<Box className='formContainer'>
 				<SearchForm />
 			</Box>
-			<Box sx={{display: 'flex'}}>
+			<Box sx={{ display: 'flex' }}>
 				<SorthingCheckboxes />
 				<Box sx={{ pt: 5, pl: '100px' }}>
 					<TaskCard />

@@ -5,6 +5,7 @@ import CustomSelect from '../CustomSelect';
 import InputCustomized from '../InputCustomized';
 import { IFormData } from '../../Pages/NewOrder';
 import { categories, subcategories } from '../../dummyData';
+import { validateField } from '../../utils/validation';
 
 interface IProps {
 	formData: IFormData;
@@ -34,12 +35,22 @@ const Step2: FC<IProps> = ({ formData, onChange, setStep }) => {
 		onChange(event.target.name, event.target.value as string);
 	};
 
+	const validateInputs = (): boolean => {
+		const nameError = validateField(formData.task_name);
+		if (nameError) {
+			setErrors({ task_name: nameError });
+		}
+		return !nameError;
+	};
+
 	const handlePrev = (): void => {
 		setStep(0);
 	};
 
 	const handleNext = (): void => {
-		setStep(2);
+		if (validateInputs()) {
+			setStep(2);
+		}
 	};
 
 	return (
