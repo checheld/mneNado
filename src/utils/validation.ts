@@ -20,6 +20,17 @@ export const validateStartDate = (val: string | null): string => {
 	return '';
 };
 
+export const validatePeriod = (
+	val1: string | null,
+	val2: string | null
+): string => {
+	const startDate = DateTime.fromISO(val1 as string);
+	const endDate = DateTime.fromISO(val2 as string);
+	if (startDate > endDate)
+		return 'Дата завершения не может быть раньше даты начала';
+	return '';
+};
+
 export const validatePhone = (val: string): string => {
 	if (val.trim() === '') return 'Field can not be empty';
 	if (!validator.isMobilePhone(val, 'ru-RU'))

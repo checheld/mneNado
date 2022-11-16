@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	FormControl,
 	FormControlLabel,
+	FormHelperText,
 	FormLabel,
 	Radio,
 	RadioGroup,
@@ -17,6 +18,7 @@ interface IProps {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	className: string;
 	ariaLabel?: string;
+	error?: string;
 }
 
 const BpIcon = styled('span')(() => ({
@@ -88,6 +90,15 @@ const RadioButtons: React.FC<IProps> = (props) => {
 					/>
 				))}
 			</RadioGroup>
+			<FormHelperText
+				sx={{
+					height: '20px',
+					marginBottom: 3,
+					color: '#FB6E07',
+				}}
+			>
+				{props.error}
+			</FormHelperText>
 		</FormControl>
 	);
 };

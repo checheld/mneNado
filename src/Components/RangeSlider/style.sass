@@ -17,12 +17,12 @@ $light-grey: #f1f5f7
 
 .slider
   position: relative
-  width: 35vw
+  width: 37vw
 .slider__track,
 .slider__range,
 .slider__left-value,
 .slider__right-value,
-.slider__middle-value
+.slider__value
   position: absolute
 
 .slider__track,
@@ -41,16 +41,14 @@ $light-grey: #f1f5f7
 
 .slider .slider__left-value,
 .slider .slider__right-value,
-.slider .slider__middle-value,
 .slider .slider__value
   color: #363636
   font-size: 13px
   margin-top: 15px
 
 .slider .slider__left-value::after,
-.slider .slider__middle-value::after,
-.slider .slider__right-value::after,
-.slider .slider__value::after
+.slider .slider__value::after,
+.slider .slider__right-value::after
   content: ''
   top: -17px
   position: absolute
@@ -61,45 +59,45 @@ $light-grey: #f1f5f7
 
 .slider__left-value
   left: 0px
+  &::after
+    left: 0
 
-.slider .slider__left-value::after
-  left: 0
+.slider__value
+  left: 10vw
 
-.slider__middle-value
-  left: 42%
+.slider__value-1
+  left: 21%
+  &::after
+    left: 40%
+  @media screen and (max-width: 1100px)
+    left: 19%
+    &::after
+      left: 36%
 
-.slider .slider__middle-value::after
-  left: 17px
+.slider__value-2
+  left: 46%
+  &::after
+    left: 40%
+  @media screen and (max-width: 1100px)
+    left: 44%
+
+.slider__value-3
+  left: 72%
+  &::after
+    left: 29%
+  @media screen and (max-width: 1100px)
+    left: 68%
+    &::after
+      left: 30%
 
 .slider__right-value
   right: 5px
-
-.slider .slider__right-value::after
-  right: -5px
-
-  // fix positions!!
-.slider__value
-  position: absolute
-  margin-top: 15px
-  margin-right: 50px
-
-.slider__value.slider__value-1
-  left: 18%
-
-.slider .slider__value-1::after
-  left: 54%
-
-.slider__value.slider__value-2
-  left: 44%
-
-.slider .slider__value-2::after
-  left: 30%
-
-.slider__value.slider__value-3
-  right: 21%
-
-.slider .slider__value-3::after
-  right: 42%
+  &::after
+    right: -5px
+  @media screen  and (max-width: 800px)
+    right: -15px
+    &::after
+      right: 15px
 
 .thumb,
 .thumb::-webkit-slider-thumb
@@ -110,7 +108,7 @@ $light-grey: #f1f5f7
   pointer-events: none
   position: absolute
   height: 0
-  width: 35vw
+  width: 37vw
   outline: none
 
 .thumb--zindex-3
@@ -147,7 +145,7 @@ $light-grey: #f1f5f7
   position: relative
 
 .slider__bubble
-  @include position(auto, 0%,-0%,0, 1rem)
+  @include position(auto, 0%, -0%, 0, 1rem)
   text-align: center
   background-color: transparentize($blue, 0.2)
   padding: 5px 10px

@@ -8,6 +8,7 @@ import Step4 from '../../Components/NewOrderSteps/Step4';
 import Step5 from '../../Components/NewOrderSteps/Step5';
 import { FileWithPath } from 'react-dropzone';
 import './style.sass';
+import TaskPreview from '../../Components/NewOrderSteps/Step6';
 
 const steps = [
 	{ label: 'Адрес', step: 0 },
@@ -101,6 +102,14 @@ const NewOrderPage: React.FC = () => {
 						formData={formData}
 						onChange={onDataChange}
 						setStep={setStep}
+					/>
+				);
+			case 5:
+				return (
+					<TaskPreview
+						formData={formData}
+						setStep={setStep}
+						paymentMethod={formData.payment_method}
 					/>
 				);
 			default:

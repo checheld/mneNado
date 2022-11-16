@@ -28,12 +28,12 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	useEffect(() => {
 		if (maxValRef.current) {
 			const minPercent = getPercent(minVal);
-			const maxPercent = getPercent(+maxValRef.current!.value); // Preceding with '+' converts the value from type string to type number
+			const maxPercent = getPercent(+maxValRef.current!.value);
 
 			if (range.current) {
 				range.current.style.left = `${minPercent}%`;
 				range.current.style.width = `${maxPercent - minPercent}%`;
-				bubble!.current!.style.left = `${minPercent - 19}%`;
+				bubble!.current!.style.left = `${minPercent - 9}%`;
 			}
 		}
 	}, [minVal, getPercent]);
@@ -53,6 +53,7 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	// Get min and max values when their state changes
 	useEffect(() => {
 		onChange({ min: minVal, max: maxVal });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [minVal, maxVal]);
 
 	return (

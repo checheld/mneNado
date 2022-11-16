@@ -73,7 +73,7 @@ const CustomDatePicker: React.FC<IProps> = ({
 	};
 
 	return (
-		<Stack direction='column'>
+		<Stack direction='column' className='datepicker-wrap'>
 			<LocalizationProvider adapterLocale='ru' dateAdapter={AdapterLuxon}>
 				<Stack direction='column'>
 					<StyledLabel htmlFor={id}>{label}</StyledLabel>

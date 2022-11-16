@@ -12,5 +12,5 @@ export const formatMoney = (amount: number): string => {
 };
 
 export const formatDate = (dateTime: string, format: string): string => {
-	return DateTime.fromISO(dateTime).toFormat(format);
+	return DateTime.fromISO(dateTime).toFormat(format, { locale: 'ru' });
 };

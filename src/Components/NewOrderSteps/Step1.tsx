@@ -93,9 +93,10 @@ const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography
 				component={'p'}
 				className='step__text'
-				sx={{ mt: '-20px', mb: '30px', textAlign: 'center' }}
+				sx={{ mt: '-5px', mb: '30px', textAlign: 'center' }}
 			>
-				Если задание нужно выполнить онлайн, можете оставить поле Адрес пустым
+				Если задание нужно выполнить&nbsp;онлайн, можете оставить
+				поле&nbsp;Адрес пустым
 			</Typography>
 			<StyledLabel className={errorClass}>Адрес</StyledLabel>
 			<AddressSuggestions

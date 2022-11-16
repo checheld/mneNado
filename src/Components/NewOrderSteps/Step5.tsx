@@ -5,8 +5,8 @@ import { IFormData } from '../../Pages/NewOrder';
 import RangeSlider from '../RangeSlider';
 import InputCustomized from '../InputCustomized';
 import RadioButtons from '../RadioButtons';
+import { validateBudget } from '../../utils/validation';
 import './style.sass';
-import { validateBudget, validateField } from '../../utils/validation';
 
 interface IProps {
 	formData: IFormData;
@@ -52,17 +52,17 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const validateInputs = (): boolean => {
-		let budgetError;
-		const methodError = validateField(formData.payment_method);
+		let budgetError, methodError;
 		if (typeof formData.budget === 'string') {
 			budgetError = validateBudget(formData.budget);
-			console.log('budgetError', budgetError);
 			setErrors({ budget: budgetError, payment_method: '' });
 		}
+		if (formData.payment_method.trim() === '') {
+			methodError = 'Пожалуйста, выберите способ оплаты';
+			setErrorClass('radio-error');
+		}
 		if (methodError || budgetError)
-			setErrors({ budget: budgetError, payment_method: methodError });
-		setErrorClass('readio-error');
-		console.log('errors', errors);
+			setErrors({ budget: budgetError, payment_method: methodError as string });
 		return [budgetError, methodError].every((el) => !el);
 	};
 
@@ -71,7 +71,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 	const handleSubmit = (): void => {
 		if (validateInputs()) {
-			console.log(formData);
+			setStep(5);
 		}
 	};
 	return (
@@ -106,6 +106,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 				onChange={handleRadioChange}
 				className={`step__radio-group ${errorClass}`}
 				aria-labelledby='Выбор способа оплаты'
+				error={errors.payment_method}
 			/>
 			<Box className='btn-container'>
 				<CustomButton

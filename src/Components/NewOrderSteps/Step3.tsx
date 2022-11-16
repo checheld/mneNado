@@ -5,8 +5,8 @@ import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
 import DatePicker from '../CustomDatePicker';
 import CustomTimePicker from '../CustomTimePicker';
+import { validateDate, validatePeriod } from '../../utils/validation';
 import './style.sass';
-import { validateDate } from '../../utils/validation';
 
 const dateTypes = [
 	{ value: 'start', label: 'Начало работы' },
@@ -50,17 +50,19 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const validateInputs = (): boolean => {
+		let endDateError;
 		const startDateError = validateDate(formData.start_date);
-		const endDateError = validateDate(formData.end_date);
 		if (dateType === 'start') {
 			setErrors({ start_date: startDateError, end_date: '' });
 			setErrorClass('error');
 			return !startDateError;
 		} else if (dateType === 'end') {
+			endDateError = validateDate(formData.end_date);
 			setErrors({ end_date: endDateError });
 			setErrorClass('error');
 			return !endDateError;
 		} else if (dateType === 'period') {
+			endDateError = validatePeriod(formData.start_date, formData.end_date);
 			setErrors({ start_date: startDateError, end_date: endDateError });
 			setErrorClass('error');
 			return [startDateError, endDateError].every((el) => !el);
@@ -96,7 +98,7 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 			{dateType !== 'period' && (
 				<Stack
 					direction='row'
-					sx={{ mb: '30px' }}
+					sx={{ m: '0 auto', mb: '30px' }}
 					justifyContent='space-evenly'
 				>
 					<DatePicker
@@ -111,7 +113,7 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 						}
 						error={dateType === 'start' ? errors.start_date : errors.end_date}
 						disablePast
-						className='step__input'
+						className='step__input date'
 						inputClassName={`date-input ${errorClass}`}
 					/>
 					<CustomTimePicker

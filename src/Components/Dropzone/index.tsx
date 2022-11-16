@@ -15,7 +15,7 @@ const CustomDropzone: React.FC<{
 		onDrop,
 		accept: {
 			'image/*': ['.png', '.jpeg', '.jpg', '.svg'],
-			'application/*': ['pdf'],
+			'application/octet-stream': ['.pdf'],
 		},
 		multiple: true,
 	});
