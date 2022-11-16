@@ -1,8 +1,8 @@
 $blue: #2e9ad3
-$grey: #b1b0b5 
+$grey: #b1b0b5
 $light-grey: #f1f5f7
 
-@mixin position($top: 50%, $left: 50%, $horizontal: -50%, $vertical: -50%, $bottom: auto) 
+@mixin position($top: 50%, $left: 50%, $horizontal: -50%, $vertical: -50%, $bottom: auto)
   position: absolute
   top: $top
   left: $left
@@ -11,19 +11,18 @@ $light-grey: #f1f5f7
   -webkit-transform: translate($horizontal, $vertical)
   -ms-transform: translate($horizontal, $vertical)
 
-
 .slider-container
   margin-top: 40px
   margin-bottom: 60px
-  
+
 .slider
   position: relative
-  width: 35vw
+  width: 37vw
 .slider__track,
 .slider__range,
 .slider__left-value,
 .slider__right-value,
-.slider__middle-value
+.slider__value
   position: absolute
 
 .slider__track,
@@ -42,13 +41,13 @@ $light-grey: #f1f5f7
 
 .slider .slider__left-value,
 .slider .slider__right-value,
-.slider .slider__middle-value
+.slider .slider__value
   color: #363636
   font-size: 13px
   margin-top: 15px
 
 .slider .slider__left-value::after,
-.slider .slider__middle-value::after,
+.slider .slider__value::after,
 .slider .slider__right-value::after
   content: ''
   top: -17px
@@ -60,23 +59,46 @@ $light-grey: #f1f5f7
 
 .slider__left-value
   left: 0px
+  &::after
+    left: 0
 
-.slider .slider__left-value::after
-  left: 0
+.slider__value
+  left: 10vw
 
-.slider__middle-value
-  left: 42%
+.slider__value-1
+  left: 21%
+  &::after
+    left: 40%
+  @media screen and (max-width: 1100px)
+    left: 19%
+    &::after
+      left: 36%
 
-.slider .slider__middle-value::after
-  left: 17px
+.slider__value-2
+  left: 46%
+  &::after
+    left: 40%
+  @media screen and (max-width: 1100px)
+    left: 44%
+
+.slider__value-3
+  left: 72%
+  &::after
+    left: 29%
+  @media screen and (max-width: 1100px)
+    left: 68%
+    &::after
+      left: 30%
 
 .slider__right-value
   right: 5px
+  &::after
+    right: -5px
+  @media screen  and (max-width: 800px)
+    right: -15px
+    &::after
+      right: 15px
 
-.slider .slider__right-value::after
-  right: -5px
-
-/* Removing the default appearance */
 .thumb,
 .thumb::-webkit-slider-thumb
   -webkit-appearance: none
@@ -86,7 +108,7 @@ $light-grey: #f1f5f7
   pointer-events: none
   position: absolute
   height: 0
-  width: 35vw
+  width: 37vw
   outline: none
 
 .thumb--zindex-3
@@ -98,7 +120,6 @@ $light-grey: #f1f5f7
 .thumb--zindex-5
   z-index: 5
 
-/* For Chrome browsers */
 .thumb::-webkit-slider-thumb
   background-color: $light-grey
   border: none
@@ -111,7 +132,6 @@ $light-grey: #f1f5f7
   pointer-events: all
   position: relative
 
-/* For Firefox browsers */
 .thumb::-moz-range-thumb
   background-color: $light-grey
   border: none
@@ -124,27 +144,22 @@ $light-grey: #f1f5f7
   pointer-events: all
   position: relative
 
-.slider__bubble 
-  @include position(auto, 0%,-0%,0, 1rem)
+.slider__bubble
+  @include position(auto, 0%, -0%, 0, 1rem)
   text-align: center
   background-color: transparentize($blue, 0.2)
-  padding:5px 10px
+  padding: 5px 10px
   color: $light-grey
   width: auto
   margin: 0
   white-space: nowrap
   border-radius: 10px
-  
-  &::before 
-    content: ""
 
-    // border magic makes arrow yay!
-    width: 0 
-    height: 0 
+  &::before
+    content: ""
+    width: 0
+    height: 0
     border-left: 10px solid transparent
     border-right: 10px solid transparent
     border-top: 10px solid transparentize($blue, 0.3)
-
-    // put to the right place
     @include position(auto, 50%, -50%, -45%, -13.9px)
-  

@@ -5,7 +5,7 @@ import './style.sass';
 
 interface IProps {
 	min: number;
-	middle: number;
+	middle: number | number[];
 	max: number;
 	onChange: any;
 }
@@ -16,7 +16,7 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	const minValRef = useRef<any>(null);
 	const maxValRef = useRef<any>(null);
 	const range = useRef<any>(null);
-	const bubble = useRef<HTMLDivElement>(null)
+	const bubble = useRef<HTMLDivElement>(null);
 
 	// Convert to percentage
 	const getPercent = useCallback(
@@ -28,12 +28,12 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	useEffect(() => {
 		if (maxValRef.current) {
 			const minPercent = getPercent(minVal);
-			const maxPercent = getPercent(+maxValRef.current!.value); // Preceding with '+' converts the value from type string to type number
+			const maxPercent = getPercent(+maxValRef.current!.value);
 
 			if (range.current) {
 				range.current.style.left = `${minPercent}%`;
 				range.current.style.width = `${maxPercent - minPercent}%`;
-				bubble!.current!.style.left = `${minPercent -19}%`
+				bubble!.current!.style.left = `${minPercent - 9}%`;
 			}
 		}
 	}, [minVal, getPercent]);
@@ -53,7 +53,8 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 	// Get min and max values when their state changes
 	useEffect(() => {
 		onChange({ min: minVal, max: maxVal });
-	}, [minVal, maxVal, onChange]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [minVal, maxVal]);
 
 	return (
 		<Stack
@@ -94,14 +95,27 @@ const RangeSlider: React.FC<IProps> = ({ min, middle, max, onChange }) => {
 				<div className='slider__track' />
 				<div ref={range} className='slider__range' />
 				<Box className='slider__bubble' ref={bubble}>
-				  {formatMoney(minVal)}₽&nbsp;&mdash;&nbsp;{formatMoney(maxVal)}₽
+					{formatMoney(minVal)}₽&nbsp;&mdash;&nbsp;{formatMoney(maxVal)}₽
 				</Box>
 				<Typography className='slider__left-value' component='p'>
 					{formatMoney(min)}₽
 				</Typography>
-				<Typography className='slider__middle-value' component='p'>
-					{formatMoney(middle)}₽
-				</Typography>
+				{Array.isArray(middle) ? (
+					<>
+						{middle.map((el, i) => (
+							<Typography
+								className={`slider__value slider__value-${i + 1}`}
+								component='p'
+							>
+								{formatMoney(el)}₽
+							</Typography>
+						))}
+					</>
+				) : (
+					<Typography className='slider__middle-value' component='p'>
+						{formatMoney(middle)}₽
+					</Typography>
+				)}
 				<Typography className='slider__right-value' component='p'>
 					{formatMoney(max)}₽
 				</Typography>

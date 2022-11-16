@@ -93,7 +93,7 @@ const StepperComponent: FC<IProps> = (props) => {
 			nextButton={null} // set as null these buttons
 			backButton={null}
 			LinearProgressProps={{}}
-			sx={{ width: '100%', backgroundColor: 'transparent' }}
+			sx={{ width: '45vw', backgroundColor: 'transparent' }}
 		/>
 	);
 };

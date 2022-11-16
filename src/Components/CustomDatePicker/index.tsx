@@ -3,7 +3,7 @@ import 'dayjs/locale/ru';
 import { DateTime } from 'luxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
+import { DatePicker } from '@mui/x-date-pickers';
 import {
 	FormHelperText,
 	TextField,
@@ -73,7 +73,7 @@ const CustomDatePicker: React.FC<IProps> = ({
 	};
 
 	return (
-		<>
+		<Stack direction='column' className='datepicker-wrap'>
 			<LocalizationProvider adapterLocale='ru' dateAdapter={AdapterLuxon}>
 				<Stack direction='column'>
 					<StyledLabel htmlFor={id}>{label}</StyledLabel>
@@ -94,10 +94,18 @@ const CustomDatePicker: React.FC<IProps> = ({
 						disablePast={disablePast}
 						disableFuture={disableFuture}
 					/>
+					<FormHelperText
+						sx={{
+							height: '20px',
+							marginBottom: 3,
+							color: '#FB6E07',
+						}}
+					>
+						{error}
+					</FormHelperText>
 				</Stack>
 			</LocalizationProvider>
-			<FormHelperText>{error}</FormHelperText>
-		</>
+		</Stack>
 	);
 };
 
