@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
 import { formatDate, formatMoney } from '../../utils/functions';
+import './style.sass';
 
 interface IProps {
 	formData: IFormData;
@@ -33,17 +35,22 @@ const TaskPreview: React.FC<IProps> = ({
 			<Typography component={'h3'} className='step__heading'>
 				Предпросмотр задания
 			</Typography>
-			<Box>
-				<Typography variant='h6'>{formData.task_name}</Typography>
+			<Box sx={{ mb: '15px' }} className='preview-wrap'>
+				<Typography variant='h5' sx={{ mb: '15px' }}>
+					{formData.task_name}
+				</Typography>
 				{!formData.isOnline ? (
-					<Typography>Выполнить по адресу: {formData.address}</Typography>
+					<Typography sx={{ mb: '15px' }}>
+						<strong>Выполнить по адресу:</strong> {formData.address}
+					</Typography>
 				) : (
-					<Typography>Выполнить задание онлайн</Typography>
+					<Typography sx={{ mb: '15px' }}>Выполнить задание онлайн</Typography>
 				)}
 				{/* date */}
 				{formData.start_date ? (
 					<Typography>
-						Начать: {formatDate(formData.start_date, 'dd LLL yyyy')},{' '}
+						<strong>Начать:</strong>{' '}
+						{formatDate(formData.start_date, 'dd LLL yyyy')},{' '}
 						{formData.start_time
 							? `${formatDate(formData.start_time, 'HH:mm')}`
 							: null}
@@ -51,7 +58,8 @@ const TaskPreview: React.FC<IProps> = ({
 				) : null}
 				{formData.end_date ? (
 					<Typography>
-						Завершить {formatDate(formData.end_date, 'dd LLL yyyy')},{' '}
+						<strong>Завершить:</strong>{' '}
+						{formatDate(formData.end_date, 'dd LLL yyyy')},{' '}
 						{formData.end_time
 							? `${formatDate(formData.end_time, 'HH:mm')}`
 							: null}
@@ -59,18 +67,46 @@ const TaskPreview: React.FC<IProps> = ({
 				) : null}
 			</Box>
 			{/* budget */}
-			<Box>
+			<Box className='content-wrap'>
 				{Array.isArray(formData.budget) ? (
 					<Typography>
 						Бюджет от {formData.budget[0]}₽ до {formData.budget[1]}₽
 					</Typography>
 				) : (
 					<Typography>
-						Стоимость {formatMoney(Number(formData.budget))}₽
+						<strong>Стоимость:</strong> {formatMoney(Number(formData.budget))}₽
 					</Typography>
 				)}
 				<Typography>Оплата {paymentType}</Typography>
-				<Typography>{formData.description}</Typography>
+			</Box>
+			<Box className='content-wrap'>
+				<Typography>
+					<strong>Подробное описание задания: </strong>
+					{formData.description}
+				</Typography>
+				<Stack
+					className='file-container'
+					direction='row'
+					alignItems='center'
+					sx={{ mb: '20px' }}
+				>
+					{formData.files?.map((file, index) => (
+						<div className='content-container'>
+							{file.type.includes('image') ? (
+								<img
+									src={URL.createObjectURL(file)}
+									alt='Предпросмотр изображения'
+									className='img-preview'
+								/>
+							) : (
+								<Stack direction='row' alignItems='center'>
+									<PictureAsPdfIcon />
+									<Typography component='p'>{file.name}</Typography>
+								</Stack>
+							)}
+						</div>
+					))}
+				</Stack>
 			</Box>
 			<Box className='btn-container' sx={{ mt: '30px' }}>
 				<CustomButton

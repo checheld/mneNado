@@ -113,7 +113,6 @@ const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 			<FormHelperText
 				sx={{
 					height: '20px',
-					marginTop: -2,
 					marginBottom: 1,
 					color: '#FB6E07',
 				}}
