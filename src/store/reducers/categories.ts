@@ -30,6 +30,7 @@ const categoriesReducer = (
 		case CategoriesActionEnum.GET_CATEGORIES_FAIL: {
 			return {
 				...state,
+				isLoading: false,
 				error: action.payload,
 			};
 		}

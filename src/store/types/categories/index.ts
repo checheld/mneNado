@@ -20,7 +20,7 @@ export interface IGetCategories {
 	type: typeof CategoriesActionEnum.GET_CATEGORIES;
 }
 
-export interface IGetCategorieSuccess {
+export interface IGetCategoriesSuccess {
 	type: typeof CategoriesActionEnum.GET_CATEGORIES_SUCCESS;
 	payload: ICategory[];
 }
@@ -32,5 +32,5 @@ export interface IGetCategoriesFail {
 
 export type CategoriesActions =
 	| IGetCategories
-	| IGetCategorieSuccess
+	| IGetCategoriesSuccess
 	| IGetCategoriesFail;

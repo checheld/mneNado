@@ -83,7 +83,9 @@ const Step2: FC<IProps> = ({ formData, onChange, setStep }) => {
 					name='subcategory'
 					label='Выберите подкатегорию'
 					value={formData.subcategory}
-					values={subcategories}
+					values={subcategories.filter(
+						(el) => el.category === +formData.category
+					)}
 					menuItemValue={subcategoryKeys[0]}
 					menuItemLabel={subcategoryKeys[1]}
 					onChange={handleSelect}
