@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, List, ListItem, Paper, Stack, Typography } from '@mui/material';
 import CustomButton from '../../Components/CustomButton/Index';
-import { categories } from '../../dummyData';
+import { categories, subcategories } from '../../dummyData';
+import { CategoriesActionEnum } from '../../store/types/categories';
+import { useTypedSelector } from '../../hooks/hooks';
+import {
+	ISubcategory,
+	SubcategoriesActionEnum,
+} from '../../store/types/subcategories';
 import './style.sass';
 
 const Main: React.FC = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const categoriesList = useTypedSelector((state) => state.categoriesState);
+	const subcategoriesList = useTypedSelector(
+		(state) => state.subcategoriesState
+	);
+
+	let filteredSubcategories = (parentId: number): ISubcategory[] => {
+		return subcategories.filter((item) => item.category === parentId);
+	};
+
+	useEffect(() => {
+		dispatch({ type: CategoriesActionEnum.GET_CATEGORIES });
+		dispatch({ type: SubcategoriesActionEnum.GET_SUBCATEGORIES });
+	}, [dispatch]);
+
 	return (
 		<Stack direction='column' alignItems='center' className='main'>
 			<Typography component='h1' className='main__heading'>
@@ -15,6 +38,25 @@ const Main: React.FC = () => {
 			<Typography component='p' className='main__text'>
 				Немного текста о том, какие мы классные, и чем можем быть полезны
 			</Typography>
+			<Box className='section'>
+				<Typography className='section__heading' component='h2'>
+					Категории заданий
+				</Typography>
+				<List className='categories'>
+					{categories.map((item) => (
+						<ListItem className='category' key={item.category_id}>
+							{item.name}
+							<List className='subcategories'>
+								{filteredSubcategories(item.category_id).map((el) => (
+									<ListItem className='subcategory' key={el.sub_category_id}>
+										{el.name}
+									</ListItem>
+								))}
+							</List>
+						</ListItem>
+					))}
+				</List>
+			</Box>
 			<Stack
 				direction='row'
 				className='hero'
@@ -83,18 +125,6 @@ const Main: React.FC = () => {
 						/>
 					</Paper>
 				</Stack>
-			</Box>
-			<Box className='section'>
-				<Typography className='section__heading' component='h2'>
-					Категории заданий
-				</Typography>
-				<List className='categories'>
-					{categories.map((item) => (
-						<ListItem className='category' key={item.category_id}>
-							{item.category}
-						</ListItem>
-					))}
-				</List>
 			</Box>
 		</Stack>
 	);

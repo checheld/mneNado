@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Box, OutlinedInput, OutlinedInputProps } from '@mui/material';
+import { Box, OutlinedInput, OutlinedInputProps } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import './style.css';
 import ParametersIcon from './Components/ParametersIcon';
@@ -10,10 +10,9 @@ interface IProps extends OutlinedInputProps {
 }
 
 const SearchForm: React.FC<IProps> = ({ props }) => {
-
 	const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
 	return (
 		<>
@@ -25,17 +24,12 @@ const SearchForm: React.FC<IProps> = ({ props }) => {
 					{...props}
 				/>
 				<Box className='buttonContainer'>
-					<Box className='parametersIconContainer'
-						onClick={(handleOpen)}
-					>
-						<ParametersIcon className="svg"/>
+					<Box className='parametersIconContainer' onClick={handleOpen}>
+						<ParametersIcon className='svg' />
 					</Box>
-					<CustomButton
-						text='Найти'
-						onClick={() => console.log(1)}
-					/>
+					<CustomButton text='Найти' onClick={() => console.log(1)} />
 				</Box>
-			</Box>		
+			</Box>
 		</>
 	);
 };

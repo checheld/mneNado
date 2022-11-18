@@ -1,14 +1,14 @@
 .btn-container
   display: flex
-  flex-wrap: nowrap
+  flex-wrap: wrap
   justify-content: space-between
-  margin: 0 auto
+  width: 50%
   margin-top: auto
   .step-btn
     min-width: 120px
-    text-transform: capitalize
+    padding: 20px 10px
   .back-btn
-    margin-right: 5vw
+    margin-right: 30px
     color: #236794 !important
 .select-container
   display: flex
@@ -17,22 +17,14 @@
   margin-bottom: 50px
   .select-wrap
     width: 47%
-
 .step-container .step__heading
   font-size: 26px
   font-weight: 600
   text-align: center
-  margin-bottom: 15px
+  margin-bottom: 30px
 .step__input
-  &:not
-    margin-bottom: 20px
-.step-container .step__time-input
-  width: 120px
-  margin-left: 10px
-.step-container .datepicker-wrap
-  margin-right: 30px
-.step__time-input #time, .step__time-input #date
-  padding: 4px 0
+  &:not(:last-child)
+    margin-bottom: 30px
 .step-container .textarea
   height: 110px !important
   margin-bottom: 30px
@@ -40,28 +32,14 @@
   font-size: 16px
   border: 1px solid #748BA4
   border-radius: 5px
-.step-container .react-dadata__input, .step_map
-  margin-bottom: 20px
-.step__map
-  height: 240px
-.step-container .step__radio-group
-  margin-bottom: 30px
 .preview-container
-  width: 70px
-  heigh: auto
-  margin-right: 15px
-  position: relative
-  .img-preview
-    width: 95%
-  .preview-btn
-    position: absolute
-    top: -15px
-    right: -23px
-.step-container .input-heading
-  font-size: 18px
-  font-weight: 600
-  margin-bottom: 8px
-
-.radio-error > .MuiFormGroup-root > label > .MuiButtonBase-root > span
-  box-shadow: 0 0 0 1px rgba(251, 109, 7, 0.486)
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(251, 110, 7, 1) 100%)
+  display: flex
+  align-items: stretch
+.img-preview
+  max-width: 150px
+  &:not(:last-child)
+    margin-right: 20px
+// step 6
+.content-wrap
+  font-size: 16px
+  margin-bottom: 15px

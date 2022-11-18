@@ -52,19 +52,29 @@
         margin-top: auto
 
   .categories
-    width: 50vw
+    // display: grid
+    // grid-template-columns: repeat(3, 1fr)
+    width: 60vw
     margin: 0 auto
     columns: 3
+    column-gap: 20px
+    column-fill: balance
+    margin-bottom: 50px
   .category
+    display: block
     position: relative
-    font-size: 24px
+    font-size: 20px
     margin-bottom: 20px
     &::before
       content: ''
       position: absolute
-      top: 12px
+      top: 8px
       left: -13px
       width: 24px
       height: 24px
       background-image: url(../../assets/images/icons8.png)
       background-size: contain
+    .subcategories
+      .subcategory
+        font-size: 18px
+        line-height: 1.1

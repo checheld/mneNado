@@ -98,7 +98,7 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 			{dateType !== 'period' && (
 				<Stack
 					direction='row'
-					sx={{ m: '0 auto', mb: '30px' }}
+					sx={{ m: '0 auto', mb: '30px', w: '100%' }}
 					justifyContent='space-evenly'
 				>
 					<DatePicker
@@ -153,8 +153,8 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 						<CustomTimePicker
 							id='time'
 							label='Выберите время'
-							onChange={handleDateTimeChange('end_time')}
-							value={formData.end_time}
+							onChange={handleDateTimeChange('start_time')}
+							value={formData.start_time}
 							className='step__time-input'
 						/>
 					</Stack>

@@ -108,7 +108,7 @@ const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
 				<FormHelperText
 					sx={{
 						height: '20px',
-						marginBottom: 3,
+						marginBottom: 2,
 						color: '#FB6E07',
 					}}
 				>

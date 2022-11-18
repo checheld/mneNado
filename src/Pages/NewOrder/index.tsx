@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { Box, Chip, Paper, Typography } from '@mui/material';
 import Stepper from '../../Components/Stepper';
 import Step1 from '../../Components/NewOrderSteps/Step1';
 import Step2 from '../../Components/NewOrderSteps/Step2';
 import Step3 from '../../Components/NewOrderSteps/Step3';
 import Step4 from '../../Components/NewOrderSteps/Step4';
 import Step5 from '../../Components/NewOrderSteps/Step5';
-import { FileWithPath } from 'react-dropzone';
-import './style.sass';
 import TaskPreview from '../../Components/NewOrderSteps/Step6';
+import { FileWithPath } from 'react-dropzone';
+import { categories, subcategories } from '../../dummyData';
+import './style.sass';
 
 const steps = [
 	{ label: 'Адрес', step: 0 },
@@ -54,6 +55,7 @@ export const initialFormData: IFormData = {
 const NewOrderPage: React.FC = () => {
 	const [step, setStep] = useState(0);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
+	const categoryChip = useRef<HTMLElement>(null);
 
 	const onDataChange = (
 		name: string,
@@ -129,6 +131,20 @@ const NewOrderPage: React.FC = () => {
 			</Typography>
 			<Stepper activeStep={step} steps={steps.map((step) => step.label)} />
 			<Paper className='step-container'>{renderCurrentStep()}</Paper>
+			{step === 1 ? (
+				<aside className='categories-list'>
+					{categories.map((item) => (
+						<Chip
+							key={item.category_id}
+							label={item.name}
+							component='span'
+							clickable
+							className='categories-list__item'
+							ref={categoryChip}
+						/>
+					))}
+				</aside>
+			) : null}
 		</Box>
 	);
 };
