@@ -24,6 +24,7 @@ const categoriesReducer = (
 		case CategoriesActionEnum.GET_CATEGORIES_SUCCESS: {
 			return {
 				...state,
+				isLoading: false,
 				categories: action.payload,
 			};
 		}

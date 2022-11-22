@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Box, List, ListItem, Paper, Stack, Typography } from '@mui/material';
+import {
+	Box,
+	List,
+	ListItem,
+	Paper,
+	Stack,
+	Typography,
+	Skeleton,
+	Collapse,
+} from '@mui/material';
 import CustomButton from '../../Components/CustomButton/Index';
-import { categories, subcategories } from '../../dummyData';
 import { CategoriesActionEnum } from '../../store/types/categories';
 import { useTypedSelector } from '../../hooks/hooks';
 import {
@@ -16,13 +24,20 @@ const Main: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const categoriesList = useTypedSelector((state) => state.categoriesState);
-	const subcategoriesList = useTypedSelector(
+	const { categories, isLoading: categoriesLoading } = useTypedSelector(
+		(state) => state.categoriesState
+	);
+	const { subcategories, isLoading: subcategoriesLoading } = useTypedSelector(
 		(state) => state.subcategoriesState
 	);
 
 	let filteredSubcategories = (parentId: number): ISubcategory[] => {
 		return subcategories.filter((item) => item.category === parentId);
+	};
+
+	const [expanded, setExpanded] = React.useState(0);
+	const handleExpand = (itemId: number) => {
+		setExpanded(itemId);
 	};
 
 	useEffect(() => {
@@ -43,18 +58,44 @@ const Main: React.FC = () => {
 					Категории заданий
 				</Typography>
 				<List className='categories'>
-					{categories.map((item) => (
-						<ListItem className='category' key={item.category_id}>
-							{item.name}
-							<List className='subcategories'>
-								{filteredSubcategories(item.category_id).map((el) => (
-									<ListItem className='subcategory' key={el.sub_category_id}>
-										{el.name}
+					{(categoriesLoading ? Array.from(new Array(9)) : categories).map(
+						(item, index) => (
+							<>
+								{item ? (
+									<ListItem
+										className='category'
+										key={item.category_id}
+										onClick={() => handleExpand(item.category_id)}
+									>
+										{item.name}
+										<Collapse
+											id={item.category_id}
+											in={expanded === item.category_id}
+											component={'ul'}
+											className='subcategories'
+										>
+											{filteredSubcategories(item.category_id).map((el) => (
+												<ListItem
+													className='subcategory'
+													key={el.sub_category_id}
+												>
+													{el.name}
+												</ListItem>
+											))}
+										</Collapse>
 									</ListItem>
-								))}
-							</List>
-						</ListItem>
-					))}
+								) : (
+									<Skeleton
+										variant='rectangular'
+										width={210}
+										height={30}
+										sx={{ mb: '20px' }}
+										key={index}
+									/>
+								)}
+							</>
+						)
+					)}
 				</List>
 			</Box>
 			<Stack

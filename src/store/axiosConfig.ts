@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 const config: AxiosRequestConfig = {
-	baseURL: `${process.env.REACT_APP_BASE_URL}`,
+	baseURL: `https://tech.xn--80aib1afbj.site/api`,
 };
 const instance: AxiosInstance = axios.create(config);
 instance.interceptors.request.use((config) => config);
