@@ -4,6 +4,7 @@ import { AppBar, Box, Button, List, ListItem, Typography } from '@mui/material';
 import NavBarLink from './Components/NavBarLink';
 // import Logo from '../../img/logo';
 import './style.css';
+import NavbarContainer from './Components/NavbarContainer';
 
 const NavBar: React.FC = () => {
 	const router = useNavigate();
@@ -14,7 +15,8 @@ const NavBar: React.FC = () => {
 	];
 
 	return (
-		<AppBar position='fixed' className='appBarContainer'>
+        <NavbarContainer>
+		{/* <AppBar position='fixed' className='appBarContainer'> */}
 			<Box className='logoContainer'>
 				{/* <Logo /> */}
 				<Link to='/' className='link-reset'>
@@ -45,7 +47,9 @@ const NavBar: React.FC = () => {
 					</Button>
 				</ListItem>
 			</List>
-		</AppBar>
+		{/* </AppBar> */}
+        </NavbarContainer>
 	);
 };
 export default NavBar;
+

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import SearchForm from '../../Components/SearchForm';
 import TaskCard from '../../Components/TaskCard';
 import './style.css';
 import SorthingCheckboxes from './Components/SorthingCheckboxes/index';
+import SearchForm from '../../Components/SearchForm';
 
 const OrdersPage: React.FC = () => {
 	return (
@@ -11,9 +11,9 @@ const OrdersPage: React.FC = () => {
 			<Box className='formContainer'>
 				<SearchForm />
 			</Box>
-			<Box sx={{ display: 'flex' }}>
+			<Box className='contentContainer'>
 				<SorthingCheckboxes />
-				<Box sx={{ pt: 5 }}>
+				<Box className='tasksContainer'>
 					<TaskCard />
 					<TaskCard />
 					<TaskCard />

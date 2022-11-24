@@ -54,7 +54,7 @@ export default function SorthingCheckboxes() {
 
   return (
       <List
-          sx={{ width: '100%', maxWidth: 360 }}
+          className='checkboxesContainer'
           component="nav"
           aria-labelledby="nested-list-subheader"
       >

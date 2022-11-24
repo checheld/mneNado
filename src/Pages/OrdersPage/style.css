@@ -4,6 +4,36 @@
 }
 
 .formContainer {
-    /* padding: 40px; */
-    border-radius: 10px;
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    z-index: 1100;
+    background-color: #f3f4fa;
 }
+
+.contentContainer {
+    /* !!!temp */
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: 1105px;
+    justify-content: space-between;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.tasksContainer {
+    /* !!!temp */
+    width: 704px;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-bottom: 48px;
+    margin-right: 48px;
+}
+
+.checkboxesContainer {
+    width: 100%; 
+    margin-top: 20px !important;
+}
+
+

@@ -19,6 +19,14 @@ import {
 	SubcategoriesActionEnum,
 } from '../../store/types/subcategories';
 import './style.sass';
+import ParallaxContainer from '../../Components/ParallaxContainer';
+
+const heroContent ={
+	title: 'Мне надо', 
+	description: 'Немного текста о том, какие мы классные, и чем можем быть полезны', 
+	src: "../../assets/images/main_page_bgr.jpg",
+	overlay: 4,
+};
 
 const Main: React.FC = () => {
 	const navigate = useNavigate();
@@ -47,12 +55,20 @@ const Main: React.FC = () => {
 
 	return (
 		<Stack direction='column' alignItems='center' className='main'>
-			<Typography component='h1' className='main__heading'>
-				Мне надо
-			</Typography>
-			<Typography component='p' className='main__text'>
-				Немного текста о том, какие мы классные, и чем можем быть полезны
-			</Typography>
+			{/* <Box className="bgImageContainer">
+				<img src={require('../../assets/images/main_page_bgr.jpg')} className="bgImage" />
+				<Typography component='h1' className='main__heading'>
+					Мне надо
+				</Typography>
+				<Typography component='p' className='main__text'>
+					Немного текста о том, какие мы классные, и чем можем быть полезны
+				</Typography>
+			</Box> */}
+			<ParallaxContainer heroContent={heroContent}
+							parallax={{yPercent: 30, scale: 1.1}}
+							height={'100%'}
+							parallaxContent={{yPercent: 40, autoAlpha: 0}}
+							/>
 			<Box className='section'>
 				<Typography className='section__heading' component='h2'>
 					Категории заданий
