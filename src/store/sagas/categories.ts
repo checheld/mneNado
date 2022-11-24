@@ -6,7 +6,7 @@ import { CategoriesActionEnum, ICategory } from '../types/categories';
 import { ContentTypes } from '../types/types';
 
 const getCategoriesHandler = (config: any) =>
-	instance.get<ICategory[]>('/category', config);
+	instance.get<ICategory[]>('/category/', config);
 
 export const categoriesHandler = () => {
 	return instance({

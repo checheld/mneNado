@@ -6,7 +6,7 @@ import { SubcategoriesActionEnum, ISubcategory } from '../types/subcategories';
 import { ContentTypes } from '../types/types';
 
 const getSubcategoriesHandler = (config: any) =>
-	instance.get<ISubcategory[]>('/subcategory', config);
+	instance.get<ISubcategory[]>('/subcategory/', config);
 
 export const categoriesHandler = () => {
 	return instance({
