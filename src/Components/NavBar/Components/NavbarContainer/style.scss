@@ -1,0 +1,43 @@
+@import "../../../../assets/sass/helper.scss";
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  z-index: 10;
+  transition-property: background-color, padding-top, padding-bottom, transform;
+  transition-duration: 0.5s;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .main-logo {
+    position: relative;
+    z-index: 1;
+  }
+
+  ul.primary-nav {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+
+
+    ul {
+      position: absolute;
+
+    }
+
+
+  }
+
+  &.nav-bg{
+      background-color: rgb(4, 132, 175, 1);
+  }
+  &.hide-nav:not(.dsn-open){
+    transform: translateY(-100%);
+  }
+
+}
