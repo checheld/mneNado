@@ -13,7 +13,7 @@ const NavBarLink: React.FC<ILinkProps> = ({ text, link }) => {
     return (
         <ListItem button className='linkContainer'>
             <Link to={link} className='link'>
-                <ListItemText primary={text} />
+                <ListItemText primary={text} className='linkText' />
             </Link>
         </ListItem>
     );

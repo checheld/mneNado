@@ -21,6 +21,7 @@ import {
 import './style.sass';
 import ParallaxContainer from '../../Components/ParallaxContainer';
 
+
 const heroContent ={
 	title: 'Мне надо', 
 	description: 'Немного текста о том, какие мы классные, и чем можем быть полезны', 
