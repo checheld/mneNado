@@ -1,23 +1,34 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
+import { useLocation } from 'react-router-dom';
 import {useEffectScroll} from "../../../../hooks/hooks";
 import './style.scss';
 
 
 const NavbarContainer = ({children}: any) => {
+    
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const nav: React.MutableRefObject<any> = useRef();
     let scrDown = 0;
 
-    useEffectScroll((e: any, x: any, y: any) => {
+	useEffect(() => {
+        (currentPath !== '/') ? (nav.current.classList.add("nav-bg")) : (nav.current.classList.remove("nav-bg"))
+	}, [currentPath]);
 
-        if (y > 170) {
+    useEffectScroll((e: any, x: any, y: any) => {
+        // currentPath === '/'
+        if (currentPath === '/' && y > 170) {
+            console.log('main')
             if (scrDown < y && nav.current !== undefined) {
                 nav.current.classList.add("nav-bg", "hide-nav");
             } else {
                 nav.current !== undefined && nav.current.classList.remove("hide-nav");
             }
-        } else {
+        } else if (currentPath === '/' && y <= 170) {
             nav.current !== undefined && nav.current.classList.remove("nav-bg", "hide-nav");
+        } else {
+            nav.current.classList.add("nav-bg");
         }
 
         scrDown = y;
@@ -26,8 +37,8 @@ const NavbarContainer = ({children}: any) => {
     return (
         <header className={'site-header container-fluid'} ref={nav}>
             {children}
-            <div className="bg background-section"/>
-            <div className="bg background-main"/>
+            <div className="bg background-section" />
+            <div className="bg background-main" />
         </header>
     );
 };
