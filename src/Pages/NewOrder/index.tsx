@@ -1,21 +1,22 @@
-import React, { useRef, useState } from 'react';
-import { Box, Chip, Paper, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Paper, Typography } from '@mui/material';
 import Stepper from '../../Components/Stepper';
 import Step1 from '../../Components/NewOrderSteps/Step1';
 import Step2 from '../../Components/NewOrderSteps/Step2';
 import Step3 from '../../Components/NewOrderSteps/Step3';
 import Step4 from '../../Components/NewOrderSteps/Step4';
 import Step5 from '../../Components/NewOrderSteps/Step5';
-import TaskPreview from '../../Components/NewOrderSteps/Step6';
+import Step6 from '../../Components/NewOrderSteps/Step6';
+import TaskPreview from '../../Components/NewOrderSteps/OrderPreview';
 import { FileWithPath } from 'react-dropzone';
-import { categories, subcategories } from '../../dummyData';
 import './style.sass';
 
 const steps = [
 	{ label: 'Адрес', step: 0 },
-	{ label: 'Название и категория', step: 1 },
-	{ label: 'Сроки выполнения', step: 2 },
-	{ label: 'Детали', step: 3 },
+	{ label: 'Выбор категории', step: 1 },
+	{ label: 'Название', step: 2 },
+	{ label: 'Сроки выполнения', step: 3 },
+	{ label: 'Детали', step: 4 },
 	{ label: 'Бюджет и способ оплаты', step: 5 },
 	{ label: 'Предпросмотр', step: 6 },
 ];
@@ -55,7 +56,6 @@ export const initialFormData: IFormData = {
 const NewOrderPage: React.FC = () => {
 	const [step, setStep] = useState(0);
 	const [formData, setFormData] = useState<IFormData>(initialFormData);
-	const categoryChip = useRef<HTMLElement>(null);
 
 	const onDataChange = (
 		name: string,
@@ -108,6 +108,14 @@ const NewOrderPage: React.FC = () => {
 				);
 			case 5:
 				return (
+					<Step6
+						formData={formData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
+			case 6:
+				return (
 					<TaskPreview
 						formData={formData}
 						setStep={setStep}
@@ -131,20 +139,6 @@ const NewOrderPage: React.FC = () => {
 			</Typography>
 			<Stepper activeStep={step} steps={steps.map((step) => step.label)} />
 			<Paper className='step-container'>{renderCurrentStep()}</Paper>
-			{step === 1 ? (
-				<aside className='categories-list'>
-					{categories.map((item) => (
-						<Chip
-							key={item.category_id}
-							label={item.name}
-							component='span'
-							clickable
-							className='categories-list__item'
-							ref={categoryChip}
-						/>
-					))}
-				</aside>
-			) : null}
 		</Box>
 	);
 };

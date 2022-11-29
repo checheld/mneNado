@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppBar, Box, Button, List, ListItem, Typography } from '@mui/material';
 import NavBarLink from './Components/NavBarLink';
@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
 				))}
 				<ListItem sx={{ padding: 0, ml: '30px' }}>
 					<Button
-						variant='outlined'
+						variant='contained'
 						className='loginButton'
 						sx={{ mr: '20px' }}
 						onClick={() => router('/login')}
@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
 				</ListItem>
 				<ListItem>
 					<Button
-						variant='outlined'
+						variant='contained'
 						className='loginButton'
 						onClick={() => router('/signup-choice')}
 					>

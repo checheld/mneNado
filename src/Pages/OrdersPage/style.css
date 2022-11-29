@@ -5,7 +5,6 @@
 
 .formContainer {
     width: 100%;
-    position: fixed;
     top: 60px;
     z-index: 1100;
     background-color: #f3f4fa;

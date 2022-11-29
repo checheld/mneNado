@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 export const defaultTheme = createTheme({
 	typography: {
-		fontFamily: '"Helvetica", sans-serif',
+		fontFamily: '"Hero", sans-serif',
 	},
 
 	// colors: #7309AA #612580 #4A036F	#A13DD5 #AF66D5
@@ -32,7 +32,7 @@ export const theme = createTheme(defaultTheme, {
 					textAlign: 'center',
 					textTransform: 'none',
 					backgroundColor: 'rgb(4, 132, 175, 1)',
-					fontFamily: '"Nunito", sans-serif',
+					fontFamily: '"Hero", sans-serif',
 					fontWeight: '400',
 					fontSize: '14px',
 					borderRadius: '5px',
@@ -72,12 +72,12 @@ export const theme = createTheme(defaultTheme, {
 		MuiOutlinedInput: {
 			styleOverrides: {
 				root: {
-					height: '48px',
+					minHeight: '48px',
 					fontWeight: 200,
 					padding: 0,
-					"&:hover .MuiOutlinedInput-notchedOutline": {
-						borderColor: "#6997D3",
-						borderWidth: '2px'
+					'&:hover .MuiOutlinedInput-notchedOutline': {
+						borderColor: '#6997D3',
+						borderWidth: '2px',
 					},
 				},
 				notchedOutline: {
@@ -104,6 +104,7 @@ export const theme = createTheme(defaultTheme, {
 			styleOverrides: {
 				progress: {
 					width: '100%',
+					backgroundColor: 'rgb(195 195 195)',
 				},
 			},
 		},

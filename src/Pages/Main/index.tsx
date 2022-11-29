@@ -21,10 +21,11 @@ import {
 import './style.sass';
 import ParallaxContainer from '../../Components/ParallaxContainer';
 
-const heroContent ={
-	title: 'Мне надо', 
-	description: 'Немного текста о том, какие мы классные, и чем можем быть полезны', 
-	src: "../../assets/images/main_page_bgr.jpg",
+const heroContent = {
+	title: 'Мне надо',
+	description:
+		'Немного текста о том, какие мы классные, и чем можем быть полезны',
+	src: '../../assets/images/main_page_bgr.jpg',
 	overlay: 4,
 };
 
@@ -35,7 +36,7 @@ const Main: React.FC = () => {
 	const { categories, isLoading: categoriesLoading } = useTypedSelector(
 		(state) => state.categoriesState
 	);
-	const { subcategories, isLoading: subcategoriesLoading } = useTypedSelector(
+	const { subcategories } = useTypedSelector(
 		(state) => state.subcategoriesState
 	);
 
@@ -64,11 +65,12 @@ const Main: React.FC = () => {
 					Немного текста о том, какие мы классные, и чем можем быть полезны
 				</Typography>
 			</Box> */}
-			<ParallaxContainer heroContent={heroContent}
-							parallax={{yPercent: 30, scale: 1.1}}
-							height={'100%'}
-							parallaxContent={{yPercent: 40, autoAlpha: 0}}
-							/>
+			<ParallaxContainer
+				heroContent={heroContent}
+				parallax={{ yPercent: 30, scale: 1.1 }}
+				height={'100%'}
+				parallaxContent={{ yPercent: 40, autoAlpha: 0 }}
+			/>
 			<Box className='section'>
 				<Typography className='section__heading' component='h2'>
 					Категории заданий

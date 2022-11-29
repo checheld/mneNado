@@ -1,113 +1,124 @@
 import React, { FC, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
-import RangeSlider from '../RangeSlider';
-import InputCustomized from '../InputCustomized';
-import RadioButtons from '../RadioButtons';
-import { validateBudget } from '../../utils/validation';
+import CustomTextarea from '../CustomTextarea';
+import CustomDropzone from '../Dropzone';
+import { FileWithPath } from 'react-dropzone';
+import { validateField } from '../../utils/validation';
 import './style.sass';
 
 interface IProps {
 	formData: IFormData;
-	onChange: (name: string, value: string | number | number[]) => void;
+	onChange: (
+		name: string,
+		value: string | boolean | FileWithPath[] | null
+	) => void;
 	setStep: (step: number) => void;
 }
 
-interface IErrors {
-	budget?: string;
-	payment_method: string;
+interface IErrorsData {
+	description: string;
 }
 
-const initialErrors: IErrors = {
-	budget: '',
-	payment_method: '',
+const initialErrors: IErrorsData = {
+	description: '',
 };
 
-const paymentMethods = [
-	{ key: 'direct', value: 'Напрямую исполнителю' },
-	{ key: 'application', value: 'Через приложение' },
-];
-
 const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [budget, setBudget] = useState<number[]>([0, 0]);
-	const [errors, setErrors] = useState<IErrors>(initialErrors);
-	const [errorClass, setErrorClass] = useState('');
+	const [files, setFiles] = useState<FileWithPath[] | null>(formData.files);
+	const [error, setError] = useState(initialErrors);
 
-	const handleRangeChange = (values: { min: number; max: number }) => {
-		const valuesArr = Object.values(values);
-		setBudget(valuesArr);
-		onChange('budget', budget);
-	};
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLTextAreaElement>
+	): void => {
 		onChange(e.target.name, e.target.value);
-		setErrors({ ...errors, budget: '' });
+		setError({ ...error, description: '' });
 	};
 
-	const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		onChange('payment_method', (event.target as HTMLInputElement).value);
-		setErrors({ ...errors, payment_method: '' });
-		setErrorClass('');
+	const validateInput = (): boolean => {
+		const descriptionError = validateField(formData.description);
+		if (descriptionError) setError({ description: descriptionError });
+		return !descriptionError;
 	};
 
-	const validateInputs = (): boolean => {
-		let budgetError, methodError;
-		if (typeof formData.budget === 'string') {
-			budgetError = validateBudget(formData.budget);
-			setErrors({ budget: budgetError, payment_method: '' });
+	const handleClear = (index: number): void => {
+		let filesArr = files?.map((el) => el);
+		if (files?.length! > 1) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			let removed = filesArr?.splice(index, 1);
+			setFiles(filesArr as []);
+		} else {
+			setFiles([]);
 		}
-		if (formData.payment_method.trim() === '') {
-			methodError = 'Пожалуйста, выберите способ оплаты';
-			setErrorClass('radio-error');
-		}
-		if (methodError || budgetError)
-			setErrors({ budget: budgetError, payment_method: methodError as string });
-		return [budgetError, methodError].every((el) => !el);
 	};
 
 	const handlePrev = (): void => {
 		setStep(3);
+		setFiles(files);
 	};
-	const handleSubmit = (): void => {
-		if (validateInputs()) {
+
+	const handleNext = (): void => {
+		if (validateInput()) {
+			onChange('files', files);
 			setStep(5);
 		}
 	};
+
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
-				Бюджет и способ оплаты
+				Детали задания
 			</Typography>
-			<Typography component='p' sx={{ textAlign: 'center', mb: '30px' }}>
-				Укажите диапазон или точную сумму
-			</Typography>
-			<RangeSlider
-				min={300}
-				middle={[2500, 5000, 7500]}
-				max={10000}
-				onChange={handleRangeChange}
-			/>
-			<InputCustomized
-				value={
-					typeof formData.budget === 'string' ? String(formData.budget) : ''
-				}
+			<CustomTextarea
+				id='description'
+				name='description'
+				value={formData.description}
+				label='Описание задачи'
+				placeholder='Опишите детали задания'
 				onChange={handleInputChange}
-				name='budget'
-				placeholder='Какую сумму вы готовы заплатить'
-				label='Точная сумма'
-				className='step__input'
-				error={errors.budget}
+				className='textarea'
+				error={error.description}
 			/>
-			<RadioButtons
-				name='payment_method'
-				values={paymentMethods}
-				value={formData.payment_method}
-				onChange={handleRadioChange}
-				className={`step__radio-group ${errorClass}`}
-				aria-labelledby='Выбор способа оплаты'
-				error={errors.payment_method}
-			/>
+			{!files?.length ? (
+				<>
+					<Typography variant='body1'>Добавить файлы</Typography>
+					<CustomDropzone setFiles={setFiles} />
+				</>
+			) : (
+				<Stack
+					className='file-container'
+					direction='row'
+					alignItems='center'
+					sx={{ mb: '20px' }}
+				>
+					{files.map((file, index) => (
+						<div className='preview-container'>
+							{file.type.includes('image') ? (
+								<img
+									src={URL.createObjectURL(file)}
+									alt='Предпросмотр изображения'
+									className='img-preview'
+								/>
+							) : (
+								<Stack direction='row' alignItems='center'>
+									<PictureAsPdfIcon />
+									<Typography component='p'>{file.name}</Typography>
+								</Stack>
+							)}
+							<IconButton
+								className='preview-btn'
+								onClick={() => handleClear(index)}
+							>
+								<DeleteIcon />
+							</IconButton>
+						</div>
+					))}
+				</Stack>
+			)}
+
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'
@@ -116,11 +127,7 @@ const Step5: FC<IProps> = ({ formData, onChange, setStep }) => {
 					sx={{ color: '#CBD8DD !important' }}
 					className='step-btn back-btn'
 				/>
-				<CustomButton
-					text='Создать'
-					onClick={handleSubmit}
-					className='step-btn'
-				/>
+				<CustomButton text='Далее' onClick={handleNext} className='step-btn' />
 			</Box>
 		</>
 	);

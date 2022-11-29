@@ -1,123 +1,123 @@
-import React from 'react';
-import { Box, Stack, Typography } from '@mui/material';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import React, { FC, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
-import { formatDate, formatMoney } from '../../utils/functions';
+import RangeSlider from '../RangeSlider';
+import InputCustomized from '../InputCustomized';
+import RadioButtons from '../RadioButtons';
+import { validateBudget } from '../../utils/validation';
 import './style.sass';
 
 interface IProps {
 	formData: IFormData;
+	onChange: (name: string, value: string | number | number[]) => void;
 	setStep: (step: number) => void;
-	paymentMethod: string;
 }
 
-enum paymentTypes {
-	direct = 'напрямую исполнителю',
-	application = 'через приложение',
+interface IErrors {
+	budget?: string;
+	payment_method: string;
 }
 
-const TaskPreview: React.FC<IProps> = ({
-	formData,
-	setStep,
-	paymentMethod,
-}) => {
-	const paymentType = paymentTypes[paymentMethod as keyof typeof paymentTypes];
+const initialErrors: IErrors = {
+	budget: '',
+	payment_method: '',
+};
+
+const paymentMethods = [
+	{ key: 'direct', value: 'Напрямую исполнителю' },
+	{ key: 'application', value: 'Через приложение' },
+];
+
+const Step6: FC<IProps> = ({ formData, onChange, setStep }) => {
+	const [budget, setBudget] = useState<number[]>([0, 0]);
+	const [errors, setErrors] = useState<IErrors>(initialErrors);
+	const [errorClass, setErrorClass] = useState('');
+
+	const handleRangeChange = (values: { min: number; max: number }) => {
+		const valuesArr = Object.values(values);
+		setBudget(valuesArr);
+		onChange('budget', budget);
+	};
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		onChange(e.target.name, e.target.value);
+		setErrors({ ...errors, budget: '' });
+	};
+
+	const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		onChange('payment_method', (event.target as HTMLInputElement).value);
+		setErrors({ ...errors, payment_method: '' });
+		setErrorClass('');
+	};
+
+	const validateInputs = (): boolean => {
+		let budgetError, methodError;
+		if (typeof formData.budget === 'string') {
+			budgetError = validateBudget(formData.budget);
+			setErrors({ budget: budgetError, payment_method: '' });
+		}
+		if (formData.payment_method.trim() === '') {
+			methodError = 'Пожалуйста, выберите способ оплаты';
+			setErrorClass('radio-error');
+		}
+		if (methodError || budgetError)
+			setErrors({ budget: budgetError, payment_method: methodError as string });
+		return [budgetError, methodError].every((el) => !el);
+	};
 
 	const handlePrev = (): void => {
 		setStep(4);
 	};
 	const handleSubmit = (): void => {
-		console.log('success');
+		if (validateInputs()) {
+			setStep(6);
+		}
 	};
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
-				Предпросмотр задания
+				Бюджет и способ оплаты
 			</Typography>
-			<Box sx={{ mb: '15px' }} className='preview-wrap'>
-				<Typography variant='h5' sx={{ mb: '15px' }}>
-					{formData.task_name}
-				</Typography>
-				{!formData.isOnline ? (
-					<Typography sx={{ mb: '15px' }}>
-						<strong>Выполнить по адресу:</strong> {formData.address}
-					</Typography>
-				) : (
-					<Typography sx={{ mb: '15px' }}>Выполнить задание онлайн</Typography>
-				)}
-				{/* date */}
-				{formData.start_date ? (
-					<Typography>
-						<strong>Начать:</strong>{' '}
-						{formatDate(formData.start_date, 'dd LLL yyyy')},{' '}
-						{formData.start_time
-							? `${formatDate(formData.start_time, 'HH:mm')}`
-							: null}
-					</Typography>
-				) : null}
-				{formData.end_date ? (
-					<Typography>
-						<strong>Завершить:</strong>{' '}
-						{formatDate(formData.end_date, 'dd LLL yyyy')},{' '}
-						{formData.end_time
-							? `${formatDate(formData.end_time, 'HH:mm')}`
-							: null}
-					</Typography>
-				) : null}
-			</Box>
-			{/* budget */}
-			<Box className='content-wrap'>
-				{Array.isArray(formData.budget) ? (
-					<Typography>
-						Бюджет от {formData.budget[0]}₽ до {formData.budget[1]}₽
-					</Typography>
-				) : (
-					<Typography>
-						<strong>Стоимость:</strong> {formatMoney(Number(formData.budget))}₽
-					</Typography>
-				)}
-				<Typography>Оплата {paymentType}</Typography>
-			</Box>
-			<Box className='content-wrap'>
-				<Typography>
-					<strong>Подробное описание задания: </strong>
-					{formData.description}
-				</Typography>
-				<Stack
-					className='file-container'
-					direction='row'
-					alignItems='center'
-					sx={{ mb: '20px' }}
-				>
-					{formData.files?.map((file, index) => (
-						<div className='content-container'>
-							{file.type.includes('image') ? (
-								<img
-									src={URL.createObjectURL(file)}
-									alt='Предпросмотр изображения'
-									className='img-preview'
-								/>
-							) : (
-								<Stack direction='row' alignItems='center'>
-									<PictureAsPdfIcon />
-									<Typography component='p'>{file.name}</Typography>
-								</Stack>
-							)}
-						</div>
-					))}
-				</Stack>
-			</Box>
-			<Box className='btn-container' sx={{ mt: '30px' }}>
+			<Typography component='p' sx={{ textAlign: 'center', mb: '30px' }}>
+				Укажите диапазон или точную сумму
+			</Typography>
+			<RangeSlider
+				min={300}
+				middle={[2500, 5000, 7500]}
+				max={10000}
+				onChange={handleRangeChange}
+			/>
+			<InputCustomized
+				value={
+					typeof formData.budget === 'string' ? String(formData.budget) : ''
+				}
+				onChange={handleInputChange}
+				name='budget'
+				placeholder='Какую сумму вы готовы заплатить'
+				label='Точная сумма'
+				className='step__input'
+				error={errors.budget}
+			/>
+			<RadioButtons
+				name='payment_method'
+				values={paymentMethods}
+				value={formData.payment_method}
+				onChange={handleRadioChange}
+				className={`step__radio-group ${errorClass}`}
+				aria-labelledby='Выбор способа оплаты'
+				error={errors.payment_method}
+			/>
+			<Box className='btn-container'>
 				<CustomButton
-					text='Редактировать'
+					text='Назад'
 					onClick={handlePrev}
 					variant='outlined'
 					sx={{ color: '#CBD8DD !important' }}
 					className='step-btn back-btn'
 				/>
 				<CustomButton
-					text='Подтвердить'
+					text='Создать'
 					onClick={handleSubmit}
 					className='step-btn'
 				/>
@@ -126,4 +126,4 @@ const TaskPreview: React.FC<IProps> = ({
 	);
 };
 
-export default TaskPreview;
+export default Step6;

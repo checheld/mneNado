@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
 	Stepper,
 	Step,
-	StepLabel,
 	StepIconProps,
 	StepperProps,
 	useMediaQuery,

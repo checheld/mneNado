@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/rootReducer';
 import Scrollbar from "smooth-scrollbar";
+import { useLocation } from 'react-router-dom';
 
 
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -9,7 +10,7 @@ export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useEffectScroll = (listener: any) => {
             //@ts-ignore
     const scrollbar: React.MutableRefObject<null | Scrollbar> = useSelector(state => state.scrollbar);
-
+    const location = useLocation();
     useEffect(() => {
         const scrollbarCurrent = scrollbar.current;
         const scroll = (e: number) => {
@@ -29,7 +30,7 @@ export const useEffectScroll = (listener: any) => {
                     //@ts-ignore
                 window.removeEventListener("scroll", scroll);
         }
-    }, [scrollbar]);
+    }, [scrollbar, location]);
 
 
     return null;
