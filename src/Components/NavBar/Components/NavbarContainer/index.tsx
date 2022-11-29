@@ -19,7 +19,6 @@ const NavbarContainer = ({children}: any) => {
     useEffectScroll((e: any, x: any, y: any) => {
         // currentPath === '/'
         if (currentPath === '/' && y > 170) {
-            console.log('main')
             if (scrDown < y && nav.current !== undefined) {
                 nav.current.classList.add("nav-bg", "hide-nav");
             } else {
@@ -28,7 +27,11 @@ const NavbarContainer = ({children}: any) => {
         } else if (currentPath === '/' && y <= 170) {
             nav.current !== undefined && nav.current.classList.remove("nav-bg", "hide-nav");
         } else {
-            nav.current.classList.add("nav-bg");
+            if (scrDown < y && nav.current !== undefined) {
+                nav.current.classList.add("nav-bg", "hide-nav");
+            } else {
+                nav.current !== undefined && nav.current.classList.remove("hide-nav");
+            }
         }
 
         scrDown = y;
