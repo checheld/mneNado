@@ -34,7 +34,7 @@ const initialErrors: IErrorsData = {
 };
 
 const initialCoords = [47.52, 41.11];
-
+// https://nethouse.ru/about/instructions/kak_poluchit_apikey_dlya_kart_yandex
 const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 	const suggestionsRef = React.useRef<AddressSuggestions>(null);
 	const [value, setValue] = useState<

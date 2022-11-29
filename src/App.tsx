@@ -88,7 +88,7 @@ const routes = [
 	{
 		path: '/orders/new',
 		element: (
-			<Layout>
+			<Layout className='has-bg'>
 				<NewOrderPage />
 			</Layout>
 		),

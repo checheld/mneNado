@@ -1,68 +1,81 @@
 import React, { FC, useState } from 'react';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Box, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
+import CustomSelect from '../CustomSelect';
 import { IFormData } from '../../Pages/NewOrder';
-import CustomTextarea from '../CustomTextarea';
-import CustomDropzone from '../Dropzone';
-import { FileWithPath } from 'react-dropzone';
-import { validateField } from '../../utils/validation';
+import DatePicker from '../CustomDatePicker';
+import CustomTimePicker from '../CustomTimePicker';
+import { validateDate, validatePeriod } from '../../utils/validation';
 import './style.sass';
+
+const dateTypes = [
+	{ value: 'start', label: 'Начало работы' },
+	{ value: 'end', label: 'Завершение работы' },
+	{ value: 'period', label: 'Период' },
+];
 
 interface IProps {
 	formData: IFormData;
-	onChange: (
-		name: string,
-		value: string | boolean | FileWithPath[] | null
-	) => void;
+	onChange: (name: string, value: string | null) => void;
 	setStep: (step: number) => void;
 }
 
 interface IErrorsData {
-	description: string;
+	start_date?: string;
+	end_date?: string;
 }
 
 const initialErrors: IErrorsData = {
-	description: '',
+	start_date: '',
+	end_date: '',
 };
 
 const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const [files, setFiles] = useState<FileWithPath[] | null>(formData.files);
-	const [error, setError] = useState(initialErrors);
+	const [dateType, setDateType] = useState('start');
+	const [errors, setErrors] = useState(initialErrors);
+	const [errorClass, setErrorClass] = useState('');
 
-	const handleInputChange = (
-		e: React.ChangeEvent<HTMLTextAreaElement>
-	): void => {
-		onChange(e.target.name, e.target.value);
-		setError({ ...error, description: '' });
+	const keys = Object.keys(dateTypes[0]);
+
+	const handleDateTimeChange =
+		(field: string) =>
+		(date: string | null): void => {
+			onChange(field, date);
+			setErrors({ ...errors, [field]: '' });
+			setErrorClass('');
+		};
+
+	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
+		setDateType(event.target.value as string);
 	};
 
-	const validateInput = (): boolean => {
-		const descriptionError = validateField(formData.description);
-		if (descriptionError) setError({ description: descriptionError });
-		return !descriptionError;
-	};
-
-	const handleClear = (index: number): void => {
-		let filesArr = files?.map((el) => el);
-		if (files?.length! > 1) {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			let removed = filesArr?.splice(index, 1);
-			setFiles(filesArr as []);
-		} else {
-			setFiles([]);
+	const validateInputs = (): boolean => {
+		let endDateError;
+		const startDateError = validateDate(formData.start_date);
+		if (dateType === 'start') {
+			setErrors({ start_date: startDateError, end_date: '' });
+			setErrorClass('error');
+			return !startDateError;
+		} else if (dateType === 'end') {
+			endDateError = validateDate(formData.end_date);
+			setErrors({ end_date: endDateError });
+			setErrorClass('error');
+			return !endDateError;
+		} else if (dateType === 'period') {
+			endDateError = validatePeriod(formData.start_date, formData.end_date);
+			setErrors({ start_date: startDateError, end_date: endDateError });
+			setErrorClass('error');
+			return [startDateError, endDateError].every((el) => !el);
 		}
+		return [startDateError, endDateError].every((el) => !el);
 	};
 
 	const handlePrev = (): void => {
 		setStep(2);
-		setFiles(files);
 	};
-
 	const handleNext = (): void => {
-		if (validateInput()) {
-			onChange('files', files);
+		// join date and time before sending to server
+		if (validateInputs()) {
 			setStep(4);
 		}
 	};
@@ -70,55 +83,110 @@ const Step4: FC<IProps> = ({ formData, onChange, setStep }) => {
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
-				Детали задания
+				Сроки выполнения
 			</Typography>
-			<CustomTextarea
-				id='description'
-				name='description'
-				value={formData.description}
-				label='Описание задачи'
-				placeholder='Опишите детали задания'
-				onChange={handleInputChange}
-				className='textarea'
-				error={error.description}
+			<CustomSelect
+				value={dateType}
+				values={dateTypes}
+				onChange={handleSelect}
+				className='select'
+				formControlClass='select-wrap'
+				menuItemValue={keys[0]}
+				menuItemLabel={keys[1]}
+				sx={{ mb: '30px' }}
 			/>
-			{!files?.length ? (
-				<>
-					<Typography variant='body1'>Добавить файлы</Typography>
-					<CustomDropzone setFiles={setFiles} />
-				</>
-			) : (
+			{dateType !== 'period' && (
 				<Stack
-					className='file-container'
 					direction='row'
-					alignItems='center'
-					sx={{ mb: '20px' }}
+					sx={{ m: '0 auto', mb: '30px', w: '100%' }}
+					justifyContent='space-evenly'
 				>
-					{files.map((file, index) => (
-						<div className='preview-container'>
-							{file.type.includes('image') ? (
-								<img
-									src={URL.createObjectURL(file)}
-									alt='Предпросмотр изображения'
-									className='img-preview'
-								/>
-							) : (
-								<Stack direction='row' alignItems='center'>
-									<PictureAsPdfIcon />
-									<Typography component='p'>{file.name}</Typography>
-								</Stack>
-							)}
-							<IconButton
-								className='preview-btn'
-								onClick={() => handleClear(index)}
-							>
-								<DeleteIcon />
-							</IconButton>
-						</div>
-					))}
+					<DatePicker
+						id='date'
+						label='Выберите дату'
+						placeholder='Дата'
+						onChange={handleDateTimeChange(
+							`${dateType === 'start' ? 'start_date' : 'end_date'}`
+						)}
+						value={
+							dateType === 'start' ? formData.start_date : formData.end_date
+						}
+						error={dateType === 'start' ? errors.start_date : errors.end_date}
+						disablePast
+						className='step__input date'
+						inputClassName={`date-input ${errorClass}`}
+					/>
+					<CustomTimePicker
+						id='time'
+						label='Выберите время'
+						onChange={handleDateTimeChange(
+							`${dateType === 'start' ? 'start_time' : 'end_time'}`
+						)}
+						value={
+							dateType === 'start' ? formData.start_time : formData.end_time
+						}
+						className='step__time-input'
+					/>
 				</Stack>
 			)}
-
+			{dateType === 'period' && (
+				<>
+					<Typography component='h6' className='input-heading'>
+						Начать работу
+					</Typography>
+					<Stack
+						direction='row'
+						sx={{ mb: '30px' }}
+						justifyContent='space-evenly'
+					>
+						<DatePicker
+							id='date'
+							label='Выберите дату'
+							placeholder='Дата'
+							onChange={handleDateTimeChange('start_date')}
+							value={formData.start_date}
+							disablePast
+							className='step__input date'
+							inputClassName={`date-input ${errorClass}`}
+							error={errors.start_date}
+						/>
+						<CustomTimePicker
+							id='time'
+							label='Выберите время'
+							onChange={handleDateTimeChange('start_time')}
+							value={formData.start_time}
+							className='step__time-input'
+						/>
+					</Stack>
+					<Typography component='h6' className='input-heading'>
+						Завершить работу
+					</Typography>
+					<Stack
+						direction='row'
+						sx={{ mb: '30px' }}
+						justifyContent='space-evenly'
+					>
+						<DatePicker
+							id='date'
+							label='Выберите время'
+							placeholder='Дата'
+							onChange={handleDateTimeChange('end_date')}
+							value={formData.end_date}
+							disablePast
+							className='step__input date'
+							inputClassName={`date-input ${errorClass}`}
+							error={errors.end_date}
+						/>
+						<CustomTimePicker
+							id='time'
+							label='Выберите время'
+							onChange={handleDateTimeChange('end_time')}
+							value={formData.end_time}
+							className='step__time-input'
+						/>
+					</Stack>
+				</>
+			)}
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'

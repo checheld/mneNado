@@ -1,46 +1,61 @@
-import React, { FC, useState } from 'react';
-import { Box, SelectChangeEvent, Typography } from '@mui/material';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+	Box,
+	Typography,
+	Chip,
+	Stack,
+	ListItem,
+	List,
+	Skeleton,
+} from '@mui/material';
 import CustomButton from '../CustomButton/Index';
-import CustomSelect from '../CustomSelect';
-import InputCustomized from '../InputCustomized';
 import { IFormData } from '../../Pages/NewOrder';
-import { categories, subcategories } from '../../dummyData';
-import { validateField } from '../../utils/validation';
-
+import { useTypedSelector } from '../../hooks/hooks';
+import {
+	ISubcategory,
+	SubcategoriesActionEnum,
+} from '../../store/types/subcategories';
+import { CategoriesActionEnum } from '../../store/types/categories';
 interface IProps {
 	formData: IFormData;
 	onChange: (item: string, value: string | null) => void;
 	setStep: (step: number) => void;
 }
 
-interface IErrorsData {
-	task_name: string;
-}
-
-const initialErrors: IErrorsData = {
-	task_name: '',
-};
-
 const Step2: FC<IProps> = ({ formData, onChange, setStep }) => {
-	const categoryKeys = Object.keys(categories[0]);
-	const subcategoryKeys = Object.keys(subcategories[0]);
-	const [errors, setErrors] = useState<IErrorsData>(initialErrors);
+	const dispatch = useDispatch();
+	const [isActiveChip, setActiveChip] = useState(0);
+	const [isActive, setIsActive] = useState(0);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		onChange(e.target.name, e.target.value);
-		setErrors({ ...errors, [e.target.name]: '' });
+	const { categories, isLoading } = useTypedSelector(
+		(state) => state.categoriesState
+	);
+	const { subcategories } = useTypedSelector(
+		(state) => state.subcategoriesState
+	);
+
+	let filteredSubcategories = (parentId: number): ISubcategory[] => {
+		return subcategories.filter((item) => item.category === parentId);
 	};
 
-	const handleSelect = (event: SelectChangeEvent<string | unknown>) => {
-		onChange(event.target.name, event.target.value as string);
-	};
-
-	const validateInputs = (): boolean => {
-		const nameError = validateField(formData.task_name);
-		if (nameError) {
-			setErrors({ task_name: nameError });
+	useEffect(() => {
+		if (!categories.length && !subcategories.length) {
+			dispatch({ type: CategoriesActionEnum.GET_CATEGORIES });
+			dispatch({ type: SubcategoriesActionEnum.GET_SUBCATEGORIES });
 		}
-		return !nameError;
+	}, [dispatch]);
+
+	const handleCategoryChange =
+		(id: number) =>
+		(e: React.MouseEvent<HTMLElement>): void => {
+			onChange('category', String(id));
+			setActiveChip(id);
+		};
+
+	const handleSubcategoryChange = (e: React.MouseEvent<HTMLElement>): void => {
+		onChange('subcategory', e.currentTarget.id);
+		setIsActive(+e.currentTarget.id);
 	};
 
 	const handlePrev = (): void => {
@@ -48,51 +63,66 @@ const Step2: FC<IProps> = ({ formData, onChange, setStep }) => {
 	};
 
 	const handleNext = (): void => {
-		if (validateInputs()) {
-			setStep(2);
-		}
+		setStep(2);
 	};
 
 	return (
 		<>
 			<Typography component={'h3'} className='step__heading'>
-				Что нужно сделать?
+				Выберите категорию
 			</Typography>
-			<InputCustomized
-				name='task_name'
-				value={formData.task_name}
-				onChange={handleInputChange}
-				placeholder='Что нужно сделать?'
-				label='Название задания'
-				error={errors.task_name}
-				className='step__input'
-			/>
-			<Box className='select-container'>
-				<CustomSelect
-					name='category'
-					label='Выберите категорию'
-					value={formData.category}
-					values={categories}
-					menuItemValue={categoryKeys[0]}
-					menuItemLabel={categoryKeys[1]}
-					onChange={handleSelect}
-					className='select'
-					formControlClass='select-wrap'
-				/>
-				<CustomSelect
-					name='subcategory'
-					label='Выберите подкатегорию'
-					value={formData.subcategory}
-					values={subcategories.filter(
-						(el) => el.category === +formData.category
-					)}
-					menuItemValue={subcategoryKeys[0]}
-					menuItemLabel={subcategoryKeys[1]}
-					onChange={handleSelect}
-					className='select'
-					formControlClass='select-wrap'
-				/>
-			</Box>
+			<Stack direction='row' flexWrap='wrap' sx={{ mb: '30px' }}>
+				{(isLoading ? Array.from(new Array(9)) : categories).map(
+					(item, index) => (
+						<>
+							{item ? (
+								<Chip
+									key={item.category_id}
+									label={item.name}
+									component='span'
+									className={`category-chip ${
+										isActiveChip === item.category_id ? 'selected-chip' : ''
+									}`}
+									onClick={handleCategoryChange(item.category_id)}
+									clickable
+								/>
+							) : (
+								<Skeleton
+									variant='rectangular'
+									width={80}
+									height={30}
+									sx={{ mb: '20px' }}
+									key={index}
+								/>
+							)}
+						</>
+					)
+				)}
+			</Stack>
+			<Stack direction='column' sx={{ mb: '50px' }}>
+				{formData.category &&
+				filteredSubcategories(+formData.category).length ? (
+					<>
+						<Typography component='h4' className='step__heading'>
+							Выберите подкатегорию
+						</Typography>
+						<List>
+							{filteredSubcategories(+formData.category).map((item) => (
+								<ListItem
+									key={item.sub_category_id}
+									className={`subcategory ${
+										isActive === item.sub_category_id ? 'selected' : ''
+									}`}
+									id={String(item.sub_category_id)}
+									onClick={handleSubcategoryChange}
+								>
+									{item.name}
+								</ListItem>
+							))}
+						</List>
+					</>
+				) : null}
+			</Stack>
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'

@@ -1,37 +1,38 @@
 .footerContainer {
-    z-index: 1;
-    width: 100% !important;
-    bottom: 0 !important;
-    display: flex !important;
-    height: 50px;
-    margin: 0;
-    background-color: #E2E2E1 !important;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgba(255, 255, 255, 0.22);
+	z-index: 1;
+	width: 100% !important;
+	bottom: 0 !important;
+	display: flex !important;
+	height: 50px;
+	margin: 0;
+	margin-top: auto;
+	background-color: #e2e2e1 !important;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(255, 255, 255, 0.22);
 }
 
 .logoFooterContainer {
-    align-items: center;
-    display: flex;
-    margin-left: 10px;
+	align-items: center;
+	display: flex;
+	margin-left: 10px;
 }
 
 .footerName {
-    text-decoration: none;
-    font-weight: 800 !important;
-    font-size: 15px !important;
-    text-transform: uppercase;
-    color: #748BA4;
-    opacity: 0.8;
-    margin-left: 14px !important;
+	text-decoration: none;
+	font-weight: 800 !important;
+	font-size: 15px !important;
+	text-transform: uppercase;
+	color: #748ba4;
+	opacity: 0.8;
+	margin-left: 14px !important;
 }
 
 .footerLink {
-    white-space: nowrap;
-    text-decoration: none;
-    font-weight: 400 !important;
-    font-size: 12px !important;
-    color: #748BA4;
-    opacity: 0.7;
+	white-space: nowrap;
+	text-decoration: none;
+	font-weight: 400 !important;
+	font-size: 12px !important;
+	color: #748ba4;
+	opacity: 0.7;
 }

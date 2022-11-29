@@ -72,12 +72,12 @@ export const theme = createTheme(defaultTheme, {
 		MuiOutlinedInput: {
 			styleOverrides: {
 				root: {
-					height: '48px',
+					minHeight: '48px',
 					fontWeight: 200,
 					padding: 0,
-					"&:hover .MuiOutlinedInput-notchedOutline": {
-						borderColor: "#6997D3",
-						borderWidth: '2px'
+					'&:hover .MuiOutlinedInput-notchedOutline': {
+						borderColor: '#6997D3',
+						borderWidth: '2px',
 					},
 				},
 				notchedOutline: {
@@ -104,6 +104,7 @@ export const theme = createTheme(defaultTheme, {
 			styleOverrides: {
 				progress: {
 					width: '100%',
+					backgroundColor: 'rgb(195 195 195)',
 				},
 			},
 		},

@@ -1,7 +1,11 @@
 import * as React from 'react';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { StyledLabel } from '../InputCustomized';
-import { Box, FormHelperText, OutlinedInput, styled } from '@mui/material';
+import {
+	TextField,
+	FormHelperText,
+	OutlinedInput,
+	styled,
+} from '@mui/material';
 
 interface ITextareaProps
 	extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -51,19 +55,17 @@ const CustomTextarea: React.FC<ITextareaProps> = ({
 }) => {
 	return (
 		<>
-			<StyledLabel htmlFor={id}>{label}</StyledLabel>
-			<StyledTextarea
+			<TextField
 				placeholder={placeholder}
-				sx={{ height: '100px', mb: '20px' }}
+				sx={{ mb: '20px', pt: 1 }}
 				name={name}
-				// inputProps={{ maxLength: inputLength }}
 				id={id}
-				// tabIndex={index}
+				label={label}
 				value={value}
 				onChange={onChange}
 				multiline
-				rows={4}
 				error={!!error}
+				rows={5}
 			/>
 			<FormHelperText
 				sx={{

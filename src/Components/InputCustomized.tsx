@@ -1,5 +1,10 @@
 import React, { ReactNode } from 'react';
-import { FormHelperText, InputBase, InputLabel } from '@mui/material';
+import {
+	FormHelperText,
+	InputBase,
+	InputLabel,
+	TextField,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export interface IInputAttributes {
@@ -89,12 +94,10 @@ const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
 	) => {
 		return (
 			<>
-				<StyledLabel htmlFor={id} disabled={disabled}>
-					{label}
-				</StyledLabel>
-				<StyledInput
+				<TextField
 					id={id}
 					name={name}
+					label={label}
 					placeholder={placeholder}
 					value={value}
 					onChange={onChange}
@@ -104,7 +107,7 @@ const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
 					className={className}
 					disabled={disabled}
 					type={type}
-				></StyledInput>
+				></TextField>
 				<FormHelperText
 					sx={{
 						height: '20px',
