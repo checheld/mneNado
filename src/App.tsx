@@ -13,6 +13,7 @@ import RegistrationChoice from './Pages/RegistrationChoice';
 import ExecutorsList from './Pages/ExecutorsList';
 import NewOrderPage from './Pages/NewOrder';
 import Main from './Pages/Main';
+import ExecutorRegisterPage from './Pages/RegisterExecutor';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import './App.css';
@@ -42,6 +43,14 @@ const routes = [
 				dataAttr='Background image by Kotkoa from freepik'
 			>
 				<RegistrationChoice />
+			</Layout>
+		),
+	},
+	{
+		path: '/register/executor',
+		element: (
+			<Layout className='has-bg'>
+				<ExecutorRegisterPage />
 			</Layout>
 		),
 	},
