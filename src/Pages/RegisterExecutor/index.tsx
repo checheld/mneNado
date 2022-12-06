@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import Stepper from '../../Components/Stepper';
 import Step1 from '../../Components/ExecutorRegistration/Step1';
+import Step2 from '../../Components/ExecutorRegistration/Step2';
 import './style.sass';
 
 const steps = [
@@ -77,7 +78,13 @@ const ExecutorRegisterPage: React.FC = () => {
 					/>
 				);
 			case 1:
-				return <p>Stp2</p>;
+				return (
+					<Step2
+						executorData={initialExecutorData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
 			case 2:
 				return <p>Stp3</p>;
 			case 3:

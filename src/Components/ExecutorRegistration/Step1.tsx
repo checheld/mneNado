@@ -1,14 +1,20 @@
 import React, { FC, useState } from 'react';
-import { Box, Typography, Stack } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import {
+	AddressSuggestions,
+	DaDataAddress,
+	DaDataSuggestion,
+} from 'react-dadata';
 import CustomButton from '../CustomButton/Index';
 import DatePicker from '../CustomDatePicker';
-import InputCustomized from '../InputCustomized';
+import InputCustomized, { StyledInput } from '../InputCustomized';
 import { IExecutorData } from '../../Pages/RegisterExecutor';
 import '../NewOrderSteps/style.sass';
+import { validateDate, validateField } from '../../utils/validation';
 
 interface IProps {
 	executorData: IExecutorData;
-	onChange: (item: string, value: string | null) => void;
+	onChange: (name: string, value: string | null) => void;
 	setStep: (step: number) => void;
 }
 
@@ -27,6 +33,10 @@ const initialErrors: IErrorsData = {
 };
 
 const Step1: FC<IProps> = ({ executorData, onChange, setStep }) => {
+	const suggestionsRef = React.useRef<AddressSuggestions>(null);
+	const [value, setValue] = useState<
+		DaDataSuggestion<DaDataAddress> | undefined
+	>();
 	const [errors, setErrors] = useState<IErrorsData>(initialErrors);
 	const [errorClass, setErrorClass] = useState('');
 
@@ -37,8 +47,35 @@ const Step1: FC<IProps> = ({ executorData, onChange, setStep }) => {
 
 	const handleDateChange = (date: string | null): void => {
 		onChange('date_of_birth', date);
-		setErrors({ ...errors, ['date_of_birth']: '' });
+		setErrors({ ...errors, date_of_birth: '' });
 		setErrorClass('');
+	};
+
+	const handleAddressInputChange = (
+		e: DaDataSuggestion<DaDataAddress> | undefined
+	) => {
+		onChange('address', e!.value);
+		setErrors({ ...errors, city: '' });
+		setErrorClass('');
+		console.log('executo', executorData);
+	};
+
+	const validateInputs = (): boolean => {
+		const firstNameError = validateField(executorData.first_name);
+		const lastNameError = validateField(executorData.last_name);
+		const birthdayError = validateDate(executorData.date_of_birth);
+		const cityError = validateField(executorData.city);
+		if (firstNameError || lastNameError || birthdayError || cityError) {
+			setErrors({
+				first_name: firstNameError,
+				last_name: lastNameError,
+				date_of_birth: birthdayError,
+				city: cityError,
+			});
+		}
+		return [firstNameError, lastNameError, birthdayError, cityError].every(
+			(el) => !el
+		);
 	};
 
 	const handleNext = (): void => {
@@ -50,7 +87,7 @@ const Step1: FC<IProps> = ({ executorData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				Персональные данные
 			</Typography>
-			<Stack direction='column'>
+			<>
 				<InputCustomized
 					name='first_name'
 					value={executorData.first_name}
@@ -80,16 +117,19 @@ const Step1: FC<IProps> = ({ executorData, onChange, setStep }) => {
 					inputClassName={`date-input ${errorClass}`}
 					className='step__input date'
 				/>
-				<InputCustomized
-					name='city'
-					value={executorData.city}
-					onChange={handleInputChange}
-					placeholder='В каком городе вы готовы работать?'
-					label='Ваш город'
-					error={errors.city}
-					className='step__input'
+				<AddressSuggestions
+					ref={suggestionsRef}
+					token={process.env.REACT_APP_API_KEY!}
+					value={value}
+					customInput={StyledInput}
+					filterFromBound='city'
+					inputProps={{
+						name: 'city',
+						placeholder: 'Населенный пункт',
+					}}
+					onChange={handleAddressInputChange}
 				/>
-			</Stack>
+			</>
 			<Box className='btn-container'>
 				<CustomButton text='Далее' onClick={handleNext} className='step-btn' />
 			</Box>
