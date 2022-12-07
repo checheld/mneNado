@@ -5,7 +5,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { TimePicker } from '@mui/x-date-pickers';
 import { FormHelperText, Stack, TextFieldProps } from '@mui/material';
-import { StyledLabel } from '../InputCustomized';
 import { CustomTextField } from '../CustomDatePicker';
 
 interface IProps {
@@ -39,9 +38,9 @@ const CustomTimePicker: React.FC<IProps> = ({
 		<>
 			<LocalizationProvider adapterLocale='ru' dateAdapter={AdapterLuxon}>
 				<Stack direction='column'>
-					<StyledLabel htmlFor={id}>{label}</StyledLabel>
 					<TimePicker
 						value={value}
+						label={label}
 						onChange={handleChange}
 						className={className}
 						ampm={false}

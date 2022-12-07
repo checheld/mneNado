@@ -90,15 +90,7 @@ const RadioButtons: React.FC<IProps> = (props) => {
 					/>
 				))}
 			</RadioGroup>
-			<FormHelperText
-				sx={{
-					height: '20px',
-					marginBottom: 3,
-					color: '#FB6E07',
-				}}
-			>
-				{props.error}
-			</FormHelperText>
+			<FormHelperText className='error-text'>{props.error}</FormHelperText>
 		</FormControl>
 	);
 };

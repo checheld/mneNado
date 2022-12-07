@@ -14,7 +14,7 @@ import 'react-dadata/dist/react-dadata.css';
 import { Map, Placemark, ZoomControl } from '@pbe/react-yandex-maps';
 import CustomButton from '../CustomButton/Index';
 import CustomCheckbox from '../CustomCheckbox';
-import { StyledInput, StyledLabel } from '../InputCustomized';
+import { StyledInput, StyledLabel } from '../CustomInput';
 import { IFormData } from '../../Pages/NewOrder';
 import './style.sass';
 import { validateAddress } from '../../utils/validation';
@@ -110,15 +110,7 @@ const Step1: React.FC<IProps> = ({ formData, onChange, setStep }) => {
 				}}
 				onChange={handleInputChange}
 			/>
-			<FormHelperText
-				sx={{
-					height: '20px',
-					marginBottom: 1,
-					color: '#FB6E07',
-				}}
-			>
-				{errors.address}
-			</FormHelperText>
+			<FormHelperText className='error-text'>{errors.address}</FormHelperText>
 			{formData.address !== '' && (
 				<Map
 					width='100%'

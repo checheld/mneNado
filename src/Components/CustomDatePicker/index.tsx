@@ -11,7 +11,6 @@ import {
 	Stack,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { StyledLabel } from '../InputCustomized';
 
 interface IProps {
 	id: string;
@@ -43,9 +42,6 @@ export const CustomTextField = styled(TextField)({
 			},
 		},
 	},
-	'& legend': {
-		display: 'none',
-	},
 	'& fieldset': {
 		top: 0,
 	},
@@ -73,36 +69,29 @@ const CustomDatePicker: React.FC<IProps> = ({
 	};
 
 	return (
-		<Stack direction='column' className='datepicker-wrap'>
+		<Stack direction='column' className={`datepicker-wrap ${id}`}>
 			<LocalizationProvider adapterLocale='ru' dateAdapter={AdapterLuxon}>
 				<Stack direction='column'>
-					<StyledLabel htmlFor={id}>{label}</StyledLabel>
 					<DatePicker
 						value={value}
+						label={label}
 						onChange={handleChange}
 						className={className}
 						renderInput={(params: TextFieldProps): JSX.Element => (
-							<CustomTextField
+							<TextField
 								{...params}
 								id={id}
 								name={name}
 								placeholder='Дата'
 								error={!!error}
 								className={inputClassName}
+								sx={{ width: '100%' }}
 							/>
 						)}
 						disablePast={disablePast}
 						disableFuture={disableFuture}
 					/>
-					<FormHelperText
-						sx={{
-							height: '20px',
-							marginBottom: 3,
-							color: '#FB6E07',
-						}}
-					>
-						{error}
-					</FormHelperText>
+					<FormHelperText className='error-text'>{error}</FormHelperText>
 				</Stack>
 			</LocalizationProvider>
 		</Stack>

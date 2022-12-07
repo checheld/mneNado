@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import { IFormData } from '../../Pages/NewOrder';
 import RangeSlider from '../RangeSlider';
-import InputCustomized from '../InputCustomized';
+import CustomInput from '../CustomInput';
 import RadioButtons from '../RadioButtons';
 import { validateBudget } from '../../utils/validation';
 import './style.sass';
@@ -88,7 +88,7 @@ const Step6: FC<IProps> = ({ formData, onChange, setStep }) => {
 				max={10000}
 				onChange={handleRangeChange}
 			/>
-			<InputCustomized
+			<CustomInput
 				value={
 					typeof formData.budget === 'string' ? String(formData.budget) : ''
 				}

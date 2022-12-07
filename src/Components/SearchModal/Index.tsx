@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './styles.css';
-import InputCustomized from '../InputCustomized';
+import CustomInput from '../CustomInput';
 import CustomSelect from '../CustomSelect';
 import CustomCheckbox from '../CustomCheckbox';
 import RadioSearch from './Components/RadioSearch';
@@ -61,7 +61,7 @@ const SearchModal: React.FC<ISearchModal> = ({ open, handleClose }) => {
 						Дополнительные настройки поиска
 					</Typography>
 				</Box>
-				<InputCustomized
+				<CustomInput
 					name='adress'
 					value={''}
 					onChange={handleInputChange}
@@ -81,7 +81,7 @@ const SearchModal: React.FC<ISearchModal> = ({ open, handleClose }) => {
 							className='adressSelect'
 							formControlClass='select-wrap'
 						/>
-						<InputCustomized
+						<CustomInput
 							name='price'
 							value={''}
 							onChange={handleInputChange}

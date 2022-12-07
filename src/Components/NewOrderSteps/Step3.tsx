@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Box, SelectChangeEvent, Typography } from '@mui/material';
 import CustomButton from '../CustomButton/Index';
 import CustomSelect from '../CustomSelect';
-import InputCustomized from '../InputCustomized';
+import CustomInput from '../CustomInput';
 import { IFormData } from '../../Pages/NewOrder';
 import { validateField } from '../../utils/validation';
 import { useTypedSelector } from '../../hooks/hooks';
@@ -63,7 +63,7 @@ const Step3: FC<IProps> = ({ formData, onChange, setStep }) => {
 			<Typography component={'h3'} className='step__heading'>
 				Что нужно сделать?
 			</Typography>
-			<InputCustomized
+			<CustomInput
 				name='task_name'
 				value={formData.task_name}
 				onChange={handleInputChange}

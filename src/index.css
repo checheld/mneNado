@@ -99,8 +99,13 @@ body {
 	margin-top: 100px;
 }
 .error {
-	border-color: #fb6e07 !important;
+	border-color: #d32f2f !important;
 	text-align: left;
+}
+.error-text {
+	height: 20px;
+	margin-bottom: 24px;
+	color: #d32f2f;
 }
 :root {
 	--dark-blue: #236794;

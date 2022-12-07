@@ -53,7 +53,7 @@ export const StyledInput = styled(InputBase)(() => ({
 		//borderColor: '#5EA7D3',
 	},
 	'&.Mui-error': {
-		borderColor: '#FB6E07',
+		borderColor: '#d32f2f',
 	},
 	'&.form__input': {
 		'& input:disabled': {
@@ -76,7 +76,7 @@ export const StyledLabel = styled(InputLabel)(() => ({
 	color: '#616162',
 }));
 
-const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
+const CustomInput = React.forwardRef<HTMLInputElement, IInputAttributes>(
 	(
 		{
 			id,
@@ -108,18 +108,10 @@ const InputCustomized = React.forwardRef<HTMLInputElement, IInputAttributes>(
 					disabled={disabled}
 					type={type}
 				></TextField>
-				<FormHelperText
-					sx={{
-						height: '20px',
-						marginBottom: 2,
-						color: '#FB6E07',
-					}}
-				>
-					{error}
-				</FormHelperText>
+				<FormHelperText className='error-text'>{error}</FormHelperText>
 			</>
 		);
 	}
 );
 
-export default InputCustomized;
+export default CustomInput;

@@ -22,7 +22,7 @@ const CustomDropzone: React.FC<{
 
 	return (
 		<>
-			<div {...getRootProps()} className='dropzone'>
+			<div {...getRootProps()} className='dropzone' id={id}>
 				<input {...getInputProps()} />
 				{isDragReject ? (
 					<p className='error'>

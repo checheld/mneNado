@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import Stepper from '../../Components/Stepper';
-import Step1 from '../../Components/ExecutorRegistration/Step1';
-import Step2 from '../../Components/ExecutorRegistration/Step2';
+import RegStep1 from '../../Components/ExecutorRegistration/RegStep1';
+import RegStep2 from '../../Components/ExecutorRegistration/RegStep2';
+import RegStep3 from '../../Components/ExecutorRegistration/RegStep3';
 import './style.sass';
 
 const steps = [
@@ -24,7 +25,7 @@ export interface IExecutorData {
 	phone?: string;
 	email?: string;
 	password: string;
-	repeatPassword: string;
+	repeat_password: string;
 	photo: File | null;
 	photo_with_document: File | null;
 	description: string;
@@ -44,7 +45,7 @@ export const initialExecutorData: IExecutorData = {
 	phone: '',
 	email: '',
 	password: '',
-	repeatPassword: '',
+	repeat_password: '',
 	photo: null,
 	photo_with_document: null,
 	description: '',
@@ -62,7 +63,7 @@ const ExecutorRegisterPage: React.FC = () => {
 
 	const onDataChange = (
 		name: string,
-		value: string | null | boolean | File[] | number | number[]
+		value: string | number | boolean | null | File[] | any[]
 	): void => {
 		setExecutorData({ ...executorData, [name]: value });
 	};
@@ -71,32 +72,36 @@ const ExecutorRegisterPage: React.FC = () => {
 		switch (step) {
 			case 0:
 				return (
-					<Step1
-						executorData={initialExecutorData}
+					<RegStep1
+						executorData={executorData}
 						onChange={onDataChange}
 						setStep={setStep}
 					/>
 				);
 			case 1:
 				return (
-					<Step2
-						executorData={initialExecutorData}
+					<RegStep2
+						executorData={executorData}
 						onChange={onDataChange}
 						setStep={setStep}
 					/>
 				);
 			case 2:
-				return <p>Stp3</p>;
-			case 3:
-				return <p>Stp4</p>;
-			case 4:
-				return <p>Stp5</p>;
-			case 5:
-				return <p>Stp6</p>;
-			case 6:
-				return <p>Stp7</p>;
+				return (
+					<RegStep3
+						executorData={executorData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
 			default:
-				return <p>Stp1</p>;
+				return (
+					<RegStep1
+						executorData={executorData}
+						onChange={onDataChange}
+						setStep={setStep}
+					/>
+				);
 		}
 	};
 	return (

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyledLabel } from '../InputCustomized';
+import { StyledLabel } from '../CustomInput';
 import {
 	TextField,
 	FormHelperText,
@@ -27,7 +27,7 @@ export const StyledTextarea = styled(OutlinedInput)(() => ({
 	},
 	'&.Mui-error': {
 		'& fieldset': {
-			borderColor: '#FB6E07 !important',
+			borderColor: '#d32f2f !important',
 		},
 	},
 	'&.form__input': {
@@ -67,16 +67,7 @@ const CustomTextarea: React.FC<ITextareaProps> = ({
 				error={!!error}
 				rows={5}
 			/>
-			<FormHelperText
-				sx={{
-					height: '20px',
-					marginTop: -2,
-					marginBottom: 3,
-					color: '#FB6E07',
-				}}
-			>
-				{error}
-			</FormHelperText>
+			<FormHelperText className='error-text'>{error}</FormHelperText>
 		</>
 	);
 };
