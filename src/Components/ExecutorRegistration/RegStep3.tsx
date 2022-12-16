@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, FormHelperText, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IExecutorData } from '../../Pages/RegisterExecutor';
 import {
 	compareValues,
@@ -11,6 +12,7 @@ import CustomButton from '../CustomButton/Index';
 import CustomInput from '../CustomInput';
 import PasswordInput from '../PasswordInput';
 import RadioButtons from '../RadioButtons';
+const InputMask = require('react-input-mask');
 
 interface IProps {
 	executorData: IExecutorData;
@@ -40,6 +42,7 @@ const options = [
 ];
 
 const RegStep3: React.FC<IProps> = ({ executorData, onChange, setStep }) => {
+	const navigate = useNavigate();
 	const [type, setType] = useState('email');
 	const [errors, setErrors] = useState<IErrors>(initialErrors);
 	const [errorClass, setErrorClass] = useState('');
@@ -101,6 +104,7 @@ const RegStep3: React.FC<IProps> = ({ executorData, onChange, setStep }) => {
 	const handleNext = (): void => {
 		if (validateInputs()) {
 			console.log('executorData', executorData);
+			navigate('/profile');
 		}
 	};
 
@@ -125,15 +129,18 @@ const RegStep3: React.FC<IProps> = ({ executorData, onChange, setStep }) => {
 				/>
 			) : null}
 			{type === 'phone' ? (
-				<CustomInput
-					name='phone'
-					value={executorData.phone!}
-					onChange={handleInputChange}
-					placeholder='8'
-					label='Номер телефона'
-					error={errors.phone}
-					className='step__input'
-				/>
+				<>
+					<InputMask
+						mask='+7 (999) 999-99-99'
+						value={executorData.phone!}
+						name='phone'
+						onChange={handleInputChange}
+						className='step__input'
+					>
+						<TextField label='Номер телефона' />
+					</InputMask>
+					<FormHelperText className='error-text'>{errors.phone}</FormHelperText>
+				</>
 			) : null}
 			<PasswordInput
 				id='password'

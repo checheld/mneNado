@@ -2,9 +2,12 @@ import React, { Dispatch, useCallback } from 'react';
 import { useDropzone, FileWithPath } from 'react-dropzone';
 import './style.scss';
 
-const CustomDropzone: React.FC<{
+interface IDropzoneProps {
 	setFiles: Dispatch<any>;
-}> = ({ setFiles }) => {
+	id?: string;
+}
+
+const CustomDropzone: React.FC<IDropzoneProps> = ({ setFiles, id }) => {
 	const onDrop = useCallback(
 		(acceptedFiles: FileWithPath[]) => {
 			setFiles(acceptedFiles);
@@ -15,14 +18,14 @@ const CustomDropzone: React.FC<{
 		onDrop,
 		accept: {
 			'image/*': ['.png', '.jpeg', '.jpg', '.svg'],
-			'application/octet-stream': ['.pdf'],
+			'application/pdf': ['.pdf'],
 		},
 		multiple: true,
 	});
 
 	return (
 		<>
-			<div {...getRootProps()} className='dropzone' id={id}>
+			<div {...getRootProps({ id })} className='dropzone'>
 				<input {...getInputProps()} />
 				{isDragReject ? (
 					<p className='error'>

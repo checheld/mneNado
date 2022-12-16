@@ -5,6 +5,7 @@ import RegStep1 from '../../Components/ExecutorRegistration/RegStep1';
 import RegStep2 from '../../Components/ExecutorRegistration/RegStep2';
 import RegStep3 from '../../Components/ExecutorRegistration/RegStep3';
 import './style.sass';
+import { FileWithPath } from 'react-dropzone';
 
 const steps = [
 	{ label: 'Персональные данные', step: 0 },
@@ -19,51 +20,51 @@ const steps = [
 export interface IExecutorData {
 	first_name: string;
 	last_name: string;
-	patronymic?: string;
 	city: string;
 	date_of_birth: string | null;
 	phone?: string;
 	email?: string;
 	password: string;
 	repeat_password: string;
-	photo: File | null;
-	photo_with_document: File | null;
+	photo: FileWithPath[] | null;
+	photo_with_doc: FileWithPath[] | null;
 	description: string;
 	category: string;
 	subcategory: string[];
 	isReliable?: boolean;
 	portfolio?: File[] | null;
 	prices?: any;
+	type: 'executor' | 'client';
 }
 
 export const initialExecutorData: IExecutorData = {
-	first_name: '',
-	last_name: '',
-	patronymic: '',
-	city: '',
+	first_name: 'Ivan',
+	last_name: 'Ivanov',
+	city: 'Шахты',
 	date_of_birth: null,
-	phone: '',
-	email: '',
-	password: '',
-	repeat_password: '',
+	phone: '+7 (928) 888 88 88',
+	email: 'aaa@ggg.oo',
+	password: 'I890a890',
+	repeat_password: 'I890a890',
 	photo: null,
-	photo_with_document: null,
+	photo_with_doc: null,
 	description: '',
 	category: '',
 	subcategory: [],
 	isReliable: false,
 	portfolio: null,
 	prices: null,
+	type: 'executor',
 };
 
 const ExecutorRegisterPage: React.FC = () => {
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(1);
 	const [executorData, setExecutorData] =
 		useState<IExecutorData>(initialExecutorData);
 
 	const onDataChange = (
 		name: string,
-		value: string | number | boolean | null | File[] | any[]
+		value: string | number | boolean | null | FileWithPath | any[]
 	): void => {
 		setExecutorData({ ...executorData, [name]: value });
 	};

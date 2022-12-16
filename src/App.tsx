@@ -13,6 +13,7 @@ import RegistrationChoice from './Pages/RegistrationChoice';
 import ExecutorsList from './Pages/ExecutorsList';
 import NewOrderPage from './Pages/NewOrder';
 import Main from './Pages/Main';
+import ProfilePage from './Pages/Profile';
 import ExecutorRegisterPage from './Pages/RegisterExecutor';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
@@ -123,6 +124,14 @@ const routes = [
 		element: (
 			<Layout>
 				<ExecutorPage />
+			</Layout>
+		),
+	},
+	{
+		path: '/profile',
+		element: (
+			<Layout>
+				<ProfilePage />
 			</Layout>
 		),
 	},

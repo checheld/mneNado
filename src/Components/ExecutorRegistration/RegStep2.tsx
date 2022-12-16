@@ -1,30 +1,38 @@
-import { Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { FileWithPath } from 'react-dropzone';
+import { Box, IconButton, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IExecutorData } from '../../Pages/RegisterExecutor';
 import CustomButton from '../CustomButton/Index';
 import CustomDropzone from '../Dropzone';
+import { Photo } from '@mui/icons-material';
 
 interface IProps {
 	executorData: IExecutorData;
-	onChange: (name: string, value: File[] | null) => void;
+	onChange: any;
 	setStep: (step: number) => void;
 }
 
 const RegStep2: React.FC<IProps> = ({ executorData, onChange, setStep }) => {
-	const [photo, setPhoto] = useState<FileWithPath | null>(executorData.photo);
-	const [photoWithDoc, setPhotoWithDoc] = useState<FileWithPath | null>(
-		executorData.photo
+	const [photo, setPhoto] = useState<FileWithPath[] | null>(executorData.photo);
+	const [photoWithDoc, setPhotoWithDoc] = useState<FileWithPath[] | null>(
+		executorData.photo_with_doc
 	);
 
-	const handleClear = (index: number): void => {
-		let files = files?.map((el) => el);
-		if (files?.length! > 1) {
-			let removed = filesArr?.splice(index, 1);
-			setFiles(filesArr as []);
-		} else {
-			setFiles([]);
-		}
+	const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.currentTarget.name === 'photo' ? setPhoto(null) : setPhotoWithDoc(null);
+	};
+
+	const handleSetPhoto = (file: any) => {
+		setPhoto(file);
+		console.log('e', file);
+		onChange('photo', file);
+	};
+
+	const handleSetPhotoWithDoc = (file: any) => {
+		setPhotoWithDoc(file);
+		console.log('e', file);
+		onChange('photo_with_doc', file);
 	};
 
 	const handlePrev = (): void => {
@@ -39,34 +47,59 @@ const RegStep2: React.FC<IProps> = ({ executorData, onChange, setStep }) => {
 
 	return (
 		<>
-			{!photo ? (
+			{!photo?.length ? (
 				<>
-					<Typography variant='body1'>Загрузите фото</Typography>
-					<CustomDropzone setFiles={setPhoto} />
-				</>
-			) : (
-				<img
-					src={URL.createObjectURL(photo)}
-					alt='Предпросмотр изображения'
-					className='img-preview'
-				/>
-			)}
-			{!photoWithDoc ? (
-				<>
-					<Typography variant='body1'>Загрузите фото с паспортом</Typography>
-					<Typography>
-						Это поможет получить значок Проверенного исолнителя
+					<Typography variant='h5' component='p'>
+						Добавить фото
 					</Typography>
-					<CustomDropzone setFiles={setPhotoWithDoc} />
+					<CustomDropzone setFiles={handleSetPhoto} id='photo' />
 				</>
 			) : (
-				<img
-					src={URL.createObjectURL(photoWithDoc)}
-					alt='Предпросмотр изображения'
-					className='img-preview'
-				/>
+				<>
+					<img
+						className='img-preview'
+						src={URL.createObjectURL(photo[0])}
+						alt='Предпросмотр фото пользователя'
+					/>
+					<IconButton
+						className='preview-btn'
+						name='photo'
+						onClick={handleClear}
+					>
+						<DeleteIcon />
+					</IconButton>
+				</>
 			)}
-
+			{!photoWithDoc?.length ? (
+				<>
+					<Typography variant='h5' component='p'>
+						Добавить фото с удостоверением личности
+					</Typography>
+					<Typography variant='body1'>
+						добавление фото с удостоверением личности позволяет получить статус
+						проверенного исполнителя
+					</Typography>
+					<CustomDropzone
+						setFiles={handleSetPhotoWithDoc}
+						id='photo_with_doc'
+					/>
+				</>
+			) : (
+				<>
+					<img
+						className='image-preview'
+						src={URL.createObjectURL(photoWithDoc[0])}
+						alt='Предпросмотр фото с документом'
+					/>
+					<IconButton
+						className='preview-btn'
+						name='photoWhithDoc'
+						onClick={handleClear}
+					>
+						<DeleteIcon />
+					</IconButton>
+				</>
+			)}
 			<Box className='btn-container'>
 				<CustomButton
 					text='Назад'

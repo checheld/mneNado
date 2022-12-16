@@ -1,0 +1,7 @@
+{
+  "executors": [
+    {
+      "executor_id": 1, "first_name": "Иван", "last_name": "Иванов", "city": "Шахты", "date_of_birth": "1994-03-16T11:46:09.000Z", "phone": "", "email": "bs@mail.com", "password": "Ps1212d&", "photo": null, "photo_with_doc": null, "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit iste sint unde recusandae quae voluptate. Adipisci quia modi perferendis unde! Eveniet minima ducimus ratione rerum cumque animi culpa et consequuntur?", "category": "1", "subcategory": "1", "isReliable": false, "portfolio": null, "prices": "" 
+    }
+  ]
+}
